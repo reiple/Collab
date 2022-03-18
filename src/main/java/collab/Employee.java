@@ -19,6 +19,12 @@ public class Employee{
     private String birthDayOnly;
 
     public Employee(List<String> commandArguments) {
+        employeeNumber = commandArguments.get(0);
+        name = commandArguments.get(1);
+        careerLevel = commandArguments.get(2);
+        phoneNumber = commandArguments.get(3);
+        birthday = commandArguments.get(4);
+        certi = commandArguments.get(5);
     }
 
     public String getEmployeeNumber() { return employeeNumber; }
