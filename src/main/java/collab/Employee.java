@@ -1,4 +1,5 @@
 package collab;
+import java.util.List;
 
 public class Employee{
     private String employeeNumber;
@@ -16,6 +17,9 @@ public class Employee{
     private String birthYearOnly;
     private String birthMonthOnly;
     private String birthDayOnly;
+
+    public Employee(List<String> commandArguments) {
+    }
 
     public String getEmployeeNumber() { return employeeNumber; }
     public String getPhoneNumber() { return phoneNumber; }
@@ -40,7 +44,6 @@ public class Employee{
     public void setCareerLevel(String str) { careerLevel = str; }
     public void setCerti(String str) { certi = str; }
 
-
     public void setLastName(String str) { lastName = str; }
     public void setFirstName(String str) { firstName = str; }
     public void setRealEmployeeNumber(int num) { realEmployeeNumber = num; }
@@ -49,7 +52,6 @@ public class Employee{
     public void setBirthYearOnly(String str) { birthYearOnly = str; }
     public void setBirthMonthOnly(String str) { birthMonthOnly = str; }
     public void setBirthDayOnly(String str) { birthDayOnly = str; }
-
 
 }
 
