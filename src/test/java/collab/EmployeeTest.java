@@ -125,7 +125,7 @@ public class EmployeeTest {
         employee.setCareerLevel("CL2");
         String careerLevel = employee.getCareerLevel();
 
-        assertEquals(name, "CL2");
+        assertEquals(careerLevel, "CL2");
 
         employee.setPhoneNumber("010-1234-0039");
         String phoneNumber = employee.getPhoneNumber();
@@ -142,10 +142,10 @@ public class EmployeeTest {
         String birthMonthOnly = employee.getBirthMonthOnly();
         String birthDayOnly = employee.getBirthDayOnly();
 
-        assertEquals(phoneNumber, "20070805");
-        assertEquals(middlePhoneNumber, "2007");
-        assertEquals(lastPhoneNumber, "08");
-        assertEquals(lastPhoneNumber, "05");
+        assertEquals(birthday, "20070805");
+        assertEquals(birthYearOnly, "2007");
+        assertEquals(birthMonthOnly, "08");
+        assertEquals(birthDayOnly, "05");
 
         employee.setCerti("PRO");
 

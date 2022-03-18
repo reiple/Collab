@@ -28,7 +28,6 @@ public class Employee{
         dataProcessing();
     }
 
-
     private void dataProcessing(){
         processEmployeeNumber();
         processName();
@@ -73,6 +72,29 @@ public class Employee{
         birthDayOnly = birthday.substring(6);
     }
 
+    public void setEmployeeNumber(String str) {
+        employeeNumber = str;
+        processEmployeeNumber();
+    }
+
+    public void setPhoneNumber(String str) {
+        phoneNumber = str;
+        processPhoneNumber();
+    }
+
+    public void setName(String str) {
+        name = str;
+        processName();
+    }
+
+    public void setBirthday(String str) {
+        birthday = str;
+        processBirthday();
+    }
+
+    public void setCareerLevel(String str) { careerLevel = str; }
+    public void setCerti(String str) { certi = str; }
+
     public String getEmployeeNumber() { return employeeNumber; }
     public String getPhoneNumber() { return phoneNumber; }
     public String getName() { return name; }
@@ -88,22 +110,6 @@ public class Employee{
     public String getBirthYearOnly() { return birthYearOnly; }
     public String getBirthMonthOnly() { return birthMonthOnly; }
     public String getBirthDayOnly() { return birthDayOnly; }
-
-    public void setEmployeeNumber(String str) { employeeNumber = str; }
-    public void setPhoneNumber(String str) { phoneNumber = str; }
-    public void setName(String str) { name = str; }
-    public void setBirthday(String str) { birthday = str; }
-    public void setCareerLevel(String str) { careerLevel = str; }
-    public void setCerti(String str) { certi = str; }
-
-    public void setLastName(String str) { lastName = str; }
-    public void setFirstName(String str) { firstName = str; }
-    public void setRealEmployeeNumber(int num) { realEmployeeNumber = num; }
-    public void setMiddlePhoneNumber(String str) { middlePhoneNumber = str; }
-    public void setLastPhoneNumber(String str) { lastPhoneNumber = str; }
-    public void setBirthYearOnly(String str) { birthYearOnly = str; }
-    public void setBirthMonthOnly(String str) { birthMonthOnly = str; }
-    public void setBirthDayOnly(String str) { birthDayOnly = str; }
 
 }
 
