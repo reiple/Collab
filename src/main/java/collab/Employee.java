@@ -28,8 +28,49 @@ public class Employee{
         dataProcessing();
     }
 
-    private void dataProcessing(){
 
+    private void dataProcessing(){
+        processEmployeeNumber();
+        processName();
+        processPhoneNumber();
+        processBirthday();
+    }
+
+    private int convertRealEmployeeYear(int employeeNumberYearInt){
+        int realEmployeeNumberYearInt;
+        int currentYear = 2022;
+        int currentCentury = 2000;
+        int lastCentury = 1900;
+
+        if (employeeNumberYearInt <= (currentYear - currentCentury) && employeeNumberYearInt >= 0){
+            realEmployeeNumberYearInt = currentCentury + employeeNumberYearInt;
+        } else {
+            realEmployeeNumberYearInt = lastCentury + employeeNumberYearInt;
+        }
+        return realEmployeeNumberYearInt;
+    }
+
+    private void processEmployeeNumber(){
+        int employeeNumberYear = Integer.parseInt(employeeNumber.substring(0,2));
+        int employeeNumberOther = Integer.parseInt(employeeNumber.substring(2));
+        int realEmployeeYear = convertRealEmployeeYear(employeeNumberYear);
+        realEmployeeNumber= realEmployeeYear*1000000 + employeeNumberOther;
+    }
+
+    private void processName(){
+        firstName = name.split(" ")[0];
+        lastName = name.split(" ")[1];
+    }
+
+    private void processPhoneNumber(){
+        middlePhoneNumber = phoneNumber.split("-")[1];
+        lastPhoneNumber = phoneNumber.split("-")[2];
+    }
+
+    private void processBirthday(){
+        birthYearOnly = birthday.substring(0,4);
+        birthMonthOnly = birthday.substring(4,6);
+        birthDayOnly = birthday.substring(6);
     }
 
     public String getEmployeeNumber() { return employeeNumber; }

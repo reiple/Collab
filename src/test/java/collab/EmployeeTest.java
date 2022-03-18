@@ -40,8 +40,8 @@ public class EmployeeTest {
         commandArguments.add("15123099");
         commandArguments.add("VXIHXOTH JHOP");
         commandArguments.add("CL3");
-        commandArguments.add("010-3112-2609");
-        commandArguments.add("19771211");
+        commandArguments.add("010-3112-0609");
+        commandArguments.add("19770911");
         commandArguments.add("ADV");
         Employee employee = new Employee(commandArguments);
 
@@ -56,7 +56,7 @@ public class EmployeeTest {
 
         assertEquals(firstName, "VXIHXOTH");
         assertEquals(lastName, "JHOP");
-        assertEquals(realEmployeeNumber, 201523099);
+        assertEquals(realEmployeeNumber, 2015123099);
         assertEquals(middlePhoneNumber, "3112");
         assertEquals(lastPhoneNumber, "0609");
         assertEquals(birthYearOnly, "1977");
@@ -71,7 +71,7 @@ public class EmployeeTest {
         commandArguments.add("TTETHU HBO");
         commandArguments.add("CL4");
         commandArguments.add("010-4528-3059");
-        commandArguments.add("19771211");
+        commandArguments.add("19771208");
         commandArguments.add("ADV");
         Employee employee = new Employee(commandArguments);
 
@@ -87,12 +87,12 @@ public class EmployeeTest {
 
         assertEquals(firstName, "TTETHU");
         assertEquals(lastName, "HBO");
-        assertEquals(realEmployeeNumber, 199923099);
+        assertEquals(realEmployeeNumber, 1999123099);
         assertEquals(middlePhoneNumber, "4528");
         assertEquals(lastPhoneNumber, "3059");
         assertEquals(birthYearOnly, "1977");
-        assertEquals(birthMonthOnly, "09");
-        assertEquals(birthDayOnly, "11");
+        assertEquals(birthMonthOnly, "12");
+        assertEquals(birthDayOnly, "08");
     }
 
 }
