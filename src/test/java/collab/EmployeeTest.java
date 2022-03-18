@@ -20,11 +20,11 @@ public class EmployeeTest {
         employee.setFirstName("VXIHXOTH");
         employee.setLastName("JHOP");
         employee.setRealEmployeeNumber(201523099);
-        employee.setMiddlePhoneNumber(3112);
-        employee.setLastPhoneNumber(2609);
-        employee.setBirthYearOnly(1977);
-        employee.setBirthMonthOnly(12);
-        employee.setBirthDayOnly(11);
+        employee.setMiddlePhoneNumber("3112");
+        employee.setLastPhoneNumber("0609");
+        employee.setBirthYearOnly("1977");
+        employee.setBirthMonthOnly("09");
+        employee.setBirthDayOnly("11");
 
     }
 
@@ -40,11 +40,11 @@ public class EmployeeTest {
         String firstName = employee.getFirstName();
         String lastName = employee.getLastName();
         int realEmployeeNumber = employee.getRealEmployeeNumber();
-        int middlePhoneNumber = employee.getMiddlePhoneNumber();
-        int lastPhoneNumber = employee.getLastPhoneNumber();
-        int birthYearOnly = employee.getBirthYearOnly();
-        int birthMonthOnly = employee.getBirthMonthOnly();
-        int birthDayOnly = employee.getBirthDayOnly();
+        String middlePhoneNumber = employee.getMiddlePhoneNumber();
+        String lastPhoneNumber = employee.getLastPhoneNumber();
+        String birthYearOnly = employee.getBirthYearOnly();
+        String birthMonthOnly = employee.getBirthMonthOnly();
+        String birthDayOnly = employee.getBirthDayOnly();
 
         assertEquals(employeeNumber, "15123099");
         assertEquals(name, "VXIHXOTH JHOP");
@@ -56,10 +56,10 @@ public class EmployeeTest {
         assertEquals(firstName, "VXIHXOTH");
         assertEquals(lastName, "JHOP");
         assertEquals(realEmployeeNumber, 201523099);
-        assertEquals(middlePhoneNumber, 3112);
-        assertEquals(lastPhoneNumber, 2609);
-        assertEquals(birthYearOnly, 1977);
-        assertEquals(birthMonthOnly, 12);
-        assertEquals(birthDayOnly, 11);
+        assertEquals(middlePhoneNumber, "3112");
+        assertEquals(lastPhoneNumber, "0609");
+        assertEquals(birthYearOnly, "1977");
+        assertEquals(birthMonthOnly, "09");
+        assertEquals(birthDayOnly, "11");
     }
 }
