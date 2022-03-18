@@ -95,4 +95,62 @@ public class EmployeeTest {
         assertEquals(birthDayOnly, "08");
     }
 
+    @Test
+    public void employeeModifyTest() {
+        List<String> commandArguments =new ArrayList<String>();
+        commandArguments.add("99123099");
+        commandArguments.add("TTETHU HBO");
+        commandArguments.add("CL4");
+        commandArguments.add("010-4528-3059");
+        commandArguments.add("19771208");
+        commandArguments.add("ADV");
+        Employee employee = new Employee(commandArguments);
+
+        employee.setEmployeeNumber("15123099");
+        String employeeNumber = employee.getEmployeeNumber();
+        int realEmployeeNumber = employee.getRealEmployeeNumber();
+
+        assertEquals(employeeNumber, "15123099");
+        assertEquals(realEmployeeNumber, 2015123099);
+
+        employee.setName("VXIHXOTH JHOP");
+        String name = employee.getName();
+        String firstName = employee.getFirstName();
+        String lastname = employee.getLastName();
+
+        assertEquals(name, "VXIHXOTH JHOP");
+        assertEquals(firstName, "VXIHXOTH");
+        assertEquals(lastname, "JHOP");
+
+        employee.setCareerLevel("CL2");
+        String careerLevel = employee.getCareerLevel();
+
+        assertEquals(name, "CL2");
+
+        employee.setPhoneNumber("010-1234-0039");
+        String phoneNumber = employee.getPhoneNumber();
+        String middlePhoneNumber = employee.getMiddlePhoneNumber();
+        String lastPhoneNumber = employee.getLastPhoneNumber();
+
+        assertEquals(phoneNumber, "010-1234-0039");
+        assertEquals(middlePhoneNumber, "1234");
+        assertEquals(lastPhoneNumber, "0039");
+
+        employee.setBirthday("20070805");
+        String birthday = employee.getBirthday();
+        String birthYearOnly = employee.getBirthYearOnly();
+        String birthMonthOnly = employee.getBirthMonthOnly();
+        String birthDayOnly = employee.getBirthDayOnly();
+
+        assertEquals(phoneNumber, "20070805");
+        assertEquals(middlePhoneNumber, "2007");
+        assertEquals(lastPhoneNumber, "08");
+        assertEquals(lastPhoneNumber, "05");
+
+        employee.setCerti("PRO");
+
+        String certi = employee.getCerti();
+        assertEquals(certi, "PRO");
+    }
+
 }
