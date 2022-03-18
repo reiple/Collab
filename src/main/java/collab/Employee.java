@@ -25,6 +25,11 @@ public class Employee{
         phoneNumber = commandArguments.get(3);
         birthday = commandArguments.get(4);
         certi = commandArguments.get(5);
+        dataProcessing();
+    }
+
+    private void dataProcessing(){
+
     }
 
     public String getEmployeeNumber() { return employeeNumber; }
