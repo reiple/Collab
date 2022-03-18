@@ -54,7 +54,7 @@ public class FirstNameSearchOptionTest {
   }
 
   @Test
-  void 성명의_성_검색_옵션_테스트() {
+  void 성명의_이름_검색_옵션_테스트() {
 
     FirstNameSearchOption firstNameSearchOption = new FirstNameSearchOption(Columns.COLUMN_NAME, "SBILHUT");
     firstNameSearchOption.setDao(list);
@@ -66,7 +66,7 @@ public class FirstNameSearchOptionTest {
   }
 
   @Test
-  void 성명의_성_검색_실패_옵션_테스트() {
+  void 성명의_이름_검색_실패_옵션_테스트() {
     FirstNameSearchOption firstNameSearchOption = new FirstNameSearchOption(Columns.COLUMN_NAME, "TESTER");
     firstNameSearchOption.setDao(list);
 

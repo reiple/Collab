@@ -55,7 +55,7 @@ public class LastNameSearchOptionTest {
   }
 
   @Test
-  void 성명의_이름_검색_옵션_테스트() {
+  void 성명의_성_검색_옵션_테스트() {
 
     LastNameSearchOption lastNameSearchOption = new LastNameSearchOption(Columns.COLUMN_NAME, "LDEXRI");
     lastNameSearchOption.setDao(list);
@@ -67,7 +67,7 @@ public class LastNameSearchOptionTest {
   }
 
   @Test
-  void 성명의_이름_검색_실패_옵션_테스트() {
+  void 성명의_성_검색_실패_옵션_테스트() {
     LastNameSearchOption lastNameSearchOption = new LastNameSearchOption(Columns.COLUMN_NAME, "TESTER");
     lastNameSearchOption.setDao(list);
 

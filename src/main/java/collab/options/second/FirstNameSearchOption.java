@@ -27,8 +27,8 @@ public class FirstNameSearchOption {
 
     ArrayList<Employee> list = new ArrayList<>();
     for(int index = 0; index < dao.size(); index++) {
-      String familyName = dao.get(index).getFirstName();
-      if(familyName.compareTo(conditionList.get(1)) == 0) {
+      String firstName = dao.get(index).getFirstName();
+      if(firstName.compareTo(conditionList.get(1)) == 0) {
         list.add(dao.get(index));
       }
     }
