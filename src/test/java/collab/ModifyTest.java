@@ -2,7 +2,6 @@ package collab;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,183 +14,88 @@ class ModifyTest {
       empDB.addEmployee(new Employee("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"));
       empDB.addEmployee(new Employee("18115040","TTETHU HBO","CL3","010-4581-2050","20080718", "ADV"));
     }
+    
+    @Test
+    public void modifyTest_returnEmployee() {
+      Employee targetEmployee = new Employee("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO");
+      Employee foundEmployee = empDB.updateEmployee("", "employeeNum", "17112609", "name", "TEST TEST").get(0);
 
-    public int searchTest_EmployeeNum(Employee answer) {
-      ArrayList<Employee> empList;
-      int resultCount=0;
-      empList = empDB.searchEmployee("", "employeeNum", answer.getEmployeeNumber());
-      if(empList.size()==1) {
-        resultCount++;
-        assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-      }
-      return resultCount;// 0 or 1
+      assertEquals(foundEmployee.getEmployeeNumber(), targetEmployee.getEmployeeNumber());
+      assertEquals(foundEmployee.getName(), targetEmployee.getName());
     }
     
-    public int searchTest_Name(Employee answer) {
-      ArrayList<Employee> empList;
-      int resultCount=0;
-      empList = empDB.searchEmployee("-l", "name", answer.getLastName());
-      if(empList.size()==1) {
-        resultCount++;
-        assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-      }
+    @Test
+    public void modifyTest_Name() {
+      //"17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"
       
-      empList = empDB.searchEmployee("-f", "name", answer.getFirstName());
-      if(empList.size()==1) {
-        resultCount++;
-        assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-      }
-      
-      empList = empDB.searchEmployee("", "name", answer.getName());
-      if(empList.size()==1) {
-        resultCount++;
-        assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-      }
+      // name 변경 Test
+      empDB.updateEmployee("", "employeeNum", "17112609", "name", "TEST TEST");
 
-      return resultCount;// 0 or 3
+      assertTrue(empDB.searchEmployee("","name","FB NTAWR").size()==0);
+      assertTrue(empDB.searchEmployee("-f","name","FB").size()==0);
+      assertTrue(empDB.searchEmployee("-l","name","NTAWR").size()==0);
       
+      assertTrue(empDB.searchEmployee("","name","TEST TEST").size()==1);
+      assertTrue(empDB.searchEmployee("-f","name","TEST").size()==1);
+      assertTrue(empDB.searchEmployee("-l","name","TEST").size()==1);
+    }
+    
+    @Test
+    public void modifyTest_Cl() {
+      //"17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"
+      
+      // cl 변경 Test
+      empDB.updateEmployee("", "employeeNum", "17112609", "cl", "CL5");
+      
+      assertTrue(empDB.searchEmployee("","cl","CL4").size()==0);
+      
+      assertTrue(empDB.searchEmployee("","cl","CL5").size()==1);
+    }
+    
+    @Test
+    public void modifyTest_PhoneNum() {
+      //"17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"
+      
+      // phoneNum 변경 Test
+      empDB.updateEmployee("", "employeeNum", "17112609", "phoneNum", "010-0000-0000");
+            
+      assertTrue(empDB.searchEmployee("","phoneNum","010-5645-6122").size()==0);
+      assertTrue(empDB.searchEmployee("-m","phoneNum","5645").size()==0);
+      assertTrue(empDB.searchEmployee("-l","phoneNum","6122").size()==0);
+      
+      assertTrue(empDB.searchEmployee("","phoneNum","010-0000-0000").size()==1);
+      assertTrue(empDB.searchEmployee("-m","phoneNum","0000").size()==1);
+      assertTrue(empDB.searchEmployee("-l","phoneNum","0000").size()==1);
+    }
+    
+    @Test
+    public void modifyTest_Birthday() {
+      //"17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"
+      
+      // birthday 변경 Test
+      empDB.updateEmployee("", "employeeNum", "17112609", "birthday", "19001101");
+            
+      assertTrue(empDB.searchEmployee("","birthday","19860903").size()==0);
+      assertTrue(empDB.searchEmployee("-y","birthday","1986").size()==0);
+      assertTrue(empDB.searchEmployee("-m","birthday","09").size()==0);
+      assertTrue(empDB.searchEmployee("-d","birthday","03").size()==0);
+      
+      assertTrue(empDB.searchEmployee("","birthday","19001101").size()==1);
+      assertTrue(empDB.searchEmployee("-y","birthday","1900").size()==1);
+      assertTrue(empDB.searchEmployee("-m","birthday","11").size()==1);
+      assertTrue(empDB.searchEmployee("-d","birthday","01").size()==1);
     }    
-
-    public int searchTest_Cl(Employee answer) {
-      ArrayList<Employee> empList;
-      int resultCount=0;
-      empList = empDB.searchEmployee("", "cl", answer.getCareerLevel());
-      if(empList.size()==1) {
-        resultCount++;
-        assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-      }
-
-      return resultCount;// 0 or 1
-    }
-
-    public int searchTest_PhoneNum(Employee answer) {
-      ArrayList<Employee> empList;
-      int resultCount=0;
-      empList = empDB.searchEmployee("-m", "phoneNum", answer.getMiddlePhoneNumber());
-      if(empList.size()==1) {
-        resultCount++;
-        assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-      }
-      
-      empList = empDB.searchEmployee("-l", "phoneNum", answer.getLastPhoneNumber());
-      if(empList.size()==1) {
-        resultCount++;
-        assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-      }
-      
-      empList = empDB.searchEmployee("", "phoneNum", answer.getPhoneNumber());
-      if(empList.size()==1) {
-        resultCount++;
-        assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-      }
-      return resultCount;// 0 or 3
-    }
-
-    public int searchTest_BirthDay(Employee answer) {
-      ArrayList<Employee> empList;
-      int resultCount=0;
-      empList = empDB.searchEmployee("-y", "birthday", answer.getBirthYearOnly());
-      if(empList.size()==1) {
-        resultCount++;
-        assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-      }
-      
-      empList = empDB.searchEmployee("-m", "birthday", answer.getBirthMonthOnly());
-      if(empList.size()==1) {
-        resultCount++;
-        assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-      }
-      
-      empList = empDB.searchEmployee("-d", "birthday", answer.getBirthDayOnly());
-      if(empList.size()==1) {
-        resultCount++;
-        assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-      }
-      
-      empList = empDB.searchEmployee("", "birthday", answer.getBirthday());
-      if(empList.size()==1) {
-        resultCount++;
-        assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-      }
-      return resultCount;// 0 or 4
-    }
-    
-    public int searchTest_Certi(Employee answer) {
-      ArrayList<Employee> empList;
-      int resultCount=0;
-      empList = empDB.searchEmployee("", "certi", answer.getCerti());
-      if(empList.size()==1) {
-        resultCount++;
-        assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-      }
-      return resultCount;// 0 or 1
-    }
-    
-    public int searchTest_Total(Employee answer) {
-      return searchTest_EmployeeNum(answer)+
-      searchTest_Name(answer)+
-      searchTest_Cl(answer)+
-      searchTest_PhoneNum(answer)+
-      searchTest_BirthDay(answer)+
-      searchTest_Certi(answer);
-    }
-    
     
     @Test
-    public void modiTest_VerifyResult() {
-      Employee beforeAnswer = new Employee("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO");
-      Employee afterAnswer= new Employee(beforeAnswer.getEmployeeNumber(), beforeAnswer.getName(), beforeAnswer.getCareerLevel(), beforeAnswer.getPhoneNumber(), beforeAnswer.getBirthday(), beforeAnswer.getCerti());
-      Employee result;
+    public void modifyTest_certi() {
+      //"17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"
       
-      // 변경 전 Test
-      assertTrue(searchTest_Total(beforeAnswer)==13);
-
-      // 변경 Test
-      String AfterName = "TEST TEST";
-      afterAnswer.setName(AfterName);
-      result = empDB.updateEmployee("", "certi", "PRO", "name", AfterName).get(0);
+      // certi 변경 Test
+      empDB.updateEmployee("", "employeeNum", "17112609", "certi", "EX");
       
-      // 동일한 결과
-      assertTrue(result.getBirthday().equals(beforeAnswer.getBirthday()));
-      assertTrue(result.getCareerLevel().equals(beforeAnswer.getCareerLevel()));
-      assertTrue(result.getName().equals(beforeAnswer.getName()));
-      assertTrue(result.getEmployeeNumber().equals(beforeAnswer.getEmployeeNumber()));
-      assertTrue(result.getPhoneNumber().equals(beforeAnswer.getPhoneNumber()));
-      assertTrue(result.getCerti().equals(beforeAnswer.getCerti()));
+      assertTrue(empDB.searchEmployee("","certi","PRO").size()==0);
+      
+      assertTrue(empDB.searchEmployee("","certi","EX").size()==1);
     }
-
-    @Test
-    public void modiTest_FoundResult() {
-      Employee beforeAnswer = new Employee("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO");
-      Employee afterAnswer= new Employee(beforeAnswer.getEmployeeNumber(), beforeAnswer.getName(), beforeAnswer.getCareerLevel(), beforeAnswer.getPhoneNumber(), beforeAnswer.getBirthday(), beforeAnswer.getCerti());
-      
-      // 변경 전 Test
-      searchTest_Total(beforeAnswer);
-
-      // 변경 Test
-      String AfterName = "TEST TEST";
-      empDB.updateEmployee("", "certi", "PRO", "name", AfterName).get(0);
-      
-      // 조회 가능 : 조회 가능
-      afterAnswer.setName(AfterName);
-      assertTrue(searchTest_Total(afterAnswer)==13);
-    }
-    
-    @Test
-    public void modiTest_NoFoundResult() {
-      Employee beforeAnswer = new Employee("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO");
-      
-      // 변경 전 Test
-//      searchTest_Total(beforeAnswer);
-
-      // 변경 Test
-      String AfterName = "TEST TEST";
-      empDB.updateEmployee("", "certi", "PRO", "name", AfterName).get(0);
-      
-      // 조회 불가능
-      assertTrue(searchTest_Total(beforeAnswer)==10); // 13-3(이름 조회 되는 경우)
-    }
-    
 }
-
 
