@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 import collab.Employee;
 import collab.options.Columns;
 import java.util.ArrayList;
+import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -42,10 +43,8 @@ public class LastNameSearchOptionTest {
     };
 
     for(int index = 0; index < data.length; index++) {
-      Employee employee = new Employee();
+      Employee employee = new Employee(Arrays.asList("00000000", data[index], "CL1", "010-0000-0000", "000101", "ADV"));
       employee.setName(data[index]);
-      employee.setFirstName(data[index].split(" ")[0]);
-      employee.setLastName(data[index].split(" ")[1]);
       when(list.get(index)).thenReturn(employee);
     }
 
