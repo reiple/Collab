@@ -3,6 +3,8 @@ package collab.options.second;
 import collab.Employee;
 import collab.options.Columns;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.*;
 
 import static org.mockito.Mockito.*;
@@ -41,10 +43,8 @@ public class FirstNameSearchOptionTest {
     };
 
     for(int index = 0; index < data.length; index++) {
-      Employee employee = new Employee();
+      Employee employee = new Employee(Arrays.asList("00000000", data[index], "CL1", "010-0000-0000", "000101", "ADV"));
       employee.setName(data[index]);
-      employee.setFirstName(data[index].split(" ")[0]);
-      employee.setLastName(data[index].split(" ")[1]);
       when(list.get(index)).thenReturn(employee);
     }
 
