@@ -1,8 +1,9 @@
-package DataBase;
+package collab;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,9 +12,9 @@ class SearchTest {
   DataBase empDB = new DataBase();
     @BeforeEach
     public void setUp() {
-      empDB.addEmployee(new Employee("15123099","VXIHXOTH JHOP","CL3","010-3112-2609","19771211","ADV"));
-      empDB.addEmployee(new Employee("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"));
-      empDB.addEmployee(new Employee("18115040","TTETHU HBO","CL3","010-4581-2050","20080718", "ADV"));
+      empDB.addEmployee(Arrays.asList("15123099","VXIHXOTH JHOP","CL3","010-3112-2609","19771211","ADV"));
+      empDB.addEmployee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"));
+      empDB.addEmployee(Arrays.asList("18115040","TTETHU HBO","CL3","010-4581-2050","20080718", "ADV"));
     }
 	
     public int searchTest_EmployeeNum(Employee answer) {
@@ -138,13 +139,13 @@ class SearchTest {
     
     @Test
     public void searchTestFound() {
-      Employee answer = new Employee("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO");
+      Employee answer = new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"));
       assertTrue(searchTest_Total(answer)==13);
     }
     
     @Test
     public void searchTestNotFound() {
-      Employee noAnswer = new Employee("aa","aa aa","aa","xxx-xxxx-xxxx","yyyymmdd","aaa");
+      Employee noAnswer = new Employee(Arrays.asList("19000000","TEST TEST","CL5","010-0000-0000","19000101","TEST"));
       assertTrue(searchTest_Total(noAnswer)==0);
     }
 }

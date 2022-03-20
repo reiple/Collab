@@ -1,13 +1,15 @@
 package collab;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class DataBase {
-    ArrayList<Employee> empList = new ArrayList<>();
+  ArrayList<Employee> empList = new ArrayList<Employee>();
     
-    public void addEmployee(Employee employee) {
-      empList.add(employee);        
+    public void addEmployee(List<String> employee) {
+      empList.add(new Employee(employee));        
     }
     
     public ArrayList<Employee> searchEmployee(String searchOption, String searchColumn, String searchData) {    
@@ -54,11 +56,9 @@ public class DataBase {
       }
       return false;
     }
-    
     private boolean isFoundCerti(Employee employee, String searchOption, String searchData) {
       return employee.getCerti().equals(searchData);
     }
-    
     private boolean isFoundBirthday(Employee employee, String searchOption, String searchData) {
       switch(searchOption) {
         case "-y" : return employee.getBirthYearOnly().equals(searchData); 
@@ -72,17 +72,17 @@ public class DataBase {
     public ArrayList<Employee> updateEmployee(String option, String searchColumn, String searchData, String changeColumn, String changeData) {
         ArrayList<Employee> targetEmployee = searchEmployee(option, searchColumn, searchData);
         ArrayList<Employee> returnEmployee = new ArrayList<Employee>();
-
+        
         for(Employee employee : targetEmployee) {
-          returnEmployee.add(new Employee(employee.getEmployeeNumber(),employee.getName(), employee.getCareerLevel(), employee.getPhoneNumber(), employee.getBirthday(), employee.getCerti()));
-          switch(changeColumn) {
-              case "eployeeNum": employee.setEmployeeNumber(changeData); break;
-              case "name": employee.setName(changeData); break;
-              case "cl": employee.setCareerLevel(changeData); break;
-              case "phoneNum": employee.setPhoneNumber(changeData); break;
-              case "birthday": employee.setBirthday(changeData); break;
-              case "certi": employee.setCerti(changeData); break;
-          }          
+          returnEmployee.add(new Employee(Arrays.asList(employee.getEmployeeNumber(),employee.getName(), employee.getCareerLevel(), employee.getPhoneNumber(), employee.getBirthday(), employee.getCerti())));
+            switch(changeColumn) {
+                case "eployeeNum": employee.setEmployeeNumber(changeData); break;
+                case "name": employee.setName(changeData); break;
+                case "cl": employee.setCareerLevel(changeData); break;
+                case "phoneNum": employee.setPhoneNumber(changeData); break;
+                case "birthday": employee.setBirthday(changeData); break;
+                case "certi": employee.setCerti(changeData); break;
+            }
         }
         return returnEmployee;
     }
@@ -91,7 +91,7 @@ public class DataBase {
         ArrayList<Employee> targetEmployee = searchEmployee(searchOption, searchColumn, searchData);
         ArrayList<Employee> returnEmployee = new ArrayList<Employee>();
         for(Employee employee : targetEmployee) {
-          returnEmployee.add(new Employee(employee.getEmployeeNumber(),employee.getName(), employee.getCareerLevel(), employee.getPhoneNumber(), employee.getBirthday(), employee.getCerti()));
+          returnEmployee.add(new Employee(Arrays.asList(employee.getEmployeeNumber(),employee.getName(), employee.getCareerLevel(), employee.getPhoneNumber(), employee.getBirthday(), employee.getCerti())));
           empList.remove(employee);
         }
         return returnEmployee;
