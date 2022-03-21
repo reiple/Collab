@@ -66,11 +66,10 @@ class MonthOfBirthdayOptionTest {
   void testMonthOfBirthdaySearchSuccess() {
     MonthOfBirthdayOption monthOfBirthdayOption = new MonthOfBirthdayOption(Arrays.asList("birthday", "10"));
     List<Employee> filteredList = monthOfBirthdayOption.getFilteredList(employeeDAO);
-    assertEquals(5, filteredList.size());
+    assertEquals(4, filteredList.size());
 
     String[][] resultData = {
         {"03113260", "HH LTUPF", "CL2", "010-5798-5383", "19791018", "PRO"},
-        {"08117441", "BMU MPOSXU", "CL3", "010-2703-3153", "20010215", "ADV"},
         {"11125777", "TKOQKIS HC", "CL1", "010-6734-2289", "19991001", "PRO"},
         {"88114052", "NQ LVARW", "CL4", "010-4528-3059", "19911021", "PRO"},
         {"88114053", "CODE TESTER", "CL3", "010-4528-1478", "19911021", "ADV"}
@@ -84,5 +83,7 @@ class MonthOfBirthdayOptionTest {
       assertEquals(resultData[index][4], filteredList.get(index).getBirthday());
       assertEquals(resultData[index][5], filteredList.get(index).getCerti());
     }
+
+
   }
 }
