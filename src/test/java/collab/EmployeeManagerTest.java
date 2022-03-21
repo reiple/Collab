@@ -92,4 +92,15 @@ public class EmployeeManagerTest {
         }
         new File(filePath).delete();
     }
+
+    @Test
+    void LoadCommandListFromFileTest() throws IOException {
+        String filePath = "src/test/resources/input20_20.txt";
+        assertTrue(new File(filePath).exists());
+        EmployeeManager employeeManager = new EmployeeManager();
+        List<String> commandStringList = employeeManager.loadCommandStringListFromFile(filePath);
+        assertTrue(commandStringList.size() == 40);
+        commandStringList.get(0).equals("ADD, , , ,15123099,VXIHXOTH JHOP,CL3,010-3112-2609,19771211,ADV");
+        commandStringList.get(39).equals("SCH, , , ,name,FB NTAWR");
+    }
 }
