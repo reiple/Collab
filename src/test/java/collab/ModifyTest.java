@@ -45,10 +45,12 @@ class ModifyTest {
       //"17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"
       
       // cl 변경 Test
-      empDB.updateEmployee("", "employeeNum", "17112609", "cl", "CL5");
-      
+      Throwable exception1 = assertThrows(RuntimeException.class, () -> {
+        empDB.updateEmployee("", "employeeNum", "17112609", "cl", "CL5");
+      });
+
       assertTrue(empDB.searchEmployee("","cl","CL4").size()==0);
-      
+
       assertTrue(empDB.searchEmployee("","cl","CL5").size()==1);
     }
     
