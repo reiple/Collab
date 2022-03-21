@@ -1,5 +1,7 @@
 package collab;
 
-public class EmployeeDAO {
+import java.util.List;
 
+public class EmployeeDAO {
+    public List<Employee> getAll() { return null; }
 }
