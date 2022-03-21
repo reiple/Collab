@@ -5,6 +5,7 @@ import collab.Employee;
 import collab.EmployeeDAO;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LastPhoneNumberOption extends AbstractSecondOption
 {
@@ -12,9 +13,10 @@ public class LastPhoneNumberOption extends AbstractSecondOption
         super(optionArgument);
     }
     @Override
-    public List<Employee> getFilteredList(EmployeeDAO DAO) {
-        // Example
-         //return DAO.getAll().stream().filter(item -> item.get("Last" + getSearchColumn()).equals(getSearchValue())).collect(Collectors.toList());
-        return null;
+    public List<Employee> getFilteredList(EmployeeDAO dao) {
+
+        return dao.getAll().stream()
+            .filter(item -> item.getLastPhoneNumber().equals(optionArgument.get(VAL)))
+            .collect(Collectors.toList());
     }
 }
