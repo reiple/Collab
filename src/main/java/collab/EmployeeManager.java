@@ -11,19 +11,19 @@ public class EmployeeManager  {
         parser = new CommandParser();
     }
 
-    public List<String> getCommandStringListFromFile(String FilePath){
+    public List<String> getCommandStringListFromFile(String filePath){
         return null;
     }
 
-    public List<String> parseCommandList(List<String> cmdStrList){
+    public List<ICommand> parseCommandList(List<String> commandStrList){
         return null;
     }
 
-    public String executeCommandList(List<String> cmdStrList){
+    public String executeCommandList(List<ICommand> commandList){
         return null;
     }
 
-    public String saveExecutionResultToFile(String FilePath){
+    public String saveExecutionResultToFile(String filePath, String excutionResult){
         return null;
     }
 }
