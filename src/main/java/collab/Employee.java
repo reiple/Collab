@@ -152,7 +152,19 @@ public class Employee{
     }
 
     private void validatePhoneNumber(){
+        if (phoneNumber.split("-").length != 3){
+            throw new RuntimeException("Employee phone number input is not valid");
+        }
 
+        if (!phoneNumber.split("-")[0].equals("010")){
+            throw new RuntimeException("Employee phone number input is not valid");
+        }
+
+        for (int i=1; i<3; i++){
+            if(phoneNumber.split("-")[i].length() !=4 || !isDigit(phoneNumber.split("-")[i])){
+                throw new RuntimeException("Employee phone number input is not valid");
+            }
+        }
     }
 
     private void validateName(){

@@ -129,14 +129,6 @@ public class EmployeeTest {
         assertEquals(certi, "PRO");
     }
 
-//    private static void cmdAssertionCheck(List<String> cmd, int cmdIndex, Employee employee, String assertMsg){
-//        Throwable exceptionhCreate = Assertions.assertThrows(RuntimeException.class, () -> {new Employee(cmd);});
-//        Throwable exceptionSet = Assertions.assertThrows(RuntimeException.class, () -> {employee.setEmployeeNumber(cmd.get(cmdIndex));});
-//
-//        assertEquals(assertMsg, exceptionhCreate.getMessage());
-//        assertEquals(assertMsg, exceptionSet.getMessage());
-//    }
-
     private static void cmdAssertionCheck(List<String> cmd, Employee employee, String assertMsg, Executable executable){
         Throwable exceptionhCreate = Assertions.assertThrows(RuntimeException.class, () -> {new Employee(cmd);});
         Throwable exceptionSet = Assertions.assertThrows(RuntimeException.class, executable);
@@ -200,6 +192,28 @@ public class EmployeeTest {
         cmdAssertionCheck(lengthFailCommand, employee, assertMsg, () -> {employee.setCareerLevel(lengthFailCommand.get(2));});
         cmdAssertionCheck(lowerFailCommand, employee, assertMsg, () -> {employee.setCareerLevel(lowerFailCommand.get(2));});
         cmdAssertionCheck(whiteBoxCommand, employee, assertMsg, () -> {employee.setCareerLevel(whiteBoxCommand.get(2));});
+    }
+
+    @Test
+    public void employeePhoneNumberValidationTest() {
+        List<String> lengthFailCommand = Arrays.asList("99123099","TTETHU HBO","cl4","010-45289-3059","19771208","ADV");
+        List<String> numberFailCommand = Arrays.asList("99123099","TTETHU HBO","cl4","019-45289-3059","19771208","ADV");
+        List<String> digitFailCommand = Arrays.asList("99123099","TTETHU HBO","cl4","010-4ase-3059","19771208","ADV");
+        List<String> splitFailCommand1 = Arrays.asList("99123099","TTETHU HBO","cl4","010+45289-3059","19771208","ADV");
+        List<String> splitFailCommand2 = Arrays.asList("99123099","TTETHU HBO","cl4","010--45289-3059","19771208","ADV");
+        List<String> splitFailCommand3 = Arrays.asList("99123099","TTETHU HBO","cl4","010--3059-45289","19771208","ADV");
+        List<String> passCommand = Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV");
+        String assertMsg = "Employee phone number input is not valid";
+        Employee employee = new Employee(passCommand);
+
+        Assertions.assertDoesNotThrow(() -> {new Employee(passCommand);});
+
+        cmdAssertionCheck(lengthFailCommand, employee, assertMsg, () -> {employee.setPhoneNumber(lengthFailCommand.get(3));});
+        cmdAssertionCheck(numberFailCommand, employee, assertMsg, () -> {employee.setPhoneNumber(numberFailCommand.get(3));});
+        cmdAssertionCheck(digitFailCommand, employee, assertMsg, () -> {employee.setPhoneNumber(digitFailCommand.get(3));});
+        cmdAssertionCheck(splitFailCommand1, employee, assertMsg, () -> {employee.setPhoneNumber(splitFailCommand1.get(3));});
+        cmdAssertionCheck(splitFailCommand2, employee, assertMsg, () -> {employee.setPhoneNumber(splitFailCommand2.get(3));});
+        cmdAssertionCheck(splitFailCommand3, employee, assertMsg, () -> {employee.setPhoneNumber(splitFailCommand3.get(3));});
     }
 
 
