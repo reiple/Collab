@@ -5,6 +5,7 @@ import collab.Employee;
 import collab.EmployeeDAO;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MonthOfBirthdayOption extends AbstractSecondOption
 {
@@ -12,7 +13,10 @@ public class MonthOfBirthdayOption extends AbstractSecondOption
         super(optionArgument);
     }
     @Override
-    public List<Employee> getFilteredList(EmployeeDAO DAO) {
-        return null;
+    public List<Employee> getFilteredList(EmployeeDAO employeeDAO) {
+
+        return employeeDAO.getAll().stream()
+            .filter(item -> item.getBirthMonthOnly().equals(getSearchValue()))
+            .collect(Collectors.toList());
     }
 }
