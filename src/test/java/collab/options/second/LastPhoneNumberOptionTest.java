@@ -81,10 +81,10 @@ public class LastPhoneNumberOptionTest {
 
   @Test
   void 전화번호_뒷자리_검색성공_여러개_테스트() {
-    LastPhoneNumberOption option2 = new LastPhoneNumberOption(Arrays.asList("phoneNum", "3153"));
+    LastPhoneNumberOption option2 = new LastPhoneNumberOption(Arrays.asList("phoneNum", "3059"));
 
     List<Employee> filteredList = option2.getFilteredList(dao);
-    assertEquals(1, filteredList.size());
+    assertEquals(2, filteredList.size());
 
 
     String[][] result = {
