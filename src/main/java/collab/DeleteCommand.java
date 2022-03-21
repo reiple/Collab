@@ -11,7 +11,7 @@ public class DeleteCommand extends AbstractCommand{
     }
 
     @Override
-    public String executeCommand(EmployeeDAO dao) {
+    public String executeCommand(IDAO dao) {
         return null;
     }
 }
