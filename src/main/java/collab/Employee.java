@@ -211,7 +211,10 @@ public class Employee{
     }
 
     private void validateCerti(){
-
+        List<String> certiWhiteBox = Arrays.asList("ADV","PRO","EX");
+        if (!certiWhiteBox.contains(certi)){
+            throw new RuntimeException("Employee certi input is not valid");
+        }
     }
 
     public String getEmployeeNumber() { return employeeNumber; }

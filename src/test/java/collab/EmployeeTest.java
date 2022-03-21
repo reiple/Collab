@@ -238,5 +238,22 @@ public class EmployeeTest {
         cmdAssertionCheck(digitFailCommand3, employee, assertMsg, () -> {employee.setBirthday(digitFailCommand3.get(4));});
     }
 
+    @Test
+    public void employeeCertiValidationTest() {
+        List<String> lengthFailCommand = Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771208","ADVV");
+        List<String> lowerFailCommand = Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771208","adv");
+        List<String> whiteBoxCommand = Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771208","EXPERT");
+        List<String> passCommand = Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV");
+        String assertMsg = "Employee certi input is not valid";
+        Employee employee = new Employee(passCommand);
+
+        Assertions.assertDoesNotThrow(() -> {new Employee(passCommand);});
+
+        cmdAssertionCheck(lengthFailCommand, employee, assertMsg, () -> {employee.setCerti(lengthFailCommand.get(5));});
+        cmdAssertionCheck(lowerFailCommand, employee, assertMsg, () -> {employee.setCerti(lowerFailCommand.get(5));});
+        cmdAssertionCheck(whiteBoxCommand, employee, assertMsg, () -> {employee.setCerti(whiteBoxCommand.get(5));});
+    }
+
+
 
 }
