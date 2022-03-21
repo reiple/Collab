@@ -5,19 +5,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class EmployeeTest {
     @Test
     public void employeeCreateTest() {
-        List<String> commandArguments =new ArrayList<String>();
-        commandArguments.add("15123099");
-        commandArguments.add("VXIHXOTH JHOP");
-        commandArguments.add("CL3");
-        commandArguments.add("010-3112-2609");
-        commandArguments.add("19771211");
-        commandArguments.add("ADV");
-        Employee employee = new Employee(commandArguments);
+        Employee employee = new Employee(Arrays.asList("15123099","VXIHXOTH JHOP","CL3","010-3112-2609","19771211","ADV"));
 
         String employeeNumber = employee.getEmployeeNumber();
         String name = employee.getName();
@@ -36,14 +30,7 @@ public class EmployeeTest {
 
     @Test
     public void employeeProcessingTest2000() {
-        List<String> commandArguments =new ArrayList<String>();
-        commandArguments.add("15123099");
-        commandArguments.add("VXIHXOTH JHOP");
-        commandArguments.add("CL3");
-        commandArguments.add("010-3112-0609");
-        commandArguments.add("19770911");
-        commandArguments.add("ADV");
-        Employee employee = new Employee(commandArguments);
+        Employee employee = new Employee(Arrays.asList("15123099","VXIHXOTH JHOP","CL3","010-3112-0609","19770911","ADV"));
 
         String firstName = employee.getFirstName();
         String lastName = employee.getLastName();
@@ -66,14 +53,7 @@ public class EmployeeTest {
 
     @Test
     public void employeeProcessingTest1900() {
-        List<String> commandArguments =new ArrayList<String>();
-        commandArguments.add("99123099");
-        commandArguments.add("TTETHU HBO");
-        commandArguments.add("CL4");
-        commandArguments.add("010-4528-3059");
-        commandArguments.add("19771208");
-        commandArguments.add("ADV");
-        Employee employee = new Employee(commandArguments);
+        Employee employee = new Employee(Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV"));
 
         String firstName = employee.getFirstName();
         String lastName = employee.getLastName();
@@ -97,14 +77,7 @@ public class EmployeeTest {
 
     @Test
     public void employeeModifyTest() {
-        List<String> commandArguments =new ArrayList<String>();
-        commandArguments.add("99123099");
-        commandArguments.add("TTETHU HBO");
-        commandArguments.add("CL4");
-        commandArguments.add("010-4528-3059");
-        commandArguments.add("19771208");
-        commandArguments.add("ADV");
-        Employee employee = new Employee(commandArguments);
+        Employee employee = new Employee(Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV"));
 
         employee.setEmployeeNumber("15123099");
         String employeeNumber = employee.getEmployeeNumber();
