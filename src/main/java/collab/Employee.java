@@ -1,4 +1,5 @@
 package collab;
+import java.time.LocalDate;
 import java.util.List;
 
 public class Employee{
@@ -17,6 +18,11 @@ public class Employee{
     private String birthYearOnly;
     private String birthMonthOnly;
     private String birthDayOnly;
+
+    private int currentYear = LocalDate.now().getYear();
+    private int currentCentury = (currentYear/100)*100;
+    private int lastCentury = currentCentury - 100;
+    private int maxWorkYear = 80;
 
     public Employee(List<String> commandArguments) {
         employeeNumber = commandArguments.get(0);
@@ -38,9 +44,6 @@ public class Employee{
 
     private int convertRealEmployeeYear(int employeeNumberYearInt){
         int realEmployeeNumberYearInt;
-        int currentYear = 2022;
-        int currentCentury = 2000;
-        int lastCentury = 1900;
 
         if (employeeNumberYearInt <= (currentYear - currentCentury) && employeeNumberYearInt >= 0){
             realEmployeeNumberYearInt = currentCentury + employeeNumberYearInt;
@@ -116,8 +119,25 @@ public class Employee{
         validateCerti();
     }
 
-    private void validateEmployeeNumber(){
+    static boolean isDigit(String str){
+        for (int i=0; i <str.length(); i++){
+            if(!Character.isDigit(str.charAt(i))){
+                return false;
+            }
+        }
+        return true;
+    }
 
+    boolean isValidEmployeeYear(String str){
+        int employeeNumberYear = Integer.parseInt(str.substring(0,2));
+        int realEmployeeYear = convertRealEmployeeYear(employeeNumberYear);
+        return (currentYear - realEmployeeYear) < maxWorkYear;
+    }
+
+    private void validateEmployeeNumber(){
+        if (employeeNumber.length() != 8 || !isDigit(employeeNumber) || !isValidEmployeeYear(employeeNumber)){
+            throw new RuntimeException("Employee number input is not valid");
+        }
     }
 
     private void validatePhoneNumber(){

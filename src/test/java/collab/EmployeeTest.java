@@ -1,6 +1,8 @@
 package collab;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -124,6 +126,33 @@ public class EmployeeTest {
 
         String certi = employee.getCerti();
         assertEquals(certi, "PRO");
+    }
+
+
+    @Test
+    public void employeeNumberValidationTest() {
+        List<String> lengthFailCommand = Arrays.asList("9912B09999","TTETHU HBO","CL4","010-4528-3059","19771208","ADV");
+        List<String> stringEmployeeNumCommand = Arrays.asList("9A12B099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV");
+        List<String> rangeFailCommand = Arrays.asList("25123099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV");
+        List<String> passCommand = Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV");
+        Employee employee = new Employee(passCommand);
+
+        Assertions.assertDoesNotThrow(() -> {new Employee(passCommand);});
+
+        Throwable exceptionLengthCreate = Assertions.assertThrows(RuntimeException.class, () -> {new Employee(lengthFailCommand);});
+        Throwable exceptionLengthSet = Assertions.assertThrows(RuntimeException.class, () -> {employee.setEmployeeNumber("9912B09999");});
+        Throwable exceptionDigitCreate = Assertions.assertThrows(RuntimeException.class, () -> {new Employee(stringEmployeeNumCommand);});
+        Throwable exceptionDigitSet = Assertions.assertThrows(RuntimeException.class, () -> {employee.setEmployeeNumber("9A12B099");});
+        Throwable exceptionRangeCreate = Assertions.assertThrows(RuntimeException.class, () -> {new Employee(rangeFailCommand);});
+        Throwable exceptionRangeSet = Assertions.assertThrows(RuntimeException.class, () -> {employee.setEmployeeNumber("25123099");});
+
+        assertEquals("Employee number input is not valid", exceptionLengthCreate.getMessage());
+        assertEquals("Employee number input is not valid", exceptionLengthSet.getMessage());
+        assertEquals("Employee number input is not valid", exceptionDigitCreate.getMessage());
+        assertEquals("Employee number input is not valid", exceptionDigitSet.getMessage());
+        assertEquals("Employee number input is not valid", exceptionRangeCreate.getMessage());
+        assertEquals("Employee number input is not valid", exceptionRangeSet.getMessage());
+
     }
 
 }
