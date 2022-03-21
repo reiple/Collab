@@ -11,6 +11,9 @@ public class NoneSecondOption  extends AbstractSecondOption {
     public NoneSecondOption(){
         super(Collections.emptyList());
     }
+    public NoneSecondOption(List<String> optionArgument){
+        super(optionArgument);
+    }
 
     @Override
     public List<Employee> getFilteredList(EmployeeDAO DAO) {
