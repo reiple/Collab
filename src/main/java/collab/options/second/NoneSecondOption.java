@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class NoneSecondOption  extends AbstractSecondOption {
-    NoneSecondOption(){
+    public NoneSecondOption(){
         super(Collections.emptyList());
     }
 

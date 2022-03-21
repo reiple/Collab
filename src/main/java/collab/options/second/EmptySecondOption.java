@@ -7,7 +7,7 @@ import collab.EmployeeDAO;
 import java.util.List;
 
 public class EmptySecondOption extends AbstractSecondOption {
-    EmptySecondOption(List<String> optionArgument){
+    public EmptySecondOption(List<String> optionArgument){
         super(optionArgument);
     }
     @Override

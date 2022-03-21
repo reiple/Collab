@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class LastPhoneNumberOption extends AbstractSecondOption
 {
-    LastPhoneNumberOption(List<String> optionArgument){
+    public LastPhoneNumberOption(List<String> optionArgument){
         super(optionArgument);
     }
     @Override
