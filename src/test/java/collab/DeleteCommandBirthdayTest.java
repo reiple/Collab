@@ -6,7 +6,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import collab.options.first.NoneFirstOption;
+import collab.options.second.DayOfBirthdayOption;
+import collab.options.second.MonthOfBirthdayOption;
 import collab.options.second.NoneSecondOption;
+import collab.options.second.YearOfBirthdayOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -90,7 +93,99 @@ class DeleteCommandBirthdayTest {
     };
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("7", result);
+    assertEquals("" + data.length, result);
+  }
+
+  @Test
+  void testSearchYearOfBirthdayAndDeleteFail() {
+    ICommand command = new DeleteCommand(
+        new NoneFirstOption(), new YearOfBirthdayOption(Arrays.asList("birthday", "2022"))
+    );
+
+    String result = command.executeCommand(employeeDAO);
+    assertEquals("0", result);
+  }
+
+  @Test
+  void testSearchYearOfBirthdayAndDeleteSuccess() {
+    ICommand command = new DeleteCommand(
+        new NoneFirstOption(), new YearOfBirthdayOption(Arrays.asList("birthday", "1991"))
+    );
+
+    String[][] data = {
+        {"01114052", "ABCE LVARW", "CL4", "010-1528-3059", "19911021", "PRO"},
+        {"89114053", "DEFRE LVARW", "CL3", "010-2528-3059", "19911021", "PRO"},
+        {"69114054", "GDFQW LVARW", "CL2", "010-3528-3059", "19911021", "PRO"},
+        {"88114056", "REWAA LVARW", "CL2", "010-4128-3059", "19911021", "PRO"},
+        {"88114055", "QWE LVARW", "CL1", "010-4528-3059", "19911021", "PRO"},
+        {"00114057", "EREBB LVARW", "CL3", "010-4228-3059", "19911021", "PRO"},
+        {"00114058", "QQWE LVARW", "CL4", "010-4328-3059", "19911021", "PRO"}
+    };
+
+    String result = command.executeCommand(employeeDAO);
+    assertEquals("" + data.length, result);
+  }
+
+  @Test
+  void testSearchMonthOfBirthdayAndDeleteFail() {
+    ICommand command = new DeleteCommand(
+        new NoneFirstOption(), new YearOfBirthdayOption(Arrays.asList("birthday", "05"))
+    );
+
+    String result = command.executeCommand(employeeDAO);
+    assertEquals("0", result);
+  }
+
+  @Test
+  void testSearchMonthOfBirthdayAndDeleteSuccess() {
+    ICommand command = new DeleteCommand(
+        new NoneFirstOption(), new MonthOfBirthdayOption(Arrays.asList("birthday", "10"))
+    );
+
+    String[][] data = {
+        {"03113260", "FIRST LTUPF", "CL2", "010-5798-5383", "19791018", "PRO"},
+        {"11125777", "TKOQKIS HC", "CL1", "010-6734-2289", "19991001", "PRO"},
+        {"01114052", "ABCE LVARW", "CL4", "010-1528-3059", "19911021", "PRO"},
+        {"89114053", "DEFRE LVARW", "CL3", "010-2528-3059", "19911021", "PRO"},
+        {"69114054", "GDFQW LVARW", "CL2", "010-3528-3059", "19911021", "PRO"},
+        {"88114056", "REWAA LVARW", "CL2", "010-4128-3059", "19911021", "PRO"},
+        {"88114055", "QWE LVARW", "CL1", "010-4528-3059", "19911021", "PRO"},
+        {"00114057", "EREBB LVARW", "CL3", "010-4228-3059", "19911021", "PRO"},
+        {"00114058", "QQWE LVARW", "CL4", "010-4328-3059", "19911021", "PRO"}
+    };
+
+    String result = command.executeCommand(employeeDAO);
+    assertEquals("" + data.length, result);
+  }
+
+  @Test
+  void testSearchDayOfBirthdayAndDeleteFail() {
+    ICommand command = new DeleteCommand(
+        new NoneFirstOption(), new YearOfBirthdayOption(Arrays.asList("birthday", "31"))
+    );
+
+    String result = command.executeCommand(employeeDAO);
+    assertEquals("0", result);
+  }
+
+  @Test
+  void testSearchDayOfBirthdayAndDeleteSuccess() {
+    ICommand command = new DeleteCommand(
+        new NoneFirstOption(), new DayOfBirthdayOption(Arrays.asList("birthday", "21"))
+    );
+
+    String[][] data = {
+        {"01114052", "ABCE LVARW", "CL4", "010-1528-3059", "19911021", "PRO"},
+        {"89114053", "DEFRE LVARW", "CL3", "010-2528-3059", "19911021", "PRO"},
+        {"69114054", "GDFQW LVARW", "CL2", "010-3528-3059", "19911021", "PRO"},
+        {"88114056", "REWAA LVARW", "CL2", "010-4128-3059", "19911021", "PRO"},
+        {"88114055", "QWE LVARW", "CL1", "010-4528-3059", "19911021", "PRO"},
+        {"00114057", "EREBB LVARW", "CL3", "010-4228-3059", "19911021", "PRO"},
+        {"00114058", "QQWE LVARW", "CL4", "010-4328-3059", "19911021", "PRO"}
+    };
+
+    String result = command.executeCommand(employeeDAO);
+    assertEquals("" + data.length, result);
   }
 
 
