@@ -25,6 +25,7 @@ public class Employee{
         phoneNumber = commandArguments.get(3);
         birthday = commandArguments.get(4);
         certi = commandArguments.get(5);
+        validateInput();
         dataProcessing();
     }
 
@@ -74,26 +75,70 @@ public class Employee{
 
     public void setEmployeeNumber(String str) {
         employeeNumber = str;
+        validateEmployeeNumber();
         processEmployeeNumber();
     }
 
     public void setPhoneNumber(String str) {
         phoneNumber = str;
+        validatePhoneNumber();
         processPhoneNumber();
     }
 
     public void setName(String str) {
         name = str;
+        validateName();
         processName();
     }
 
     public void setBirthday(String str) {
         birthday = str;
+        validateBirthday();
         processBirthday();
     }
 
-    public void setCareerLevel(String str) { careerLevel = str; }
-    public void setCerti(String str) { certi = str; }
+    public void setCareerLevel(String str) {
+        careerLevel = str;
+        validateCareerLevel();
+    }
+
+    public void setCerti(String str) {
+        certi = str;
+        validateCerti();
+    }
+
+    private void validateInput(){
+        validateEmployeeNumber();
+        validatePhoneNumber();
+        validateName();
+        validateBirthday();
+        validateCareerLevel();
+        validateCerti();
+    }
+
+    private void validateEmployeeNumber(){
+
+    }
+
+    private void validatePhoneNumber(){
+
+    }
+
+    private void validateName(){
+
+    }
+
+    private void validateBirthday(){
+
+    }
+
+    private void validateCareerLevel(){
+
+    }
+
+    private void validateCerti(){
+
+    }
 
     public String getEmployeeNumber() { return employeeNumber; }
     public String getPhoneNumber() { return phoneNumber; }
@@ -112,5 +157,3 @@ public class Employee{
     public String getBirthDayOnly() { return birthDayOnly; }
 
 }
-
-
