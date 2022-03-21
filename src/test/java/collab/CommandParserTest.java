@@ -5,6 +5,7 @@ import collab.options.first.NoneFirstOption;
 import collab.options.first.PrintOption;
 import collab.options.second.EmptySecondOption;
 import collab.options.second.LastNameOption;
+import collab.options.second.MiddlePhoneNumberOption;
 import collab.options.second.NoneSecondOption;
 import collab.options.third.NoneThirdOption;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +28,7 @@ public class CommandParserTest {
     }
 
     @Test
-    public void addCommandPassTest() {
+    public void addCommandPassTest() throws Exception {
         String addPassString = "ADD, , , ,18050301,KYUMOK KIM,CL2,010-9777-6055,19980906,PRO";
         CommandParser commandParser = new CommandParser();
         ICommand cmd = commandParser.parseToCommand(addPassString);
@@ -58,7 +59,7 @@ public class CommandParserTest {
         Throwable exception = assertThrows(Exception.class, () -> {
             ICommand cmd = commandParser.parseToCommand(addFailString);
         });
-        assertEquals("ERROR::Option of command is wrong...", exception.getMessage());
+        assertEquals("ERROR::Command option is wrong...", exception.getMessage());
     }
 
     @Test
@@ -72,7 +73,7 @@ public class CommandParserTest {
     }
 
     @Test
-    public void deleteCommandPassTest1() {
+    public void deleteCommandPassTest1() throws Exception {
         String deletePassString = "DEL, , , ,name,KYUMOK KIM";
         CommandParser commandParser = new CommandParser();
         ICommand cmd = commandParser.parseToCommand(deletePassString);
@@ -85,7 +86,7 @@ public class CommandParserTest {
     }
 
     @Test
-    public void deleteCommandPassTest2() {
+    public void deleteCommandPassTest2() throws Exception {
         String deletePassString = "DEL, ,-l, ,name,KYUMOK KIM";
         CommandParser commandParser = new CommandParser();
         ICommand cmd = commandParser.parseToCommand(deletePassString);
@@ -118,7 +119,7 @@ public class CommandParserTest {
     }
 
     @Test
-    public void searchCommandPassTest1() {
+    public void searchCommandPassTest1() throws Exception {
         String searchPassString = "SCH, , , ,name,KYUMOK KIM";
         CommandParser commandParser = new CommandParser();
         ICommand cmd = commandParser.parseToCommand(searchPassString);
@@ -131,8 +132,8 @@ public class CommandParserTest {
     }
 
     @Test
-    public void searchCommandPassTest2() {
-        String searchPassString = "SCH, ,-l, ,name,KIM";
+    public void searchCommandPassTest2() throws Exception {
+        String searchPassString = "SCH, ,-l, ,name,KYUMOK KIM";
         CommandParser commandParser = new CommandParser();
         ICommand cmd = commandParser.parseToCommand(searchPassString);
         assertTrue(cmd instanceof SearchCommand);
@@ -164,7 +165,7 @@ public class CommandParserTest {
     }
 
     @Test
-    public void modifyCommandPassTest() {
+    public void modifyCommandPassTest() throws Exception {
         String modifyPassString = "MOD, , , ,cl,CL3,phoneNum,010-9777-6055";
         CommandParser commandParser = new CommandParser();
         ICommand cmd = commandParser.parseToCommand(modifyPassString);
@@ -182,13 +183,13 @@ public class CommandParserTest {
     }
 
     @Test
-    public void modifyCommandPassTest2() {
+    public void modifyCommandPassTest2() throws Exception {
         String modifyPassString = "MOD,-p,-m, ,phoneNum,9777,phoneNum,010-9777-6055";
         CommandParser commandParser = new CommandParser();
         ICommand cmd = commandParser.parseToCommand(modifyPassString);
         assertTrue(cmd instanceof ModifyCommand);
         assertTrue(((ModifyCommand) cmd).getFirstOption() instanceof PrintOption);
-        assertTrue(((ModifyCommand) cmd).getSecondOption() instanceof EmptySecondOption);
+        assertTrue(((ModifyCommand) cmd).getSecondOption() instanceof MiddlePhoneNumberOption);
         assertTrue(((ModifyCommand) cmd).getThirdOption() instanceof NoneThirdOption);
         assertEquals(((ModifyCommand) cmd).getSecondOption().getSearchColumn(), "phoneNum");
         assertEquals(((ModifyCommand) cmd).getSecondOption().getSearchValue(), "9777");

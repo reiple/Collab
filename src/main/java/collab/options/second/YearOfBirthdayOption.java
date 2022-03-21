@@ -8,7 +8,7 @@ import java.util.List;
 
 public class YearOfBirthdayOption extends AbstractSecondOption
 {
-    YearOfBirthdayOption(List<String> optionArgument){
+    public YearOfBirthdayOption(List<String> optionArgument){
         super(optionArgument);
     }
     @Override
