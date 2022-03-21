@@ -11,7 +11,7 @@ public class EmployeeManager  {
         parser = new CommandParser();
     }
 
-    public List<String> getCommandStringListFromFile(String filePath){
+    public List<String> loadCommandStringListFromFile(String filePath){
         return null;
     }
 

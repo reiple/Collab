@@ -10,8 +10,12 @@ import collab.options.third.NoneThirdOption;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class EmployeeManagerTest {
@@ -62,5 +66,30 @@ public class EmployeeManagerTest {
         resultLines[0].equals("SCH,18117906,TWU QSOLT,CL4,010-6672-7186,20030413,PRO");
         resultLines[1].equals("MOD,18117906,TWU QSOLT,CL3,010-6672-7186,20030413,PRO");
         resultLines[2].equals("DEL,18117906,TWU QSOLT,CL3,010-6672-7186,20030413,PRO");
+    }
+
+    @Test
+    void SaveResultToFileTest() throws IOException {
+        String filePath = "EmployeeManagerSaveFileTest.txt";
+        assertTrue(!new File(filePath).exists());
+        EmployeeManager employeeManager = new EmployeeManager();
+        List<ICommand> commandList = employeeManager.parseCommandList(commandStringList1);
+        String executionResult = employeeManager.executeCommandList(commandList);
+        employeeManager.saveExecutionResultToFile(filePath, executionResult);
+
+        assertTrue(new File(filePath).exists());
+        ArrayList<String> contents = new ArrayList<String>();
+        BufferedReader br = new BufferedReader(new FileReader(filePath));
+        String str;
+        while ((str = br.readLine()) != null) {
+            contents.add(str);
+        }
+        br.close();
+        String[] resultLines = executionResult.split("\n");
+        assertTrue(resultLines.length == contents.size());
+        for (int i = 0 ; i < resultLines.length; i++){
+            assertEquals(resultLines[i], contents.get(i));
+        }
+        new File(filePath).delete();
     }
 }
