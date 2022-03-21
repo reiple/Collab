@@ -10,7 +10,11 @@ import java.util.*;
 
 public class CommandParser {
 
-    protected static final List<String> WHITE_COMMAND_LIST = Arrays.asList("ADD", "SCH", "MOD", "DEL");
+    protected static final String ADD_COMMAND = "ADD";
+    protected static final String SEARCH_COMMAND = "SCH";
+    protected static final String MODIFY_COMMAND = "MOD";
+    protected static final String DELETE_COMMAND = "DEL";
+    protected static final List<String> WHITE_COMMAND_LIST = Arrays.asList(ADD_COMMAND, SEARCH_COMMAND, MODIFY_COMMAND, DELETE_COMMAND);
     protected static final List<String> FIRST_OPTION_WHITE_LIST = Arrays.asList(" ", "-p");
     protected static final Map<String, List<String>> SECOND_OPTION_WHITE_MAP = new HashMap<>(){{
         put("-f", Arrays.asList("name"));
@@ -48,10 +52,10 @@ public class CommandParser {
         if (!WHITE_COMMAND_LIST.contains(tokenList[0])) throw new Exception(ERR_MSG_CMD_INVALID);
         if (!FIRST_OPTION_WHITE_LIST.contains(tokenList[1])) throw new Exception(ERR_MSG_OPTION_WRONG);
         if (!tokenList[2].equals(" ")) checkSecondOptionValidation(tokenList);
-        if (tokenList[0].equals("ADD")) checkAddCommandValidation(tokenList);
-        if (tokenList[0].equals("SCH")) checkSearchCommandValidation(tokenList);
-        if (tokenList[0].equals("MOD")) checkModifyCommandValidation(tokenList);
-        if (tokenList[0].equals("DEL")) checkDeleteCommandValidation(tokenList);
+        if (tokenList[0].equals(ADD_COMMAND)) checkAddCommandValidation(tokenList);
+        if (tokenList[0].equals(SEARCH_COMMAND)) checkSearchCommandValidation(tokenList);
+        if (tokenList[0].equals(MODIFY_COMMAND)) checkModifyCommandValidation(tokenList);
+        if (tokenList[0].equals(DELETE_COMMAND)) checkDeleteCommandValidation(tokenList);
     }
 
     private void checkSecondOptionValidation(String[] tokenList) throws Exception{
@@ -104,10 +108,10 @@ public class CommandParser {
 
     ICommand getCommandFromToken(AbstractFirstOption FirstOption, AbstractSecondOption SecondOption, AbstractThirdOption ThirdOption, String[] tokenList) throws Exception {
         String command = tokenList[0];
-        if (command.equals("ADD")) return new AddCommand(Arrays.asList(Arrays.copyOfRange(tokenList, 4, ADD_CMD_LENGTH-1)));
-        if (command.equals("SCH")) return new SearchCommand(FirstOption, SecondOption);
-        if (command.equals("MOD")) return new ModifyCommand(FirstOption, SecondOption, Arrays.asList(Arrays.copyOfRange(tokenList, 6, MOD_CMD_LENGTH-1)));
-        if (command.equals("DEL")) return new DeleteCommand(FirstOption, SecondOption);
+        if (command.equals(ADD_COMMAND)) return new AddCommand(Arrays.asList(Arrays.copyOfRange(tokenList, 4, ADD_CMD_LENGTH-1)));
+        if (command.equals(SEARCH_COMMAND)) return new SearchCommand(FirstOption, SecondOption);
+        if (command.equals(MODIFY_COMMAND)) return new ModifyCommand(FirstOption, SecondOption, Arrays.asList(Arrays.copyOfRange(tokenList, 6, MOD_CMD_LENGTH-1)));
+        if (command.equals(DELETE_COMMAND)) return new DeleteCommand(FirstOption, SecondOption);
         throw new Exception(ERR_MSG_CMD_INVALID);
     }
 }

@@ -7,7 +7,7 @@ import collab.options.third.NoneThirdOption;
 import java.util.List;
 
 public class AddCommand extends AbstractCommand{
-    AddCommand(List<String> commandArguments) {
+    public AddCommand(List<String> commandArguments) {
         super(new NoneFirstOption(), new NoneSecondOption(), new NoneThirdOption(), commandArguments);
     }
 
