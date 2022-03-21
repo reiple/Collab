@@ -40,7 +40,7 @@ class ModifyTest {
 
         assertTrue(empDB.searchItems("cl","CL4").isEmpty());
         assertEquals("17112609", empDB.searchItems("cl","CL1").get(0).getEmployeeNumber());
-      
+
     }
     
     @Test
