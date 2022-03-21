@@ -18,15 +18,22 @@ public class PrintOption extends AbstractFirstOption {
                 .limit(5)
                 .collect(Collectors.toList()));
         if (sortedList.size() != 0 ) return makeResultString(sortedList);
-        return null;
+        return "NONE";
     }
 
     private String makeResultString(List<Employee> sortedList){
         String result = new String();
+        int size = sortedList.size();
+        int cnt = 0;
         for (Employee employee: sortedList){
             result += employee.getEmployeeNumber() + ',' + employee.getName() + ',' + employee.getCareerLevel()
-                    + ',' + employee.getPhoneNumber() + ',' + employee.getBirthday() + ',' + employee.getCerti() + '\n';
+                    + ',' + employee.getPhoneNumber() + ',' + employee.getBirthday() + ',' + employee.getCerti();
+            if (cnt != (size-1)){
+                result += '\n';
+            }
+            cnt++;
         }
+
         return result;
     }
 }

@@ -20,7 +20,7 @@ public class PrintOptionTest {
         expectedResult += "88115052," + "VSID TVO," + "CL1," + "010-3669-1077," + "20120718," + "PRO" + '\n';
         expectedResult += "99129568," + "SRERLALH HMEF," + "CL2," + "010-3091-9521," + "19640910," + "PRO" + '\n';
         expectedResult += "02117175," + "SBILHUT LDEXRI," + "CL4," + "010-2814-1699," + "19950704," + "ADV" + '\n';
-        expectedResult += "03113260," + "HH LTUPF," + "CL2," + "010-5798-5383," + "19791018," + "PRO" + '\n';
+        expectedResult += "03113260," + "HH LTUPF," + "CL2," + "010-5798-5383," + "19791018," + "PRO";
 
         employees.add(new Employee(Arrays.asList("15123099","VXIHXOTH JHOP","CL3","010-3112-2609","19771211","ADV")));
         employees.add(new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19861203","PRO")));
@@ -40,7 +40,7 @@ public class PrintOptionTest {
     void OneEmployeeSortingTest() {
         ArrayList<Employee> employees = new ArrayList<Employee>();
         AbstractFirstOption printOption = new PrintOption();
-        String expectedResult = "15123099," + "VXIHXOTH JHOP," + "CL3," + "010-3112-2609," + "19771211," +"ADV" + '\n';
+        String expectedResult = "15123099," + "VXIHXOTH JHOP," + "CL3," + "010-3112-2609," + "19771211," +"ADV";
         employees.add(new Employee(Arrays.asList("15123099","VXIHXOTH JHOP","CL3","010-3112-2609","19771211","ADV")));
 
         assertEquals(printOption.getFilteredList(employees), expectedResult);
@@ -52,7 +52,7 @@ public class PrintOptionTest {
         AbstractFirstOption printOption = new PrintOption();
         String expectedResult = "15123099," + "VXIHXOTH JHOP," + "CL3," + "010-3112-2609," + "19771211," +"ADV" + '\n';
         expectedResult += "18111236," + "VSID TVO," + "CL1," + "010-3669-1077," + "20120718," +"PRO" + '\n';
-        expectedResult += "18117906," + "TWU QSOLT," + "CL4," + "010-6672-7186," + "20030413," +"PRO" + '\n';
+        expectedResult += "18117906," + "TWU QSOLT," + "CL4," + "010-6672-7186," + "20030413," +"PRO";
         employees.add(new Employee(Arrays.asList("15123099","VXIHXOTH JHOP","CL3","010-3112-2609","19771211","ADV")));
         employees.add(new Employee(Arrays.asList("18111236","VSID TVO","CL1","010-3669-1077","20120718","PRO")));
         employees.add(new Employee(Arrays.asList("18117906","TWU QSOLT","CL4","010-6672-7186","20030413","PRO")));
@@ -65,9 +65,10 @@ public class PrintOptionTest {
     void EmptyEmployeeListTest() {
         ArrayList<Employee> employees = new ArrayList<Employee>();
         AbstractFirstOption printOption = new PrintOption();
-        String expectedResult = null;
+        String expectedResult = "NONE";
 
         assertEquals(printOption.getFilteredList(employees), expectedResult);
     }
+
 }
 
