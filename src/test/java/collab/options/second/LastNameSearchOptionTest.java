@@ -15,14 +15,46 @@ import org.junit.jupiter.api.Test;
 
 public class LastNameSearchOptionTest {
 
+  private ArrayList<Employee> list;
   private EmployeeDAO employeeDAO;
 
   @BeforeEach
   void setup() {
+    list = mock(ArrayList.class);
     employeeDAO = mock(EmployeeDAO.class);
-    List<Employee> list = new ArrayList<>();
 
-    String[][] data = {
+    String[] data = {
+        "DN WD",
+        "SBILHUT LDEXRI",
+        "HH LTUPF",
+        "VCUHLE HMU",
+        "RTAH VNUP",
+        "BMU MPOSXU",
+        "WN XV",
+        "KBU MHU",
+        "QKAHCEX LTODDO",
+        "TKOQKIS HC",
+        "LFIS JJIVL",
+        "RPO JK",
+        "VXIHXOTH JHOP",
+        "VSID TVO",
+        "FB NTAWR",
+        "TTETHU HBO",
+        "TWU QSOLT",
+        "SRERLALH HMEF",
+        "FBAH RTIJ",
+        "NQ LVARW"
+    };
+
+    for(int index = 0; index < data.length; index++) {
+      Employee employee = new Employee(Arrays.asList("00000000", data[index], "CL1", "010-0000-0000", "000101", "ADV"));
+      employee.setName(data[index]);
+      when(list.get(index)).thenReturn(employee);
+    }
+
+    when(list.size()).thenReturn(20);
+
+    String[][] data2 = {
         {"01122329", "DN WD", "CL4", "010-7174-5680", "20071117", "PRO"},
         {"02117175", "SBILHUT LDEXRI", "CL4", "010-2814-1699", "19950704", "ADV"},
         {"03113260", "HH LTUPF", "CL2", "010-5798-5383", "19791018", "PRO"},
@@ -45,12 +77,13 @@ public class LastNameSearchOptionTest {
         {"88114052", "NQ LVARW", "CL4", "010-4528-3059", "19911021", "PRO"}
     };
 
-    for(String[] employeeData: data) {
+    List<Employee> dataList = new ArrayList<>();
+    for(String[] employeeData: data2) {
       Employee employee = new Employee(Arrays.asList(employeeData));
-      list.add(employee);
+      dataList.add(employee);
 
     }
-    when(employeeDAO.getAll()).thenReturn(list);
+    when(employeeDAO.getAll()).thenReturn(dataList);
 
 
   }
@@ -58,8 +91,7 @@ public class LastNameSearchOptionTest {
   @Test
   void 성명의_성_검색_옵션_테스트() {
 
-    LastNameOption lastNameSearchOption = new LastNameOption(
-        Arrays.asList(Columns.COLUMN_NAME, "LDEXRI"));
+    LastNameOption lastNameSearchOption = new LastNameOption(Arrays.asList(Columns.COLUMN_NAME, "LDEXRI"));
 
     List<Employee> filteredList = lastNameSearchOption.getFilteredList(employeeDAO);
 
@@ -69,8 +101,7 @@ public class LastNameSearchOptionTest {
 
   @Test
   void 성명의_성_검색_실패_옵션_테스트() {
-    LastNameOption lastNameSearchOption = new LastNameOption(
-        Arrays.asList(Columns.COLUMN_NAME, "TESTER"));
+    LastNameOption lastNameSearchOption = new LastNameOption(Arrays.asList(Columns.COLUMN_NAME, "TESTER"));
 
     List<Employee> filteredList = lastNameSearchOption.getFilteredList(employeeDAO);
 

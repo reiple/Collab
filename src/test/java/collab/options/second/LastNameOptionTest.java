@@ -1,59 +1,28 @@
 package collab.options.second;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import collab.Employee;
 import collab.EmployeeDAO;
 import collab.options.Columns;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
+public class LastNameOptionTest {
 
-public class FirstNameSearchOptionTest {
-
-
-  private ArrayList<Employee> list;
   private EmployeeDAO employeeDAO;
 
   @BeforeEach
   void setup() {
-    list = mock(ArrayList.class);
     employeeDAO = mock(EmployeeDAO.class);
+    List<Employee> list = new ArrayList<>();
 
-    String[] data = {
-        "DN WD",
-        "SBILHUT LDEXRI",
-        "HH LTUPF",
-        "VCUHLE HMU",
-        "RTAH VNUP",
-        "BMU MPOSXU",
-        "WN XV",
-        "KBU MHU",
-        "QKAHCEX LTODDO",
-        "TKOQKIS HC",
-        "LFIS JJIVL",
-        "RPO JK",
-        "VXIHXOTH JHOP",
-        "VSID TVO",
-        "FB NTAWR",
-        "TTETHU HBO",
-        "TWU QSOLT",
-        "SRERLALH HMEF",
-        "FBAH RTIJ",
-        "NQ LVARW"
-    };
-
-    for(int index = 0; index < data.length; index++) {
-      Employee employee = new Employee(Arrays.asList("00000000", data[index], "CL1", "010-0000-0000", "000101", "ADV"));
-      employee.setName(data[index]);
-      when(list.get(index)).thenReturn(employee);
-    }
-
-    when(list.size()).thenReturn(20);
-
-    String[][] data2 = {
+    String[][] data = {
         {"01122329", "DN WD", "CL4", "010-7174-5680", "20071117", "PRO"},
         {"02117175", "SBILHUT LDEXRI", "CL4", "010-2814-1699", "19950704", "ADV"},
         {"03113260", "HH LTUPF", "CL2", "010-5798-5383", "19791018", "PRO"},
@@ -76,32 +45,34 @@ public class FirstNameSearchOptionTest {
         {"88114052", "NQ LVARW", "CL4", "010-4528-3059", "19911021", "PRO"}
     };
 
-    List<Employee> dataList = new ArrayList<>();
-    for(String[] employeeData: data2) {
+    for(String[] employeeData: data) {
       Employee employee = new Employee(Arrays.asList(employeeData));
-      dataList.add(employee);
+      list.add(employee);
 
     }
-    when(employeeDAO.getAll()).thenReturn(dataList);
+    when(employeeDAO.getAll()).thenReturn(list);
+
 
   }
 
   @Test
-  void 성명의_이름_검색_옵션_테스트() {
+  void 성명의_성_검색_옵션_테스트() {
 
-    FirstNameOption firstNameSearchOption = new FirstNameOption(Arrays.asList(Columns.COLUMN_NAME, "SBILHUT"));
+    LastNameOption lastNameSearchOption = new LastNameOption(
+        Arrays.asList(Columns.COLUMN_NAME, "LDEXRI"));
 
-    List<Employee> filteredList = firstNameSearchOption.getFilteredList(employeeDAO);
+    List<Employee> filteredList = lastNameSearchOption.getFilteredList(employeeDAO);
 
     assertEquals(1, filteredList.size());
     assertEquals("SBILHUT LDEXRI", filteredList.get(0).getName());
   }
 
   @Test
-  void 성명의_이름_검색_실패_옵션_테스트() {
-    FirstNameOption firstNameSearchOption = new FirstNameOption(Arrays.asList(Columns.COLUMN_NAME, "TESTER"));
+  void 성명의_성_검색_실패_옵션_테스트() {
+    LastNameOption lastNameSearchOption = new LastNameOption(
+        Arrays.asList(Columns.COLUMN_NAME, "TESTER"));
 
-    List<Employee> filteredList = firstNameSearchOption.getFilteredList(employeeDAO);
+    List<Employee> filteredList = lastNameSearchOption.getFilteredList(employeeDAO);
 
     assertEquals(0, filteredList.size());
   }
