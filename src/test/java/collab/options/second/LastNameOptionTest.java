@@ -50,7 +50,7 @@ public class LastNameOptionTest {
       list.add(employee);
 
     }
-    when(employeeDAO.getAll()).thenReturn(list);
+    when(employeeDAO.getAllItems()).thenReturn(list);
 
 
   }

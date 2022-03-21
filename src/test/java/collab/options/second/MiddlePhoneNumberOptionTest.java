@@ -50,7 +50,7 @@ class MiddlePhoneNumberOptionTest {
       Employee employee = new Employee(Arrays.asList(datum));
       list.add(employee);
     }
-    when(dao.getAll()).thenReturn(list);
+    when(dao.getAllItems()).thenReturn(list);
 
   }
 

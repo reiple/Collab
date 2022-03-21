@@ -1,4 +1,8 @@
 package collab;
 
-public class EmployeeManager {
+public class EmployeeManager  {
+    private IDAO dao;
+    public EmployeeManager(){
+        this.dao = new EmployeeDAO();
+    }
 }
