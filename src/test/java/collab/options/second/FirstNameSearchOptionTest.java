@@ -11,7 +11,7 @@ import org.junit.jupiter.api.*;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class FirstNameOptionTest {
+public class FirstNameSearchOptionTest {
 
 
   private EmployeeDAO employeeDAO;
