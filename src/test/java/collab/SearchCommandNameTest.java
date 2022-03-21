@@ -71,7 +71,11 @@ class SearchCommandNameTest {
     };
 
     String result = makeResultString("SCH", data);
-    assertEquals("SCH,88114052,NQ LVARW,CL4,010-4528-3059,19911021,PRO", result);
+
+    // TODO: 개행문자 변경 시, 이 부분 수정해야 함
+    // TODO: 리턴에 명령어 포함일 경우, 이 부분 수정해야 함
+    //assertEquals("SCH,88114052,NQ LVARW,CL4,010-4528-3059,19911021,PRO", result);
+    assertEquals("88114052,NQ LVARW,CL4,010-4528-3059,19911021,PRO\n", result);
 
   }
 
@@ -83,20 +87,37 @@ class SearchCommandNameTest {
     };
 
     String result = makeResultString("SCH", data);
+//    assertEquals(
+//        "SCH,88114052,NQ LVARW,CL4,010-4528-3059,19911021,PRO"
+//            + System.lineSeparator()
+//            + "SCH,85125741,FBAH RTIJ,CL1,010-8900-1478,19780228,ADV"
+//        , result);
+
+    // TODO: 개행문자 변경 시, 이 부분 수정해야 함
+    // TODO: 리턴에 명령어 포함일 경우, 이 부분 수정해야 함
     assertEquals(
-        "SCH,88114052,NQ LVARW,CL4,010-4528-3059,19911021,PRO"
-            + System.lineSeparator()
-            + "SCH,85125741,FBAH RTIJ,CL1,010-8900-1478,19780228,ADV"
+        "88114052,NQ LVARW,CL4,010-4528-3059,19911021,PRO"
+            + "\n"
+            + "85125741,FBAH RTIJ,CL1,010-8900-1478,19780228,ADV\n"
         , result);
   }
 
   private String makeResultString(String command, String[][] data) {
 
+    // TODO: 개행문자 변경 시, 이 부분 수정해야 함
+    // TODO: 리턴에 명령어 포함일 경우, 이 부분 수정해야 함
+    boolean needCommand = false;
+    boolean needLastNewLine = true;
+    boolean useSystemNewLine = false;
+
     StringBuilder builder = new StringBuilder();
     for(int next = 0; next < data.length; next++) {
       String[] employeeData = data[next];
-      builder.append(command);
-      builder.append(",");
+
+      if(needCommand) {
+        builder.append(command);
+        builder.append(",");
+      }
 
       for (int index = 0; index < employeeData.length; index++) {
         builder.append(employeeData[index]);
@@ -106,11 +127,18 @@ class SearchCommandNameTest {
         builder.append(",");
       }
 
-      if(next == data.length - 1) {
-        break;
+      if(!needLastNewLine) {
+        if(next == data.length - 1) {
+          break;
+        }
       }
-      
-      builder.append(System.lineSeparator());
+
+      if(useSystemNewLine) {
+        builder.append(System.lineSeparator());
+      } else {
+        builder.append("\n");
+      }
+
 
     }
 
@@ -145,7 +173,8 @@ class SearchCommandNameTest {
         Arrays.asList("name", "TEST CASE"));
     String result = command.executeCommand(employeeDAO);
 
-    assertEquals("NONE", result);
+    //assertEquals("NONE", result);
+    assertEquals(null, result);
   }
 
   @Test
@@ -188,7 +217,8 @@ class SearchCommandNameTest {
         Arrays.asList("name", "TESTER"));
     String result = command.executeCommand(employeeDAO);
 
-    assertEquals("NONE", result);
+    //assertEquals("NONE", result);
+    assertEquals(null, result);
   }
 
   @Test
@@ -210,8 +240,8 @@ class SearchCommandNameTest {
   void testSearchFistNameOver5Success() {
 
     ICommand command = new SearchCommand(
-        new PrintOption(), new FirstNameOption(Arrays.asList("name", "LVARW")), new NoneThirdOption(),
-        Arrays.asList("name", "LVARW"));
+        new NoneFirstOption(), new FirstNameOption(Arrays.asList("name", "FIRST")), new NoneThirdOption(),
+        Arrays.asList("name", "FIRST"));
     String result = command.executeCommand(employeeDAO);
 
     String[][] data = {
@@ -229,8 +259,8 @@ class SearchCommandNameTest {
   void testSearchFistNamePrintOver5Success() {
 
     ICommand command = new SearchCommand(
-        new PrintOption(), new FirstNameOption(Arrays.asList("name", "LVARW")), new NoneThirdOption(),
-        Arrays.asList("name", "LVARW"));
+        new PrintOption(), new FirstNameOption(Arrays.asList("name", "FIRST")), new NoneThirdOption(),
+        Arrays.asList("name", "FIRST"));
     String result = command.executeCommand(employeeDAO);
 
     String[][] data = {
@@ -272,13 +302,14 @@ class SearchCommandNameTest {
         Arrays.asList("name", "TESTER"));
     String result = command.executeCommand(employeeDAO);
 
-    assertEquals("NONE", result);
+    //assertEquals("NONE", result);
+    assertEquals(null, result);
   }
 
   @Test
   void testSearchLastNamePrintSuccess() {
     ICommand command = new SearchCommand(
-        new PrintOption(), new FirstNameOption(Arrays.asList("name", "WD")), new NoneThirdOption(),
+        new PrintOption(), new LastNameOption(Arrays.asList("name", "WD")), new NoneThirdOption(),
         Arrays.asList("name", "WD"));
     String result = command.executeCommand(employeeDAO);
 
@@ -292,7 +323,7 @@ class SearchCommandNameTest {
   void testSearchLastNameOver5Success() {
 
     ICommand command = new SearchCommand(
-        new PrintOption(), new FirstNameOption(Arrays.asList("name", "LVARW")), new NoneThirdOption(),
+        new NoneFirstOption(), new LastNameOption(Arrays.asList("name", "LVARW")), new NoneThirdOption(),
         Arrays.asList("name", "LVARW"));
     String result = command.executeCommand(employeeDAO);
 
@@ -312,7 +343,7 @@ class SearchCommandNameTest {
   void testSearchLastNamePrintOver5Success() {
 
     ICommand command = new SearchCommand(
-        new PrintOption(), new FirstNameOption(Arrays.asList("name", "LVARW")), new NoneThirdOption(),
+        new PrintOption(), new LastNameOption(Arrays.asList("name", "LVARW")), new NoneThirdOption(),
         Arrays.asList("name", "LVARW"));
     String result = command.executeCommand(employeeDAO);
 
