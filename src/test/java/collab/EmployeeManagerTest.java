@@ -96,7 +96,6 @@ public class EmployeeManagerTest {
     @Test
     void LoadCommandListFromFileTest() throws IOException {
         String filePath = "src/test/resources/input_20_20.txt";
-        System.out.println(new File(filePath).getAbsolutePath());
         assertTrue(new File(filePath).exists());
         EmployeeManager employeeManager = new EmployeeManager();
         List<String> commandStringList = employeeManager.loadCommandStringListFromFile(filePath);
@@ -105,4 +104,3 @@ public class EmployeeManagerTest {
         commandStringList.get(39).equals("SCH, , , ,name,FB NTAWR");
     }
 }
-
