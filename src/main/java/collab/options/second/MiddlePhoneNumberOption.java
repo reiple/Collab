@@ -14,9 +14,10 @@ public class MiddlePhoneNumberOption extends AbstractSecondOption
         super(optionArgument);
     }
     @Override
-    public List<Employee> getFilteredList(EmployeeDAO DAO) {
-        // Example
-         //return DAO.getAll().stream().filter(item -> item.get("Middle" + getSearchColumn()).equals(getSearchValue())).collect(Collectors.toList());
-        return null;
+    public List<Employee> getFilteredList(EmployeeDAO dao) {
+
+        return dao.getAll().stream()
+            .filter(item -> item.getMiddlePhoneNumber().equals(optionArgument.get(VAL)))
+            .collect(Collectors.toList());
     }
 }
