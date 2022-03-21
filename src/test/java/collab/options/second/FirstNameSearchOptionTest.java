@@ -82,7 +82,7 @@ public class FirstNameSearchOptionTest {
       dataList.add(employee);
 
     }
-    when(employeeDAO.getAll()).thenReturn(dataList);
+    when(employeeDAO.getAllItems()).thenReturn(dataList);
 
   }
 

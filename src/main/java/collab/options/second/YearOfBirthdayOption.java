@@ -15,7 +15,7 @@ public class YearOfBirthdayOption extends AbstractSecondOption
     @Override
     public List<Employee> getFilteredList(EmployeeDAO employeeDAO) {
 
-        return employeeDAO.getAll().stream()
+        return employeeDAO.getAllItems().stream()
             .filter(item -> item.getBirthYearOnly().equals(getSearchValue()))
             .collect(Collectors.toList());
 

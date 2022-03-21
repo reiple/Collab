@@ -83,7 +83,7 @@ public class LastNameSearchOptionTest {
       dataList.add(employee);
 
     }
-    when(employeeDAO.getAll()).thenReturn(dataList);
+    when(employeeDAO.getAllItems()).thenReturn(dataList);
 
   }
 

@@ -15,7 +15,7 @@ public class LastPhoneNumberOption extends AbstractSecondOption
     @Override
     public List<Employee> getFilteredList(EmployeeDAO dao) {
 
-        return dao.getAll().stream()
+        return dao.getAllItems().stream()
             .filter(item -> item.getLastPhoneNumber().equals(optionArgument.get(VAL)))
             .collect(Collectors.toList());
     }
