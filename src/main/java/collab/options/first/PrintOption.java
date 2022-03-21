@@ -23,15 +23,12 @@ public class PrintOption extends AbstractFirstOption {
 
     private String makeResultString(List<Employee> sortedList){
         String result = new String();
-        int size = sortedList.size();
-        int cnt = 0;
+        boolean isFirst = true;
         for (Employee employee: sortedList){
+            if(!isFirst) {'\n';}
             result += employee.getEmployeeNumber() + ',' + employee.getName() + ',' + employee.getCareerLevel()
                     + ',' + employee.getPhoneNumber() + ',' + employee.getBirthday() + ',' + employee.getCerti();
-            if (cnt != (size-1)){
-                result += '\n';
-            }
-            cnt++;
+            isFirst=false;
         }
 
         return result;
