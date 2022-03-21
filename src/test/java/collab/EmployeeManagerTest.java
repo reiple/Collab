@@ -51,4 +51,16 @@ public class EmployeeManagerTest {
         assertTrue(((DeleteCommand) commandList.get(3)).getSecondOption() instanceof LastNameOption);
         assertTrue(((DeleteCommand) commandList.get(3)).getThirdOption() instanceof NoneThirdOption);
     }
+
+    @Test
+    public void ExecuteCommandTest() {
+        EmployeeManager employeeManager = new EmployeeManager();
+        List<ICommand> commandList = employeeManager.parseCommandList(commandStringList1);
+        String executionResult = employeeManager.executeCommandList(commandList);
+        String[] resultLines = executionResult.split("\n");
+        assertTrue(resultLines.length == 3);
+        resultLines[0].equals("SCH,18117906,TWU QSOLT,CL4,010-6672-7186,20030413,PRO");
+        resultLines[1].equals("MOD,18117906,TWU QSOLT,CL3,010-6672-7186,20030413,PRO");
+        resultLines[2].equals("DEL,18117906,TWU QSOLT,CL3,010-6672-7186,20030413,PRO");
+    }
 }
