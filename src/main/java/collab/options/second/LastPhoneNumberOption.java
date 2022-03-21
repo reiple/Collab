@@ -1,12 +1,12 @@
 package collab.options.second;
 
-import collab.AbstractSecondOption;
+import collab.AbstractSearchOption;
 import collab.Employee;
 import collab.EmployeeDAO;
 
 import java.util.List;
 
-public class LastPhoneNumberOption extends AbstractSecondOption
+public class LastPhoneNumberOption extends AbstractSearchOption
 {
     LastPhoneNumberOption(List<String> optionArgument){
         super(optionArgument);

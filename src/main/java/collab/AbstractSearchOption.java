@@ -2,11 +2,11 @@ package collab;
 
 import java.util.List;
 
-public abstract class AbstractSecondOption {
-    protected static final int COL = 0;
-    protected static final int VAL= 1;
-    protected List<String> optionArgument;
-    public AbstractSecondOption(List<String> optionArgument){
+public abstract class AbstractSearchOption {
+    private static final int COL = 0;
+    private static final int VAL= 1;
+    List<String> optionArgument;
+    public AbstractSearchOption(List<String> optionArgument){
         this.optionArgument = optionArgument;
     }
     public String getSearchColumn(){

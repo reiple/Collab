@@ -1,14 +1,12 @@
 package collab.options.second;
 
-import collab.AbstractSecondOption;
+import collab.AbstractSearchOption;
 import collab.Employee;
 import collab.EmployeeDAO;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FirstNameOption extends AbstractSecondOption {
+public class FirstNameOption extends AbstractSearchOption {
 
   public FirstNameOption(List<String> optionArgument) {
     super(optionArgument);
