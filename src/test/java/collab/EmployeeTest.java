@@ -176,14 +176,31 @@ public class EmployeeTest {
 
         Assertions.assertDoesNotThrow(() -> {new Employee(passCommand);});
 
-        cmdAssertionCheck(lengthFailCommand, employee, assertMsg, () -> {employee.setName(lengthFailCommand.get(0));});
-        cmdAssertionCheck(koreanNameCommand, employee, assertMsg, () -> {employee.setName(koreanNameCommand.get(0));});
-        cmdAssertionCheck(lowerCaseFailCommand, employee, assertMsg, () -> {employee.setName(lowerCaseFailCommand.get(0));});
-        cmdAssertionCheck(numberFailCommand, employee, assertMsg, () -> {employee.setName(numberFailCommand.get(0));});
-        cmdAssertionCheck(spaceFailCommand1, employee, assertMsg, () -> {employee.setName(spaceFailCommand1.get(0));});
-        cmdAssertionCheck(spaceFailCommand2, employee, assertMsg, () -> {employee.setName(spaceFailCommand2.get(0));});
-        cmdAssertionCheck(spaceFailCommand3, employee, assertMsg, () -> {employee.setName(spaceFailCommand3.get(0));});
+        cmdAssertionCheck(lengthFailCommand, employee, assertMsg, () -> {employee.setName(lengthFailCommand.get(1));});
+        cmdAssertionCheck(koreanNameCommand, employee, assertMsg, () -> {employee.setName(koreanNameCommand.get(1));});
+        cmdAssertionCheck(lowerCaseFailCommand, employee, assertMsg, () -> {employee.setName(lowerCaseFailCommand.get(1));});
+        cmdAssertionCheck(numberFailCommand, employee, assertMsg, () -> {employee.setName(numberFailCommand.get(1));});
+        cmdAssertionCheck(spaceFailCommand1, employee, assertMsg, () -> {employee.setName(spaceFailCommand1.get(1));});
+        cmdAssertionCheck(spaceFailCommand2, employee, assertMsg, () -> {employee.setName(spaceFailCommand2.get(1));});
+        cmdAssertionCheck(spaceFailCommand3, employee, assertMsg, () -> {employee.setName(spaceFailCommand3.get(1));});
 
     }
+
+    @Test
+    public void employeeCareerLevelValidationTest() {
+        List<String> lengthFailCommand = Arrays.asList("99123099","TTETHU HBO","CL44","010-4528-3059","19771208","ADV");
+        List<String> lowerFailCommand = Arrays.asList("99123099","TTETHU HBO","cl4","010-4528-3059","19771208","ADV");
+        List<String> whiteBoxCommand = Arrays.asList("99123099","TTETHU HBO","CL5","010-4528-3059","19771208","ADV");
+        List<String> passCommand = Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV");
+        String assertMsg = "Employee career level input is not valid";
+        Employee employee = new Employee(passCommand);
+
+        Assertions.assertDoesNotThrow(() -> {new Employee(passCommand);});
+
+        cmdAssertionCheck(lengthFailCommand, employee, assertMsg, () -> {employee.setCareerLevel(lengthFailCommand.get(2));});
+        cmdAssertionCheck(lowerFailCommand, employee, assertMsg, () -> {employee.setCareerLevel(lowerFailCommand.get(2));});
+        cmdAssertionCheck(whiteBoxCommand, employee, assertMsg, () -> {employee.setCareerLevel(whiteBoxCommand.get(2));});
+    }
+
 
 }

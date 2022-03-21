@@ -1,5 +1,6 @@
 package collab;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 public class Employee{
@@ -171,7 +172,10 @@ public class Employee{
     }
 
     private void validateCareerLevel(){
-
+        List<String> careerLevelWhiteBox = Arrays.asList("CL1","CL2","CL3","CL4");
+        if (!careerLevelWhiteBox.contains(careerLevel)){
+            throw new RuntimeException("Employee career level input is not valid");
+        }
     }
 
     private void validateCerti(){
