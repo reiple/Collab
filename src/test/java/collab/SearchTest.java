@@ -23,7 +23,7 @@ class SearchTest {
     answer = new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"));
     noAnswer = new Employee(Arrays.asList("19010101","TEST TEST","CL2","010-0000-0000","19000101","EX"));
   }
-  
+
   @Test
   public void searchTestFound() {
     searchTest_EmployeeNum(true,answer);
@@ -43,20 +43,20 @@ class SearchTest {
     searchTest_BirthDay(false,noAnswer);
     searchTest_Certi(false,noAnswer);
   }
-  
+
   public void searchTest_EmployeeNum(boolean isMatch, Employee answer) {
     List<Employee> foundList = empDB.searchItems("employeeNum", answer.getEmployeeNumber());
 
     if(isMatch) assertEquals(answer.getEmployeeNumber(), foundList.get(0).getEmployeeNumber());
     if(!isMatch) assertTrue(foundList.isEmpty());
-  }   
-  
+  }
+
   public void searchTest_Name(boolean isMatch, Employee answer) {
     List<Employee> foundList = empDB.searchItems("name", answer.getName());
 
     if(isMatch) assertEquals(answer.getEmployeeNumber(), foundList.get(0).getEmployeeNumber());
     if(!isMatch) assertTrue(foundList.isEmpty());
-  }    
+  }
 
   public void searchTest_Cl(boolean isMatch, Employee answer) {
     List<Employee> foundList = empDB.searchItems("cl", answer.getCareerLevel());
@@ -78,7 +78,7 @@ class SearchTest {
     if(isMatch) assertEquals(answer.getEmployeeNumber(), foundList.get(0).getEmployeeNumber());
     if(!isMatch) assertTrue(foundList.isEmpty());
   }
-  
+
   public void searchTest_Certi(boolean isMatch, Employee answer) {
     List<Employee> foundList = empDB.searchItems("certi", answer.getCerti());
 
