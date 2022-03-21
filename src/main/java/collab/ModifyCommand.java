@@ -19,10 +19,14 @@ public class ModifyCommand extends AbstractCommand{
             return getValues(employeeDAO);
         }
 
-        List<Employee> list = getSecondOption().getFilteredList(employeeDAO);
-        if(list == null) {
-            list = new ArrayList<>();
-        }
+        List<Employee> list = new ArrayList<>();
+        list = getSecondOption().getFilteredList(employeeDAO);
+        String result = getFirstOption().getFilteredList(list);
+
+        List<String> commandArguments = getCommandArguments();
+        list.stream()
+            .forEach(employee ->
+                employeeDAO.modifyItemById(employee.getEmployeeNumber(), commandArguments.get(2), commandArguments.get(3)));
 
         return getFirstOption().getFilteredList(list);
     }

@@ -57,6 +57,7 @@ class ModifyCommandPhoneNumberTest {
 
     }
     when(employeeDAO.getAllItems()).thenReturn(list);
+    doNothing().when(employeeDAO).modifyItemById(anyString(), anyString(), anyString());
   }
 
   @Test
