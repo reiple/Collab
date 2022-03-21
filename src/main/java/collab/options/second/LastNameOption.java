@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class LastNameOption extends AbstractSecondOption
 {
-    LastNameOption(List<String> optionArgument){
+    public LastNameOption(List<String> optionArgument){
         super(optionArgument);
     }
     @Override
