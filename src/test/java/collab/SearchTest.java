@@ -12,15 +12,15 @@ class SearchTest {
   DataBase empDB = new DataBase();
     @BeforeEach
     public void setUp() {
-      empDB.addEmployee(Arrays.asList("15123099","VXIHXOTH JHOP","CL3","010-3112-2609","19771211","ADV"));
-      empDB.addEmployee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"));
-      empDB.addEmployee(Arrays.asList("18115040","TTETHU HBO","CL3","010-4581-2050","20080718", "ADV"));
+      empDB.add(new Employee(Arrays.asList("15123099","VXIHXOTH JHOP","CL3","010-3112-2609","19771211","ADV")));
+      empDB.add(new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO")));
+      empDB.add(new Employee(Arrays.asList("18115040","TTETHU HBO","CL3","010-4581-2050","20080718", "ADV")));
     }
-	
+    
     public int searchTest_EmployeeNum(Employee answer) {
       ArrayList<Employee> empList;
       int resultCount=0;
-      empList = empDB.searchEmployee("", "employeeNum", answer.getEmployeeNumber());
+      empList = empDB.searchItems("employeeNum", answer.getEmployeeNumber());
       if(empList.size()==1) {
         resultCount++;
         assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
@@ -31,32 +31,21 @@ class SearchTest {
     public int searchTest_Name(Employee answer) {
       ArrayList<Employee> empList;
       int resultCount=0;
-      empList = empDB.searchEmployee("-l", "name", answer.getLastName());
-      if(empList.size()==1) {
-        resultCount++;
-        assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-      }
-      
-      empList = empDB.searchEmployee("-f", "name", answer.getFirstName());
-      if(empList.size()==1) {
-        resultCount++;
-        assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-      }
-      
-      empList = empDB.searchEmployee("", "name", answer.getName());
+
+      empList = empDB.searchItems("name", answer.getName());
       if(empList.size()==1) {
         resultCount++;
         assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
       }
 
-      return resultCount;// 0 or 3
+      return resultCount;
       
     }    
 
     public int searchTest_Cl(Employee answer) {
       ArrayList<Employee> empList;
       int resultCount=0;
-      empList = empDB.searchEmployee("", "cl", answer.getCareerLevel());
+      empList = empDB.searchItems("cl", answer.getCareerLevel());
       if(empList.size()==1) {
         resultCount++;
         assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
@@ -68,19 +57,8 @@ class SearchTest {
     public int searchTest_PhoneNum(Employee answer) {
       ArrayList<Employee> empList;
       int resultCount=0;
-      empList = empDB.searchEmployee("-m", "phoneNum", answer.getMiddlePhoneNumber());
-      if(empList.size()==1) {
-        resultCount++;
-        assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-      }
       
-      empList = empDB.searchEmployee("-l", "phoneNum", answer.getLastPhoneNumber());
-      if(empList.size()==1) {
-        resultCount++;
-        assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-      }
-      
-      empList = empDB.searchEmployee("", "phoneNum", answer.getPhoneNumber());
+      empList = empDB.searchItems("phoneNum", answer.getPhoneNumber());
       if(empList.size()==1) {
         resultCount++;
         assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
@@ -91,25 +69,8 @@ class SearchTest {
     public int searchTest_BirthDay(Employee answer) {
       ArrayList<Employee> empList;
       int resultCount=0;
-      empList = empDB.searchEmployee("-y", "birthday", answer.getBirthYearOnly());
-      if(empList.size()==1) {
-        resultCount++;
-        assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-      }
       
-      empList = empDB.searchEmployee("-m", "birthday", answer.getBirthMonthOnly());
-      if(empList.size()==1) {
-        resultCount++;
-        assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-      }
-      
-      empList = empDB.searchEmployee("-d", "birthday", answer.getBirthDayOnly());
-      if(empList.size()==1) {
-        resultCount++;
-        assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-      }
-      
-      empList = empDB.searchEmployee("", "birthday", answer.getBirthday());
+      empList = empDB.searchItems("birthday", answer.getBirthday());
       if(empList.size()==1) {
         resultCount++;
         assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
@@ -120,7 +81,7 @@ class SearchTest {
     public int searchTest_Certi(Employee answer) {
       ArrayList<Employee> empList;
       int resultCount=0;
-      empList = empDB.searchEmployee("", "certi", answer.getCerti());
+      empList = empDB.searchItems("certi", answer.getCerti());
       if(empList.size()==1) {
         resultCount++;
         assertEquals(empList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
@@ -140,7 +101,7 @@ class SearchTest {
     @Test
     public void searchTestFound() {
       Employee answer = new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"));
-      assertTrue(searchTest_Total(answer)==13);
+      assertTrue(searchTest_Total(answer)==6);
     }
     
     @Test
