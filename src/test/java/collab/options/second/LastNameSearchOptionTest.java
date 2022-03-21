@@ -85,14 +85,15 @@ public class LastNameSearchOptionTest {
     }
     when(employeeDAO.getAll()).thenReturn(dataList);
 
-
   }
 
   @Test
   void 성명의_성_검색_옵션_테스트() {
 
     LastNameOption lastNameSearchOption = new LastNameOption(Arrays.asList(Columns.COLUMN_NAME, "LDEXRI"));
+    //lastNameSearchOption.setDao(list);
 
+    //ArrayList<Employee> filteredList = lastNameSearchOption.getFilterList();
     List<Employee> filteredList = lastNameSearchOption.getFilteredList(employeeDAO);
 
     assertEquals(1, filteredList.size());
@@ -102,7 +103,9 @@ public class LastNameSearchOptionTest {
   @Test
   void 성명의_성_검색_실패_옵션_테스트() {
     LastNameOption lastNameSearchOption = new LastNameOption(Arrays.asList(Columns.COLUMN_NAME, "TESTER"));
+    //lastNameSearchOption.setDao(list);
 
+    //ArrayList<Employee> filteredList = lastNameSearchOption.getFilterList();
     List<Employee> filteredList = lastNameSearchOption.getFilteredList(employeeDAO);
 
     assertEquals(0, filteredList.size());
