@@ -34,7 +34,7 @@ public class EmployeeManagerTest {
     }
 
     @Test
-    public void commandParseTest() {
+    public void commandParseTest() throws Exception{
         EmployeeManager employeeManager = new EmployeeManager();
         List<ICommand> commandList = employeeManager.parseCommandList(commandStringList1);
         assertTrue(commandList.size() == 4);
@@ -60,7 +60,7 @@ public class EmployeeManagerTest {
     }
 
     @Test
-    public void executeCommandTest() {
+    public void executeCommandTest() throws Exception{
         EmployeeManager employeeManager = new EmployeeManager();
         List<ICommand> commandList = employeeManager.parseCommandList(commandStringList1);
         String executionResult = employeeManager.executeCommandList(commandList);
@@ -72,7 +72,7 @@ public class EmployeeManagerTest {
     }
 
     @Test
-    void saveResultToFileTest() throws IOException {
+    void saveResultToFileTest() throws Exception {
         assertTrue(!new File(employeeManagerSaveFileTestFilePath).exists());
         EmployeeManager employeeManager = new EmployeeManager();
         List<ICommand> commandList = employeeManager.parseCommandList(commandStringList1);
@@ -95,7 +95,7 @@ public class EmployeeManagerTest {
     }
 
     @Test
-    void loadCommandListFromFileTest() throws IOException {
+    void loadCommandListFromFileTest() throws Exception {
         String filePath = "src/test/resources/input_20_20.txt";
         assertTrue(new File(filePath).exists());
         EmployeeManager employeeManager = new EmployeeManager();
@@ -105,7 +105,7 @@ public class EmployeeManagerTest {
         commandStringList.get(39).equals("SCH, , , ,name,FB NTAWR");
     }
     @Test
-    void employeeManagerFileToFileTest() throws IOException {
+    void employeeManagerFileToFileTest() throws Exception {
         String inFilePath = "src/test/resources/input_20_20.txt";
         String outFilePath = "src/test/resources/output_20_20.txt";
 
@@ -143,7 +143,7 @@ public class EmployeeManagerTest {
     }
 
     @AfterAll
-    static void clearTestedFiles() throws IOException{
+    static void clearTestedFiles() throws Exception{
         File employeeManagerSaveFileTestFile = new File(employeeManagerSaveFileTestFilePath);
         if (employeeManagerSaveFileTestFile.exists()) employeeManagerSaveFileTestFile.delete();
 
