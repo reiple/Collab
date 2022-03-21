@@ -4,7 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import main.java.collab.Employee;
+import collab.Employee;
+import collab.columnList.Birthday;
+import collab.columnList.Certi;
+import collab.columnList.Cl;
+import collab.columnList.EmployeeNum;
+import collab.columnList.Name;
+import collab.columnList.PhoneNum;
 
 public class DataBase {
   private ArrayList<Employee> employeeData = new ArrayList<Employee>();
@@ -22,11 +28,16 @@ public class DataBase {
     return searchItems("employeeNum", id).get(0);
   }
 
-  public ArrayList<Employee> searchItems(String field, String value) {    
-    ArrayList<Employee> result = new ArrayList<>();
-    result.addAll(employeeData.stream().filter(employee -> isFound(employee, field, value))
-                 .collect(Collectors.toList()));
-    return result;
+  public List<Employee> searchItems(String field, String value) {    
+    switch(field) {
+      case "employeeNum": return (new EmployeeNum(value)).getFilteredList(employeeData); 
+      case "name": return (new Name(value)).getFilteredList(employeeData); 
+      case "cl": return (new Cl(value)).getFilteredList(employeeData); 
+      case "phoneNum": return (new PhoneNum(value)).getFilteredList(employeeData); 
+      case "birthday": return (new Birthday(value)).getFilteredList(employeeData); 
+      case "certi": return (new Certi(value)).getFilteredList(employeeData); 
+    }
+    return null;
   }
 
   
@@ -57,12 +68,12 @@ public class DataBase {
   
   public void modify(Employee employee, String field, String value) {
     switch(field) {
-      case "eployeeNum": employee.setBirthday(value); break;
-      case "name": employee.setName(value); break;
-      case "cl": employee.setCareerLevel(value); break;
-      case "phoneNum": employee.setPhoneNumber(value); break;
-      case "birthday": employee.setBirthday(value); break;
-      case "certi": employee.setCerti(value); break;
+      case "eployeeNum": employee.setBirthday(value); return;
+      case "name": employee.setName(value); return;
+      case "cl": employee.setCareerLevel(value); return;
+      case "phoneNum": employee.setPhoneNumber(value); return;
+      case "birthday": employee.setBirthday(value); return;
+      case "certi": employee.setCerti(value); return;
     }
   }
   
@@ -80,7 +91,7 @@ public class DataBase {
     
     List<Employee> targetEmployee = searchItems(field, value);
     for(Employee employee : targetEmployee) {
-      returnEmployee.add(new Employee(Arrays.asList(employee.getEmployeeNumber(),employee.getName(), employee.getCareerLevel(), employee.getPhoneNumber(), employee.getBirthday(), employee.getCerti())));
+      returnEmployee.add(makeEmployee(employee));
       employeeData.remove(employee);
     }
     return returnEmployee;
@@ -89,40 +100,5 @@ public class DataBase {
   
   private Employee makeEmployee(Employee employeeInfo) {
     return new Employee(Arrays.asList(employeeInfo.getEmployeeNumber(), employeeInfo.getName(), employeeInfo.getCareerLevel(), employeeInfo.getPhoneNumber(), employeeInfo.getBirthday(), employeeInfo.getCerti()));
-  }    
-  
-  private boolean isFound(Employee employee, String searchColumn, String searchData) {
-    switch(searchColumn) {
-      case "employeeNum": return isFoundEmployeeNum(employee, searchData);
-      case "name": return isFoundName(employee, searchData);
-      case "cl": return isFoundCarrarLevel(employee, searchData);
-      case "phoneNum": return isFoundPhoneNumber(employee, searchData);
-      case "birthday": return isFoundBirthday(employee, searchData);
-      case "certi": return isFoundCerti(employee, searchData);
-    }
-    return false;
-  }  
-  
-  private boolean isFoundEmployeeNum(Employee employee, String searchData) {
-      return employee.getEmployeeNumber().equals(searchData);
-  }
-
-  private boolean isFoundName(Employee employee, String searchData) {
-      return employee.getName().equals(searchData);
-  }
-  
-  private boolean isFoundCarrarLevel(Employee employee, String searchData) {
-    return employee.getCareerLevel().equals(searchData);
-  }
-  
-  private boolean isFoundPhoneNumber(Employee employee, String searchData) {
-    return employee.getPhoneNumber().equals(searchData);
-  }
-  private boolean isFoundCerti(Employee employee, String searchData) {
-    return employee.getCerti().equals(searchData);
-  }
-  
-  private boolean isFoundBirthday(Employee employee, String searchData) {
-    return employee.getBirthday().equals(searchData);
   }
 }
