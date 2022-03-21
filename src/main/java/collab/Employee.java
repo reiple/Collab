@@ -1,7 +1,13 @@
 package collab;
 import java.time.LocalDate;
+import java.time.chrono.IsoEra;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.ResolverStyle;
+import java.time.temporal.ChronoField;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class Employee{
     private String employeeNumber;
@@ -24,6 +30,12 @@ public class Employee{
     private int currentCentury = (currentYear/100)*100;
     private int lastCentury = currentCentury - 100;
     private int maxWorkYear = 80;
+
+    private static final DateTimeFormatter DATE_PARSER
+            = new DateTimeFormatterBuilder().appendPattern("yyyyMMdd")
+            .parseDefaulting(ChronoField.ERA, IsoEra.CE.getValue())
+            .toFormatter(Locale.ROOT)
+            .withResolverStyle(ResolverStyle.STRICT);
 
     public Employee(List<String> commandArguments) {
         employeeNumber = commandArguments.get(0);
@@ -180,7 +192,15 @@ public class Employee{
     }
 
     private void validateBirthday(){
+        try {
+            LocalDate.parse(birthday, DATE_PARSER);
+        } catch(Exception e) {
+            throw new RuntimeException("Employee birth day input is not valid");
+        }
 
+        if (Integer.parseInt(birthday.substring(0,4)) > currentYear) {
+            throw new RuntimeException("Employee birth day input is not valid");
+        }
     }
 
     private void validateCareerLevel(){

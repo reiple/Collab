@@ -216,5 +216,27 @@ public class EmployeeTest {
         cmdAssertionCheck(splitFailCommand3, employee, assertMsg, () -> {employee.setPhoneNumber(splitFailCommand3.get(3));});
     }
 
+    @Test
+    public void employeeBirthDayValidationTest() {
+        List<String> lengthFailCommand = Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","197712080","ADV");
+        List<String> monthFailCommand = Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771308","ADV");
+        List<String> dayFailCommand1 = Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19770230","ADV");
+        List<String> dayFailCommand2 = Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19770431","ADV");
+        List<String> yearFailCommand = Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","20231208","ADV");
+        List<String> digitFailCommand3 = Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","197a1208","ADV");
+        List<String> passCommand = Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV");
+        String assertMsg = "Employee birth day input is not valid";
+        Employee employee = new Employee(passCommand);
+
+        Assertions.assertDoesNotThrow(() -> {new Employee(passCommand);});
+
+        cmdAssertionCheck(lengthFailCommand, employee, assertMsg, () -> {employee.setBirthday(lengthFailCommand.get(4));});
+        cmdAssertionCheck(monthFailCommand, employee, assertMsg, () -> {employee.setBirthday(monthFailCommand.get(4));});
+        cmdAssertionCheck(dayFailCommand1, employee, assertMsg, () -> {employee.setBirthday(dayFailCommand1.get(4));});
+        cmdAssertionCheck(dayFailCommand2, employee, assertMsg, () -> {employee.setBirthday(dayFailCommand2.get(4));});
+        cmdAssertionCheck(yearFailCommand, employee, assertMsg, () -> {employee.setBirthday(yearFailCommand.get(4));});
+        cmdAssertionCheck(digitFailCommand3, employee, assertMsg, () -> {employee.setBirthday(digitFailCommand3.get(4));});
+    }
+
 
 }
