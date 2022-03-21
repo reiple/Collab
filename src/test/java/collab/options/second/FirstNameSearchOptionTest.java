@@ -46,7 +46,7 @@ public class FirstNameSearchOptionTest {
     };
 
     for(int index = 0; index < data.length; index++) {
-      Employee employee = new Employee(Arrays.asList("00000000", data[index], "CL1", "010-0000-0000", "000101", "ADV"));
+      Employee employee = new Employee(Arrays.asList("00000000", data[index], "CL1", "010-0000-0000", "19000101", "ADV"));
       employee.setName(data[index]);
       when(list.get(index)).thenReturn(employee);
     }

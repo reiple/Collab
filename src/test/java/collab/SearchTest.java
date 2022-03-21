@@ -145,8 +145,12 @@ class SearchTest {
     
     @Test
     public void searchTestNotFound() {
-      Employee noAnswer = new Employee(Arrays.asList("19000000","TEST TEST","CL5","010-0000-0000","19000101","TEST"));
-      assertTrue(searchTest_Total(noAnswer)==0);
+
+      Throwable exception = assertThrows(RuntimeException.class, () -> {
+        Employee noAnswer = new Employee(Arrays.asList("19000000","TEST TEST","CL5","010-0000-0000","19000101","TEST"));
+        assertTrue(searchTest_Total(noAnswer)==0);
+      });
+
     }
 }
 
