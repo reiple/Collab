@@ -1,6 +1,5 @@
 package collab.options.second;
 
-import collab.AbstractFirstOption;
 import collab.AbstractSecondOption;
 import collab.Employee;
 import collab.EmployeeDAO;
