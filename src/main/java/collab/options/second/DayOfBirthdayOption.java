@@ -1,12 +1,12 @@
 package collab.options.second;
 
-import collab.AbstractSearchOption;
+import collab.AbstractSecondOption;
 import collab.Employee;
 import collab.EmployeeDAO;
 
 import java.util.List;
 
-public class DayOfBirthdayOption extends AbstractSearchOption
+public class DayOfBirthdayOption extends AbstractSecondOption
 {
     DayOfBirthdayOption(List<String> optionArgument){
         super(optionArgument);

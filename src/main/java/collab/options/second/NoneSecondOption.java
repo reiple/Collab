@@ -1,13 +1,13 @@
 package collab.options.second;
 
-import collab.AbstractSearchOption;
+import collab.AbstractSecondOption;
 import collab.Employee;
 import collab.EmployeeDAO;
 
 import java.util.Collections;
 import java.util.List;
 
-public class NoneSecondOption  extends AbstractSearchOption {
+public class NoneSecondOption  extends AbstractSecondOption {
     NoneSecondOption(){
         super(Collections.emptyList());
     }
