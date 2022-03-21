@@ -13,17 +13,17 @@ class SearchTest {
   DataBase empDB = new DataBase();
   Employee answer;
   Employee noAnswer;
-  
+
   @BeforeEach
   public void setUp() {
     empDB.add(new Employee(Arrays.asList("15123099","VXIHXOTH JHOP","CL3","010-3112-2609","19771211","ADV")));
     empDB.add(new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO")));
     empDB.add(new Employee(Arrays.asList("18115040","TTETHU HBO","CL3","010-4581-2050","20080718", "ADV")));
-    
+
     answer = new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"));
     noAnswer = new Employee(Arrays.asList("19000000","TEST TEST","CL2","010-0000-0000","19000101","EX"));
   }
-  
+
   public int searchTest_EmployeeNum(Employee answer) {
     List<Employee> empList = empDB.searchItems("employeeNum", answer.getEmployeeNumber());
 
@@ -32,8 +32,8 @@ class SearchTest {
       return 1;
     }
     return 0;
-  }   
-  
+  }
+
   public int searchTest_Name(Employee answer) {
     List<Employee> empList = empDB.searchItems("name", answer.getName());
 
@@ -42,7 +42,7 @@ class SearchTest {
       return 1;
     }
     return 0;
-  }    
+  }
 
   public int searchTest_Cl(Employee answer) {
     List<Employee> empList = empDB.searchItems("cl", answer.getCareerLevel());
@@ -73,7 +73,7 @@ class SearchTest {
     }
     return 0;
   }
-  
+
   public int searchTest_Certi(Employee answer) {
     List<Employee> empList = empDB.searchItems("certi", answer.getCerti());
 
@@ -83,7 +83,7 @@ class SearchTest {
     }
     return 0;
   }
-  
+
   public int searchTest_Total(Employee answer) {
     return searchTest_EmployeeNum(answer)+
     searchTest_Name(answer)+
@@ -97,7 +97,7 @@ class SearchTest {
   public void searchTestFound() {
     assertTrue(searchTest_Total(answer)==6);
   }
-  
+
   @Test
   public void searchTestNotFound() {
     assertTrue(searchTest_Total(noAnswer)==0);
