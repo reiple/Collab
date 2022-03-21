@@ -57,7 +57,7 @@ class DayOfBirthdayOptionTest {
   @Test
   void testDayOfBirthDayOptionFail() {
 
-    DayOfBirthdayOption dayOfBirthdayOption = new DayOfBirthdayOption(Arrays.asList("birthday", "20220301"));
+    DayOfBirthdayOption dayOfBirthdayOption = new DayOfBirthdayOption(Arrays.asList("birthday", "02"));
     List<Employee> filteredList = dayOfBirthdayOption.getFilteredList(employeeDAO);
     assertEquals(0, filteredList.size());
 
@@ -66,7 +66,7 @@ class DayOfBirthdayOptionTest {
   @Test
   void testDayOfBirthDayOptionSuccess() {
 
-    DayOfBirthdayOption dayOfBirthdayOption = new DayOfBirthdayOption(Arrays.asList("birthday", "19911021"));
+    DayOfBirthdayOption dayOfBirthdayOption = new DayOfBirthdayOption(Arrays.asList("birthday", "21"));
     List<Employee> filteredList = dayOfBirthdayOption.getFilteredList(employeeDAO);
     assertEquals(2, filteredList.size());
 
