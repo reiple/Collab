@@ -63,7 +63,7 @@ public class YearOfBirthdayOptionTest {
 
   @Test
   void testYearOfBirthdaySearchSuccess() {
-    YearOfBirthdayOption yearOfBirthdayOption = new YearOfBirthdayOption(Arrays.asList("birthday", "1999"));
+    YearOfBirthdayOption yearOfBirthdayOption = new YearOfBirthdayOption(Arrays.asList("birthday", "1991"));
     List<Employee> filteredList = yearOfBirthdayOption.getFilteredList(employeeDAO);
     assertEquals(2, filteredList.size());
 
