@@ -7,7 +7,8 @@ import collab.EmployeeDAO;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LastNameOption extends AbstractSecondOption {
+public class LastNameOption extends AbstractSecondOption
+{
     LastNameOption(List<String> optionArgument){
         super(optionArgument);
     }

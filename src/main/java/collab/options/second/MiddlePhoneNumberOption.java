@@ -1,14 +1,12 @@
 package collab.options.second;
 
-import collab.AbstractSecondOption;
+import collab.AbstractSearchOption;
 import collab.Employee;
 import collab.EmployeeDAO;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class MiddlePhoneNumberOption extends AbstractSecondOption
+public class MiddlePhoneNumberOption extends AbstractSearchOption
 {
     MiddlePhoneNumberOption(List<String> optionArgument){
         super(optionArgument);

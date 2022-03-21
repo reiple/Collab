@@ -4,12 +4,12 @@ import java.util.List;
 
 public abstract class AbstractCommand implements ICommand{
     private AbstractFirstOption option1;
-    private AbstractSecondOption option2;
+    private AbstractSearchOption option2;
     private AbstractThirdOption option3;
     private List<String> commandArguments;
 
 
-    public AbstractCommand(AbstractFirstOption option1, AbstractSecondOption option2, AbstractThirdOption option3, List<String> commandArguments){
+    public AbstractCommand(AbstractFirstOption option1, AbstractSearchOption option2, AbstractThirdOption option3, List<String> commandArguments){
         this.option1 = option1;
         this.option2 = option2;
         this.option3 = option3;
@@ -20,7 +20,7 @@ public abstract class AbstractCommand implements ICommand{
         return this.option1;
     }
 
-    public AbstractSecondOption getSecondOption(){
+    public AbstractSearchOption getSecondOption(){
         return this.option2;
     }
 
