@@ -1,10 +1,14 @@
 package collab;
 
+import collab.options.first.NoneFirstOption;
+import collab.options.second.NoneSecondOption;
+import collab.options.third.NoneThirdOption;
+
 import java.util.List;
 
 public class AddCommand extends AbstractCommand{
-    AddCommand(AbstractFirstOption option1, AbstractSecondOption option2, AbstractThirdOption option3, List<String> commandArguments) {
-        super(option1, option2, option3, commandArguments);
+    public AddCommand(List<String> commandArguments) {
+        super(new NoneFirstOption(), new NoneSecondOption(), new NoneThirdOption(), commandArguments);
     }
 
     @Override
