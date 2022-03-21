@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -128,6 +129,21 @@ public class EmployeeTest {
         assertEquals(certi, "PRO");
     }
 
+//    private static void cmdAssertionCheck(List<String> cmd, int cmdIndex, Employee employee, String assertMsg){
+//        Throwable exceptionhCreate = Assertions.assertThrows(RuntimeException.class, () -> {new Employee(cmd);});
+//        Throwable exceptionSet = Assertions.assertThrows(RuntimeException.class, () -> {employee.setEmployeeNumber(cmd.get(cmdIndex));});
+//
+//        assertEquals(assertMsg, exceptionhCreate.getMessage());
+//        assertEquals(assertMsg, exceptionSet.getMessage());
+//    }
+
+    private static void cmdAssertionCheck(List<String> cmd, Employee employee, String assertMsg, Executable executable){
+        Throwable exceptionhCreate = Assertions.assertThrows(RuntimeException.class, () -> {new Employee(cmd);});
+        Throwable exceptionSet = Assertions.assertThrows(RuntimeException.class, executable);
+
+        assertEquals(assertMsg, exceptionhCreate.getMessage());
+        assertEquals(assertMsg, exceptionSet.getMessage());
+    }
 
     @Test
     public void employeeNumberValidationTest() {
@@ -135,23 +151,38 @@ public class EmployeeTest {
         List<String> stringEmployeeNumCommand = Arrays.asList("9A12B099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV");
         List<String> rangeFailCommand = Arrays.asList("25123099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV");
         List<String> passCommand = Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV");
+        String assertMsg = "Employee number input is not valid";
         Employee employee = new Employee(passCommand);
 
         Assertions.assertDoesNotThrow(() -> {new Employee(passCommand);});
 
-        Throwable exceptionLengthCreate = Assertions.assertThrows(RuntimeException.class, () -> {new Employee(lengthFailCommand);});
-        Throwable exceptionLengthSet = Assertions.assertThrows(RuntimeException.class, () -> {employee.setEmployeeNumber("9912B09999");});
-        Throwable exceptionDigitCreate = Assertions.assertThrows(RuntimeException.class, () -> {new Employee(stringEmployeeNumCommand);});
-        Throwable exceptionDigitSet = Assertions.assertThrows(RuntimeException.class, () -> {employee.setEmployeeNumber("9A12B099");});
-        Throwable exceptionRangeCreate = Assertions.assertThrows(RuntimeException.class, () -> {new Employee(rangeFailCommand);});
-        Throwable exceptionRangeSet = Assertions.assertThrows(RuntimeException.class, () -> {employee.setEmployeeNumber("25123099");});
+        cmdAssertionCheck(lengthFailCommand, employee, assertMsg, () -> {employee.setEmployeeNumber(lengthFailCommand.get(0));});
+        cmdAssertionCheck(stringEmployeeNumCommand, employee, assertMsg, () -> {employee.setEmployeeNumber(stringEmployeeNumCommand.get(0));});
+        cmdAssertionCheck(rangeFailCommand, employee, assertMsg, () -> {employee.setEmployeeNumber(rangeFailCommand.get(0));});
+    }
 
-        assertEquals("Employee number input is not valid", exceptionLengthCreate.getMessage());
-        assertEquals("Employee number input is not valid", exceptionLengthSet.getMessage());
-        assertEquals("Employee number input is not valid", exceptionDigitCreate.getMessage());
-        assertEquals("Employee number input is not valid", exceptionDigitSet.getMessage());
-        assertEquals("Employee number input is not valid", exceptionRangeCreate.getMessage());
-        assertEquals("Employee number input is not valid", exceptionRangeSet.getMessage());
+    @Test
+    public void employeeNameValidationTest() {
+        List<String> lengthFailCommand = Arrays.asList("99123099","TTETHU HBOHBOHBO","CL4","010-4528-3059","19771208","ADV");
+        List<String> koreanNameCommand = Arrays.asList("99123099","박 대영","CL4","010-4528-3059","19771208","ADV");
+        List<String> lowerCaseFailCommand = Arrays.asList("99123099","ttethu HBO","CL4","010-4528-3059","19771208","ADV");
+        List<String> numberFailCommand = Arrays.asList("99123099","TT1THU HBO","CL4","010-4528-3059","19771208","ADV");
+        List<String> spaceFailCommand1 = Arrays.asList("99123099","TTTHUHBO","CL4","010-4528-3059","19771208","ADV");
+        List<String> spaceFailCommand2 = Arrays.asList("99123099","TTETHU  HBO","CL4","010-4528-3059","19771208","ADV");
+        List<String> spaceFailCommand3 = Arrays.asList("99123099","TTETHU HBO HBO","CL4","010-4528-3059","19771208","ADV");
+        List<String> passCommand = Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV");
+        String assertMsg = "Employee name input is not valid";
+        Employee employee = new Employee(passCommand);
+
+        Assertions.assertDoesNotThrow(() -> {new Employee(passCommand);});
+
+        cmdAssertionCheck(lengthFailCommand, employee, assertMsg, () -> {employee.setName(lengthFailCommand.get(0));});
+        cmdAssertionCheck(koreanNameCommand, employee, assertMsg, () -> {employee.setName(koreanNameCommand.get(0));});
+        cmdAssertionCheck(lowerCaseFailCommand, employee, assertMsg, () -> {employee.setName(lowerCaseFailCommand.get(0));});
+        cmdAssertionCheck(numberFailCommand, employee, assertMsg, () -> {employee.setName(numberFailCommand.get(0));});
+        cmdAssertionCheck(spaceFailCommand1, employee, assertMsg, () -> {employee.setName(spaceFailCommand1.get(0));});
+        cmdAssertionCheck(spaceFailCommand2, employee, assertMsg, () -> {employee.setName(spaceFailCommand2.get(0));});
+        cmdAssertionCheck(spaceFailCommand3, employee, assertMsg, () -> {employee.setName(spaceFailCommand3.get(0));});
 
     }
 

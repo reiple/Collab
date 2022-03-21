@@ -128,6 +128,16 @@ public class Employee{
         return true;
     }
 
+    static boolean isUpper(String str){
+        for (int i=0; i <str.length(); i++){
+            if(!Character.isUpperCase(str.charAt(i))){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     boolean isValidEmployeeYear(String str){
         int employeeNumberYear = Integer.parseInt(str.substring(0,2));
         int realEmployeeYear = convertRealEmployeeYear(employeeNumberYear);
@@ -145,7 +155,15 @@ public class Employee{
     }
 
     private void validateName(){
+        if (name.length() > 15 || name.split(" ").length != 2){
+            throw new RuntimeException("Employee name input is not valid");
+        }
 
+        for (int i=0; i<2; i++){
+            if (!isUpper(name.split(" ")[i])){
+                throw new RuntimeException("Employee name input is not valid");
+            }
+        }
     }
 
     private void validateBirthday(){
