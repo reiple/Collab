@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import main.java.collab.DataBase;
-import main.java.collab.Employee;
+import collab.DataBase;
+import collab.Employee;
 
 class ModifyTest {
   
