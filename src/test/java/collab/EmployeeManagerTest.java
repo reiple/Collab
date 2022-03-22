@@ -31,7 +31,7 @@ public class EmployeeManagerTest {
 
 
     @BeforeEach
-    public void initStringList(){
+    public void initStringList() throws Exception{
         commandStringList1 = Arrays.asList(
                 "ADD, , , ,18117906,TWU QSOLT,CL4,010-6672-7186,20030413,PRO",
                 "SCH,-p,-d, ,birthday,04",
@@ -152,9 +152,7 @@ public class EmployeeManagerTest {
         assertTrue(new File(filePath).exists());
         EmployeeManager employeeManager = new EmployeeManager();
 
-        // TODO: FileManager 구현되면 바꿔야 함
-        //List<String> commandStringList = employeeManager.loadCommandStringListFromFile(filePath);
-        List<String> commandStringList = tempEmployeeManager.loadCommandStringListFromFile(filePath);
+        List<String> commandStringList = employeeManager.loadCommandStringListFromFile(filePath);
         assertTrue(commandStringList.size() == 40);
         commandStringList.get(0).equals("ADD, , , ,15123099,VXIHXOTH JHOP,CL3,010-3112-2609,19771211,ADV");
         commandStringList.get(39).equals("SCH, , , ,name,FB NTAWR");
@@ -169,9 +167,7 @@ public class EmployeeManagerTest {
 
         EmployeeManager employeeManager = new EmployeeManager();
 
-        // TODO: FileManager 구현되면 바꿔야 함
-        //List<String> commandStringList = employeeManager.loadCommandStringListFromFile(inFilePath);
-        List<String> commandStringList = tempEmployeeManager.loadCommandStringListFromFile(inFilePath);
+                List<String> commandStringList = employeeManager.loadCommandStringListFromFile(inFilePath);
         List<ICommand> commandList = employeeManager.parseCommandList(commandStringList);
         String executionResult = employeeManager.executeCommandList(commandList);
         employeeManager.saveExecutionResultToFile(employeeManagerFileToFileTestFilePath, executionResult);
