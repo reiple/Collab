@@ -1,5 +1,5 @@
 package collab;
 
 public interface ICommand {
-    String executeCommand(EmployeeDAO dao);
+    String executeCommand(IDAO dao);
 }

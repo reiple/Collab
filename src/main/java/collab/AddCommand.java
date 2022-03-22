@@ -12,7 +12,7 @@ public class AddCommand extends AbstractCommand{
     }
 
     @Override
-    public String executeCommand(EmployeeDAO dao) {
+    public String executeCommand(IDAO dao) {
         return null;
     }
 }

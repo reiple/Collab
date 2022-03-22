@@ -8,12 +8,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class NoneSecondOption  extends AbstractSecondOption {
-    public NoneSecondOption(){
-        super(Collections.emptyList());
-    }
-    public NoneSecondOption(List<String> optionArgument){
-        super(optionArgument);
-    }
+    public NoneSecondOption(){ super(Collections.emptyList()); }
+    public NoneSecondOption(List<String> commandArguments) { super(commandArguments); }
 
     @Override
     public List<Employee> getFilteredList(EmployeeDAO DAO) {
