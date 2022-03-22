@@ -80,14 +80,15 @@ public class SearchCommandCareerLevelTest {
         new PrintOption(), new NoneSecondOption(Arrays.asList("cl", "CL4")));
 
     String[][] data = {
-        {"01122329", "DN WD", "CL4", "010-7174-5680", "20071117", "PRO"},
-        {"99117175", "FIRST LDEXRI", "CL4", "010-2814-1699", "19950704", "ADV"}
+        {"99117175", "FIRST LDEXRI", "CL4", "010-2814-1699", "19950704", "ADV"},
+        {"01122329", "DN WD", "CL4", "010-7174-5680", "20071117", "PRO"}
+
     };
 
     String result = command.executeCommand(employeeDAO);
 
     assertEquals(
-        "01122329,DN WD,CL4,010-7174-5680,20071117,PRO\n99117175,FIRST LDEXRI,CL4,010-2814-1699,19950704,ADV",
+        "99117175,FIRST LDEXRI,CL4,010-2814-1699,19950704,ADV\n01122329,DN WD,CL4,010-7174-5680,20071117,PRO",
         result);
 
   }

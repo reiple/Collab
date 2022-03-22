@@ -46,6 +46,11 @@ public class SearchCommand extends AbstractCommand{
                     .filter(item -> item.getName().equals(getSecondOption().getSearchValue()))
                     .collect(Collectors.toList());
                 break;
+            case "cl":
+                list = employeeDAO.getAllItems().stream()
+                    .filter(item -> item.getCareerLevel().equals(getSecondOption().getSearchValue()))
+                    .collect(Collectors.toList());
+                break;
         }
         return list;
     }
