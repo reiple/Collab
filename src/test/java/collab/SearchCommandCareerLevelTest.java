@@ -17,18 +17,17 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SearchCommandCareerLevelTest {
 
   private EmployeeDAO employeeDAO;
+  private String[][] data = {
+      {"01122329", "DN WD", "CL4", "010-7174-5680", "20071117", "PRO"},
+      {"99117175", "FIRST LDEXRI", "CL4", "010-2814-1699", "19950704", "ADV"},
+      {"03113260", "FIRST LTUPF", "CL2", "010-5798-5383", "19791018", "PRO"},
+  };
 
-  @BeforeEach
+
   void setup() {
 
     employeeDAO = mock(EmployeeDAO.class);
     List<Employee> list = new ArrayList<>();
-
-    String[][] data = {
-        {"01122329", "DN WD", "CL4", "010-7174-5680", "20071117", "PRO"},
-        {"99117175", "FIRST LDEXRI", "CL4", "010-2814-1699", "19950704", "ADV"},
-        {"03113260", "FIRST LTUPF", "CL2", "010-5798-5383", "19791018", "PRO"},
-    };
 
     for(String[] employeeData: data) {
       Employee employee = new Employee(Arrays.asList(employeeData));
@@ -36,6 +35,17 @@ public class SearchCommandCareerLevelTest {
 
     }
     when(employeeDAO.getAllItems()).thenReturn(list);
+
+  }
+
+  @BeforeEach
+  void setupDAO() throws Exception {
+    employeeDAO = new EmployeeDAO();
+    employeeDAO.initDatabase();
+
+    for (String[] employeeData : data) {
+      employeeDAO.addItemFromStringTokens(Arrays.asList(employeeData));
+    }
 
   }
 
