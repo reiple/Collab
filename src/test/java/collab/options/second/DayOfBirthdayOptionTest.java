@@ -16,9 +16,11 @@ class DayOfBirthdayOptionTest {
   private EmployeeDAO employeeDAO;
 
   @BeforeEach
-  void setup() {
+  void setup() throws Exception {
 
-    employeeDAO = mock(EmployeeDAO.class);
+    //employeeDAO = mock(EmployeeDAO.class);
+    employeeDAO = new EmployeeDAO();
+    employeeDAO.initDatabase();
     List<Employee> list = new ArrayList<>();
 
     String[][] data = {
@@ -46,11 +48,12 @@ class DayOfBirthdayOptionTest {
     };
 
     for(String[] employeeData: data) {
-      Employee employee = new Employee(Arrays.asList(employeeData));
-      list.add(employee);
+      //Employee employee = new Employee(Arrays.asList(employeeData));
+      //list.add(employee);
+      employeeDAO.addItemFromStringTokens(Arrays.asList(employeeData));
 
     }
-    when(employeeDAO.getAllItems()).thenReturn(list);
+    //when(employeeDAO.getAllItems()).thenReturn(list);
 
   }
 

@@ -55,7 +55,7 @@ public class SearchCommandCareerLevelTest {
         new NoneFirstOption(), new EmptySecondOption(Arrays.asList("cl", "CL1")));
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("0", result);
+    assertEquals("SCH,NONE", result);
 
   }
 
@@ -70,7 +70,7 @@ public class SearchCommandCareerLevelTest {
     };
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("2", result);
+    assertEquals("SCH,2", result);
 
   }
 
@@ -80,7 +80,7 @@ public class SearchCommandCareerLevelTest {
         new PrintOption(), new EmptySecondOption(Arrays.asList("cl", "CL1")));
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("NONE", result);
+    assertEquals("SCH,NONE", result);
 
   }
 

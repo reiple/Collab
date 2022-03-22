@@ -78,7 +78,8 @@ public class CommandParserTest {
         CommandParser commandParser = new CommandParser();
         ICommand cmd = commandParser.parseToCommand(deletePassString);
         assertTrue(cmd instanceof DeleteCommand);
-        assertTrue(((DeleteCommand) cmd).getFirstOption() instanceof EmptyFirstOption);
+        //assertTrue(((DeleteCommand) cmd).getFirstOption() instanceof EmptyFirstOption);
+        assertTrue(((DeleteCommand) cmd).getFirstOption() instanceof NoneFirstOption);
         assertTrue(((DeleteCommand) cmd).getSecondOption() instanceof EmptySecondOption);
         assertTrue(((DeleteCommand) cmd).getThirdOption() instanceof NoneThirdOption);
         assertEquals(((DeleteCommand) cmd).getSecondOption().getSearchColumn(), "name");
@@ -91,7 +92,8 @@ public class CommandParserTest {
         CommandParser commandParser = new CommandParser();
         ICommand cmd = commandParser.parseToCommand(deletePassString);
         assertTrue(cmd instanceof DeleteCommand);
-        assertTrue(((DeleteCommand) cmd).getFirstOption() instanceof EmptyFirstOption);
+        //assertTrue(((DeleteCommand) cmd).getFirstOption() instanceof EmptyFirstOption);
+        assertTrue(((DeleteCommand) cmd).getFirstOption() instanceof NoneFirstOption);
         assertTrue(((DeleteCommand) cmd).getSecondOption() instanceof LastNameOption);
         assertTrue(((DeleteCommand) cmd).getThirdOption() instanceof NoneThirdOption);
         assertEquals(((DeleteCommand) cmd).getSecondOption().getSearchColumn(), "name");
@@ -124,7 +126,8 @@ public class CommandParserTest {
         CommandParser commandParser = new CommandParser();
         ICommand cmd = commandParser.parseToCommand(searchPassString);
         assertTrue(cmd instanceof SearchCommand);
-        assertTrue(((SearchCommand) cmd).getFirstOption() instanceof EmptyFirstOption);
+        //assertTrue(((SearchCommand) cmd).getFirstOption() instanceof EmptyFirstOption);
+        assertTrue(((SearchCommand) cmd).getFirstOption() instanceof NoneFirstOption);
         assertTrue(((SearchCommand) cmd).getSecondOption() instanceof EmptySecondOption);
         assertTrue(((SearchCommand) cmd).getThirdOption() instanceof NoneThirdOption);
         assertEquals(((SearchCommand) cmd).getSecondOption().getSearchColumn(), "name");
@@ -137,7 +140,8 @@ public class CommandParserTest {
         CommandParser commandParser = new CommandParser();
         ICommand cmd = commandParser.parseToCommand(searchPassString);
         assertTrue(cmd instanceof SearchCommand);
-        assertTrue(((SearchCommand) cmd).getFirstOption() instanceof EmptyFirstOption);
+        //assertTrue(((SearchCommand) cmd).getFirstOption() instanceof EmptyFirstOption);
+        assertTrue(((SearchCommand) cmd).getFirstOption() instanceof NoneFirstOption);
         assertTrue(((SearchCommand) cmd).getSecondOption() instanceof LastNameOption);
         assertTrue(((SearchCommand) cmd).getThirdOption() instanceof NoneThirdOption);
         assertEquals(((SearchCommand) cmd).getSecondOption().getSearchColumn(), "name");
@@ -170,7 +174,8 @@ public class CommandParserTest {
         CommandParser commandParser = new CommandParser();
         ICommand cmd = commandParser.parseToCommand(modifyPassString);
         assertTrue(cmd instanceof ModifyCommand);
-        assertTrue(((ModifyCommand) cmd).getFirstOption() instanceof EmptyFirstOption);
+        //assertTrue(((ModifyCommand) cmd).getFirstOption() instanceof EmptyFirstOption);
+        assertTrue(((ModifyCommand) cmd).getFirstOption() instanceof NoneFirstOption);
         assertTrue(((ModifyCommand) cmd).getSecondOption() instanceof EmptySecondOption);
         assertTrue(((ModifyCommand) cmd).getThirdOption() instanceof NoneThirdOption);
         assertEquals(((ModifyCommand) cmd).getSecondOption().getSearchColumn(), "cl");

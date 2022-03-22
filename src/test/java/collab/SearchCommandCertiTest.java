@@ -59,7 +59,7 @@ class SearchCommandCertiTest {
         new NoneFirstOption(), new EmptySecondOption(Arrays.asList("certi", "EX")));
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("0", result);
+    assertEquals("SCH,NONE", result);
 
   }
 
@@ -79,7 +79,7 @@ class SearchCommandCertiTest {
     };
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("" + data.length, result);
+    assertEquals("SCH," + data.length, result);
 
   }
 
@@ -89,7 +89,7 @@ class SearchCommandCertiTest {
         new PrintOption(), new EmptySecondOption(Arrays.asList("certi", "EX")));
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("NONE", result);
+    assertEquals("SCH,NONE", result);
 
   }
 

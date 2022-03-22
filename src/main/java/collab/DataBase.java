@@ -22,11 +22,11 @@ public class DataBase {
     registerEmployeeNum.add(employee.getEmployeeNumber());
     employeeData.add(employee);
   }
-  
-  
+
+
   public Employee searchItem(String id) {
-    List<Employee> foundItems = searchItems("employeeNum", id); 
-    if(foundItems.size()==0) return null;
+    List<Employee> foundItems = searchItems("employeeNum", id);
+    if(foundItems.isEmpty()) return null;
     return foundItems.get(0);
   }
 
@@ -39,7 +39,7 @@ public class DataBase {
   public Employee modifyItem(Employee employee) {
     Employee foundItem = searchItem(employee.getEmployeeNumber());
     if(foundItem == null) return null;
-    
+
     Employee returnItem = makeEmployee(foundItem);
     foundItem = employee;
     return returnItem;
@@ -47,7 +47,7 @@ public class DataBase {
   
   public Employee modifyItemById(String id, String field, String value) {
     List<Employee> foundItems = modifyItemByCondition("employeeNum", id, field, value);
-    if(foundItems.size()==0) return null;
+    if(foundItems.isEmpty()) return null;
     return foundItems.get(0);
   }
   
@@ -59,7 +59,7 @@ public class DataBase {
       returnItems.add(makeEmployee(employee));
       employee.setField(cField, cValue);
     }
-    
+
     return returnItems;
   }
   
@@ -69,8 +69,8 @@ public class DataBase {
 
   public Employee deleteItemById(String id) {
     List<Employee> foundItems = deleteItemByCondition("employeeNum", id);
-    if(foundItems.size()==0) return null;
-    return deleteItemByCondition("employeeNum", id).get(0);
+    if(foundItems.isEmpty()) return null;
+    return foundItems.get(0);
   }
   
   public List<Employee> deleteItemByCondition(String field, String value) {
@@ -82,7 +82,7 @@ public class DataBase {
       registerEmployeeNum.remove(employee.getEmployeeNumber());
       employeeData.remove(employee);
     }
-    
+
     return returnItems;
   }
    

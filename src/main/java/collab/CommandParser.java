@@ -86,7 +86,8 @@ public class CommandParser {
     private AbstractFirstOption getFirstOptionFromToken(String[] tokenList){
         String firstOption = tokenList[1];
         if (firstOption.equals("-p")) return new PrintOption();
-        return new EmptyFirstOption();
+        //return new EmptyFirstOption();
+        return new NoneFirstOption();
     }
 
     private AbstractSecondOption getSecondOptionFromToken(String[] tokenList){
@@ -110,7 +111,7 @@ public class CommandParser {
         String command = tokenList[0];
         if (command.equals(ADD_COMMAND)) return new AddCommand(Arrays.asList(Arrays.copyOfRange(tokenList, 4, ADD_CMD_LENGTH)));
         if (command.equals(SEARCH_COMMAND)) return new SearchCommand(FirstOption, SecondOption);
-        if (command.equals(MODIFY_COMMAND)) return new ModifyCommand(FirstOption, SecondOption, Arrays.asList(Arrays.copyOfRange(tokenList, 6, MOD_CMD_LENGTH-1)));
+        if (command.equals(MODIFY_COMMAND)) return new ModifyCommand(FirstOption, SecondOption, Arrays.asList(Arrays.copyOfRange(tokenList, 6, MOD_CMD_LENGTH)));
         if (command.equals(DELETE_COMMAND)) return new DeleteCommand(FirstOption, SecondOption);
         throw new Exception(ERR_MSG_CMD_INVALID);
     }

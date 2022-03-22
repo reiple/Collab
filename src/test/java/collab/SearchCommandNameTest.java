@@ -5,15 +5,13 @@ import static org.mockito.Mockito.when;
 
 import collab.options.first.NoneFirstOption;
 import collab.options.first.PrintOption;
+import collab.options.second.EmptySecondOption;
 import collab.options.second.FirstNameOption;
 import collab.options.second.LastNameOption;
-import collab.options.second.NoneSecondOption;
-import collab.options.third.NoneThirdOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -75,140 +73,59 @@ class SearchCommandNameTest {
   }
 
   @Test
-  void testMakeResultString() {
-    String[][] data = {
-        {"88114052", "NQ LVARW", "CL4", "010-4528-3059", "19911021", "PRO"}
-    };
-
-    String result = makeResultString("SCH", data);
-
-    // TODO: 리턴에 명령어 포함일 경우, 이 부분 수정해야 함
-    //assertEquals("SCH,88114052,NQ LVARW,CL4,010-4528-3059,19911021,PRO", result);
-    assertEquals("88114052,NQ LVARW,CL4,010-4528-3059,19911021,PRO", result);
-
-  }
-
-  @Test
-  void testMakeResultStringMultiple() {
-    String[][] data = {
-        {"88114052", "NQ LVARW", "CL4", "010-4528-3059", "19911021", "PRO"},
-        {"85125741", "FBAH RTIJ", "CL1", "010-8900-1478", "19780228", "ADV"}
-    };
-
-    String result = makeResultString("SCH", data);
-//    assertEquals(
-//        "SCH,88114052,NQ LVARW,CL4,010-4528-3059,19911021,PRO"
-//            + System.lineSeparator()
-//            + "SCH,85125741,FBAH RTIJ,CL1,010-8900-1478,19780228,ADV"
-//        , result);
-
-    // TODO: 개행문자 변경 시, 이 부분 수정해야 함
-    // TODO: 리턴에 명령어 포함일 경우, 이 부분 수정해야 함
-    assertEquals(
-        "88114052,NQ LVARW,CL4,010-4528-3059,19911021,PRO"
-            + System.lineSeparator()
-            + "85125741,FBAH RTIJ,CL1,010-8900-1478,19780228,ADV"
-        , result);
-  }
-
-  private String makeResultString(String command, String[][] data) {
-
-    // TODO: 리턴에 명령어 포함일 경우, 이 부분 수정해야 함
-    boolean needCommand = false;
-    boolean needLastNewLine = false;
-    boolean useSystemNewLine = true;
-
-    StringBuilder builder = new StringBuilder();
-    for(int next = 0; next < data.length; next++) {
-      String[] employeeData = data[next];
-
-      if(needCommand) {
-        builder.append(command);
-        builder.append(",");
-      }
-
-      for (int index = 0; index < employeeData.length; index++) {
-        builder.append(employeeData[index]);
-        if (index == employeeData.length - 1) {
-          break;
-        }
-        builder.append(",");
-      }
-
-      if(!needLastNewLine) {
-        if(next == data.length - 1) {
-          break;
-        }
-      }
-
-      if(useSystemNewLine) {
-        builder.append(System.lineSeparator());
-      } else {
-        builder.append("\n");
-      }
-
-
-    }
-
-    return builder.toString();
-  }
-
-  @Test
   void testSearchNameFail() throws Exception {
 
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new NoneSecondOption(Arrays.asList("name", "KYUMOK KIM")));
+        new NoneFirstOption(), new EmptySecondOption(Arrays.asList("name", "KYUMOK KIM")));
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("0", result);
+    assertEquals("SCH,NONE", result);
   }
 
-  @Disabled
   @Test
   void testSearchNameSuccess() throws Exception {
 
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new NoneSecondOption(Arrays.asList("name", "DN WD")));
+        new NoneFirstOption(), new EmptySecondOption(Arrays.asList("name", "DN WD")));
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("1", result);
+    assertEquals("SCH,1", result);
   }
 
   @Test
   void testSearchNamePrintFail() throws Exception {
 
     ICommand command = new SearchCommand(
-        new PrintOption(), new NoneSecondOption(Arrays.asList("name", "TEST CASE")));
+        new PrintOption(), new EmptySecondOption(Arrays.asList("name", "TEST CASE")));
 
     String result = command.executeCommand(employeeDAO);
 
-    assertEquals("NONE", result);
+    assertEquals("SCH,NONE", result);
 
   }
 
-  @Disabled
   @Test
   void testSearchNamePrintSuccess() throws Exception {
 
     ICommand command = new SearchCommand(
-        new PrintOption(), new NoneSecondOption(Arrays.asList("name", "DN WD")));
+        new PrintOption(), new EmptySecondOption(Arrays.asList("name", "DN WD")));
 
     String result = command.executeCommand(employeeDAO);
 
     String[][] data = {
         {"01122329", "DN WD", "CL4", "010-7174-5680", "20071117", "PRO"}
     };
-    assertEquals(makeResultString("SCH", data), result);
+    assertEquals(ResultStringMaker.makeResultString("SCH", data), result);
   }
 
   @Test
   void testSearchFirstNameFail() throws Exception {
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new NoneSecondOption(Arrays.asList("name", "TESTER")));
+        new NoneFirstOption(), new EmptySecondOption(Arrays.asList("name", "TESTER")));
 
     String result = command.executeCommand(employeeDAO);
 
-    assertEquals("0", result);
+    assertEquals("SCH,NONE", result);
   }
 
   @Test
@@ -216,7 +133,7 @@ class SearchCommandNameTest {
     ICommand command = new SearchCommand(
         new NoneFirstOption(), new FirstNameOption(Arrays.asList("name", "DN")));
     String result = command.executeCommand(employeeDAO);
-    assertEquals("1", result);
+    assertEquals("SCH,1", result);
   }
 
   @Test
@@ -225,7 +142,7 @@ class SearchCommandNameTest {
         new PrintOption(), new FirstNameOption(Arrays.asList("name", "TESTER")));
     String result = command.executeCommand(employeeDAO);
 
-    assertEquals("NONE", result);
+    assertEquals("SCH,NONE", result);
 
   }
 
@@ -238,7 +155,7 @@ class SearchCommandNameTest {
     String[][] data = {
         {"01122329", "DN WD", "CL4", "010-7174-5680", "20071117", "PRO"}
     };
-    assertEquals(makeResultString("SCH", data), result);
+    assertEquals(ResultStringMaker.makeResultString("SCH", data), result);
   }
 
 
@@ -258,7 +175,7 @@ class SearchCommandNameTest {
         {"08117441", "FIRST MPOSXU", "CL3", "010-2703-3153", "20010215", "ADV"},
         {"08123556", "FIRST XV", "CL1", "010-7986-5047", "20100614", "PRO"}
     };
-    assertEquals("6", result);
+    assertEquals("SCH,6", result);
   }
 
   @Test
@@ -277,7 +194,7 @@ class SearchCommandNameTest {
         // MAX 5
         //{"08123556", "FIRST XV", "CL1", "010-7986-5047", "20100614", "PRO"}
     };
-    assertEquals(makeResultString("SCH", data), result);
+    assertEquals(ResultStringMaker.makeResultString("SCH", data), result);
   }
 
   @Test
@@ -286,7 +203,7 @@ class SearchCommandNameTest {
         new NoneFirstOption(), new LastNameOption(Arrays.asList("name", "TESTER")));
     String result = command.executeCommand(employeeDAO);
 
-    assertEquals("0", result);
+    assertEquals("SCH,NONE", result);
   }
 
   @Test
@@ -295,7 +212,7 @@ class SearchCommandNameTest {
         new NoneFirstOption(), new LastNameOption(Arrays.asList("name", "WD")));
     String result = command.executeCommand(employeeDAO);
 
-    assertEquals("1", result);
+    assertEquals("SCH,1", result);
   }
 
   @Test
@@ -304,7 +221,7 @@ class SearchCommandNameTest {
         new PrintOption(), new LastNameOption(Arrays.asList("name", "TESTER")));
     String result = command.executeCommand(employeeDAO);
 
-    assertEquals("NONE", result);
+    assertEquals("SCH,NONE", result);
 
   }
 
@@ -317,7 +234,7 @@ class SearchCommandNameTest {
     String[][] data = {
         {"01122329", "DN WD", "CL4", "010-7174-5680", "20071117", "PRO"}
     };
-    assertEquals(makeResultString("SCH", data), result);
+    assertEquals(ResultStringMaker.makeResultString("SCH", data), result);
   }
 
   @Test
@@ -336,7 +253,7 @@ class SearchCommandNameTest {
         {"88114057", "EREBB LVARW", "CL3", "010-4228-3059", "19911021", "PRO"},
         {"00114058", "QQWE LVARW", "CL4", "010-4328-3059", "19911021", "PRO"}
     };
-    assertEquals("7", result);
+    assertEquals("SCH,7", result);
   }
 
   @Test
@@ -356,7 +273,7 @@ class SearchCommandNameTest {
         //{"00114058", "QQWE LVARW", "CL4", "010-4328-3059", "19911021", "PRO"},
         //{"01114052", "ABCE LVARW", "CL4", "010-1528-3059", "19911021", "PRO"},
     };
-    assertEquals(makeResultString("SCH", data), result);
+    assertEquals(ResultStringMaker.makeResultString("SCH", data), result);
   }
 
 
