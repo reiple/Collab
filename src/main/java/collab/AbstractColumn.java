@@ -2,7 +2,7 @@ package collab;
 
 import java.util.ArrayList;
 import java.util.List;
-import main.java.collab.Employee;
+import collab.Employee;
 
 public abstract class AbstractColumn {
   protected String value;
