@@ -4,96 +4,101 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import collab.Employee;
+import collab.columnList.Birthday;
+import collab.columnList.Certi;
+import collab.columnList.Cl;
+import collab.columnList.EmployeeNum;
+import collab.columnList.Name;
+import collab.columnList.PhoneNum;
 
 public class DataBase {
-  ArrayList<Employee> empList = new ArrayList<Employee>();
-    
-    public void addEmployee(List<String> employee) {
-      empList.add(new Employee(employee));        
-    }
-    
-    public ArrayList<Employee> searchEmployee(String searchOption, String searchColumn, String searchData) {    
-      ArrayList<Employee> result = new ArrayList<>();
-      result.addAll(empList.stream().filter(employee -> isFound(employee, searchOption, searchColumn, searchData))
-                   .collect(Collectors.toList()));
-      return result;
-    }
+  private ArrayList<Employee> employeeData = new ArrayList<Employee>();
+  
+  public ArrayList<Employee> getEmployeeAllData() {
+    return employeeData;
+  }
+  
+  public void add(Employee employee) {
+    employeeData.add(employee);        
+  }
+  
+  
+  public Employee searchItem(String id) {
+    return searchItems("employeeNum", id).get(0);
+  }
 
-    private boolean isFound(Employee employee, String searchOption, String searchColumn, String searchData) {
-      switch(searchColumn) {
-        case "employeeNum": return isFoundEmployeeNum(employee, searchData);
-        case "name": return isFoundName(employee, searchOption, searchData);
-        case "cl": return isFoundCarrarLevel(employee, searchOption, searchData);
-        case "phoneNum": return isFoundPhoneNumber(employee, searchOption, searchData);
-        case "birthday": return isFoundBirthday(employee, searchOption, searchData);
-        case "certi": return isFoundCerti(employee, searchOption, searchData);
-      }
-      return false;
+  public List<Employee> searchItems(String field, String value) {    
+    switch(field) {
+      case "employeeNum": return (new EmployeeNum(value)).getFilteredList(employeeData); 
+      case "name": return (new Name(value)).getFilteredList(employeeData); 
+      case "cl": return (new Cl(value)).getFilteredList(employeeData); 
+      case "phoneNum": return (new PhoneNum(value)).getFilteredList(employeeData); 
+      case "birthday": return (new Birthday(value)).getFilteredList(employeeData); 
+      case "certi": return (new Certi(value)).getFilteredList(employeeData); 
     }
+    return null;
+  }
 
-    private boolean isFoundEmployeeNum(Employee employee, String searchData) {
-        return employee.getEmployeeNumber().equals(searchData);
+  
+  public Employee modifyItem(Employee employee) {
+    Employee foundItem = searchItems("employeeNum", employee.getEmployeeNumber()).get(0);
+    Employee returnItem = makeEmployee(foundItem);
+    foundItem = employee;
+    
+    return returnItem;
+  }
+  
+  public Employee modifyItemById(String id, String field, String value) {
+    Employee foundItem = modifyItemByCondition("employeeNum", id, field, value).get(0);
+    return foundItem;
+  }
+  
+  public List<Employee> modifyItemByCondition(String sField, String sValue, String cField, String cValue) {
+    List<Employee> returnItem = new ArrayList<Employee>();
+    
+    List<Employee> foundItem = searchItems(sField, sValue);
+    for(Employee employee : foundItem) {
+      returnItem.add(makeEmployee(employee));
+      modify(employee, cField, cValue);
     }
+    
+    return returnItem;
+  }
+  
+  public void modify(Employee employee, String field, String value) {
+    switch(field) {
+      case "eployeeNum": employee.setBirthday(value); return;
+      case "name": employee.setName(value); return;
+      case "cl": employee.setCareerLevel(value); return;
+      case "phoneNum": employee.setPhoneNumber(value); return;
+      case "birthday": employee.setBirthday(value); return;
+      case "certi": employee.setCerti(value); return;
+    }
+  }
+  
+  
+  public Employee deleteItem(Employee item) {
+    return deleteItemById(item.getEmployeeNumber());
+  }
 
-    private boolean isFoundName(Employee employee, String searchOption, String searchData) {
-      switch(searchOption) {
-        case "-f": return employee.getFirstName().equals(searchData);
-        case "-l": return employee.getLastName().equals(searchData);
-        case "" : return employee.getName().equals(searchData);
-      }
-      return false;
-    }
+  public Employee deleteItemById(String id) {
+    return deleteItemByCondition("employeeNum", id).get(0);
+  }
+  
+  public List<Employee> deleteItemByCondition(String field, String value) {
+    List<Employee> returnEmployee = new ArrayList<Employee>();
     
-    private boolean isFoundCarrarLevel(Employee employee, String searchOption, String searchData) {
-      return employee.getCareerLevel().equals(searchData);
+    List<Employee> targetEmployee = searchItems(field, value);
+    for(Employee employee : targetEmployee) {
+      returnEmployee.add(makeEmployee(employee));
+      employeeData.remove(employee);
     }
-    
-    private boolean isFoundPhoneNumber(Employee employee, String searchOption, String searchData) {
-      switch(searchOption) {
-        case "-m" : return employee.getMiddlePhoneNumber().equals(searchData);
-        case "-l" : return employee.getLastPhoneNumber().equals(searchData);
-        case "" : return employee.getPhoneNumber().equals(searchData);
-      }
-      return false;
-    }
-    private boolean isFoundCerti(Employee employee, String searchOption, String searchData) {
-      return employee.getCerti().equals(searchData);
-    }
-    private boolean isFoundBirthday(Employee employee, String searchOption, String searchData) {
-      switch(searchOption) {
-        case "-y" : return employee.getBirthYearOnly().equals(searchData); 
-        case "-m" : return employee.getBirthMonthOnly().equals(searchData);
-        case "-d" : return employee.getBirthDayOnly().equals(searchData); 
-        case "" : return employee.getBirthday().equals(searchData);
-      }
-      return false;
-    }
-    
-    public ArrayList<Employee> updateEmployee(String option, String searchColumn, String searchData, String changeColumn, String changeData) {
-        ArrayList<Employee> targetEmployee = searchEmployee(option, searchColumn, searchData);
-        ArrayList<Employee> returnEmployee = new ArrayList<Employee>();
-        
-        for(Employee employee : targetEmployee) {
-          returnEmployee.add(new Employee(Arrays.asList(employee.getEmployeeNumber(),employee.getName(), employee.getCareerLevel(), employee.getPhoneNumber(), employee.getBirthday(), employee.getCerti())));
-            switch(changeColumn) {
-                case "eployeeNum": employee.setEmployeeNumber(changeData); break;
-                case "name": employee.setName(changeData); break;
-                case "cl": employee.setCareerLevel(changeData); break;
-                case "phoneNum": employee.setPhoneNumber(changeData); break;
-                case "birthday": employee.setBirthday(changeData); break;
-                case "certi": employee.setCerti(changeData); break;
-            }
-        }
-        return returnEmployee;
-    }
-    
-    public ArrayList<Employee> deleteEmployee(String searchOption, String searchColumn, String searchData) {
-        ArrayList<Employee> targetEmployee = searchEmployee(searchOption, searchColumn, searchData);
-        ArrayList<Employee> returnEmployee = new ArrayList<Employee>();
-        for(Employee employee : targetEmployee) {
-          returnEmployee.add(new Employee(Arrays.asList(employee.getEmployeeNumber(),employee.getName(), employee.getCareerLevel(), employee.getPhoneNumber(), employee.getBirthday(), employee.getCerti())));
-          empList.remove(employee);
-        }
-        return returnEmployee;
-    }
+    return returnEmployee;
+  }
+   
+  
+  private Employee makeEmployee(Employee employeeInfo) {
+    return new Employee(Arrays.asList(employeeInfo.getEmployeeNumber(), employeeInfo.getName(), employeeInfo.getCareerLevel(), employeeInfo.getPhoneNumber(), employeeInfo.getBirthday(), employeeInfo.getCerti()));
+  }
 }
