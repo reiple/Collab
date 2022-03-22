@@ -13,7 +13,7 @@ public class ModifyCommand extends AbstractCommand{
     }
 
     @Override
-    public String executeCommand(EmployeeDAO employeeDAO) {
+    public String executeCommand(IDAO employeeDAO) {
 
         if(getSecondOption() instanceof NoneSecondOption) {
             return getValues(employeeDAO);

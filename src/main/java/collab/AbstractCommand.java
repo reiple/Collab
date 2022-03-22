@@ -33,6 +33,6 @@ public abstract class AbstractCommand implements ICommand{
     }
 
     @Override
-    public abstract String executeCommand(EmployeeDAO dao);
+    public abstract String executeCommand(IDAO dao);
 
 }
