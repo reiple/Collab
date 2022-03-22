@@ -28,7 +28,7 @@ public class PrintOption extends AbstractFirstOption {
         String result = new String();
         boolean isFirst=true;
         for (Employee employee: sortedList){
-            if(!isFirst) {result+='\n';}
+            if(!isFirst) {result+=System.lineSeparator();}
             result += employee.getEmployeeNumber() + ',' + employee.getName() + ',' + employee.getCareerLevel()
                     + ',' + employee.getPhoneNumber() + ',' + employee.getBirthday() + ',' + employee.getCerti();
             isFirst = false;
