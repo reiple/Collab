@@ -24,18 +24,7 @@ public class ModifyCommand extends AbstractCommand {
         List<String> commandArguments = getCommandArguments();
         list.stream()
             .forEach(employee ->
-                ((EmployeeDAO)employeeDAO).modifyItemById(employee.getEmployeeNumber(), commandArguments.get(2), commandArguments.get(3)));
-
-        return getFirstOption().getFilteredList(list);
-    }
-
-    private String getValues(EmployeeDAO employeeDAO) throws Exception{
-        List<Employee> list = employeeDAO.getAllItems().stream()
-            .filter(item -> item.getPhoneNumber().equals(getCommandArguments().get(1)))
-            .collect(Collectors.toList());
-        list.stream().forEach(
-            employee -> ((EmployeeDAO) employeeDAO).modifyItemById(employee.getEmployeeNumber(),
-                getCommandArguments().get(0), getCommandArguments().get(1)));
+                ((EmployeeDAO)employeeDAO).modifyItemById(employee.getEmployeeNumber(), commandArguments.get(0), commandArguments.get(1)));
 
         return getFirstOption().getFilteredList(list);
     }

@@ -96,7 +96,6 @@ public class ModifyCommandEmployeeTest {
         assertEquals("NONE", result);
     }
 
-    @Disabled
     @Test
     void testSearchEmployeeAndModifyNameTestAndPrintSuccess() throws Exception {
         ICommand command = new ModifyCommand(new PrintOption(), new EmptySecondOption(Arrays.asList(
@@ -104,6 +103,10 @@ public class ModifyCommandEmployeeTest {
 
         String result = command.executeCommand(employeeDAO);
 
-        assertEquals("NONE", result);
+        String[][] data = {
+            {"00114058", "QQWE LVARW", "CL4", "010-4328-3059", "19911021", "PRO"}
+        };
+
+        assertEquals(ResultStringMaker.makeResultString("MOD", data), result);
     }
 }
