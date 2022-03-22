@@ -1,15 +1,20 @@
 package collab;
 
 import collab.FileManager;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class FileManagerTest {
+    private static final String saveFilePassTestFilePath = "src/test/resources/saveFilePassTestPath.txt";
     @Test
     public void loadFilePassTest() throws IOException {
         String filePath = "src/test/resources/input_20_20.txt";
@@ -30,4 +35,29 @@ public class FileManagerTest {
         });
     }
 
+    @Test
+    public void saveFilePassTest() throws IOException {
+        String filePath = "src/test/resources/input_20_20.txt";
+        FileManager fileManager = new FileManager();
+        List<String> answers = fileManager.loadFile(filePath);
+
+        assertTrue(!new File(saveFilePassTestFilePath).exists());
+        ArrayList<String> testOutput = new ArrayList<String>();
+        BufferedReader testBr = new BufferedReader(new FileReader(saveFilePassTestFilePath));
+        String testStr;
+        while ((testStr = testBr.readLine()) != null) {
+            testOutput.add(testStr);
+        }
+        testBr.close();
+        assertTrue(answers.size() == testOutput.size());
+        for (int i = 0 ; i < answers.size(); i++){
+            assertEquals(answers.get(i), testOutput.get(i));
+        }
+    }
+
+    @AfterAll
+    static public void clearTestFile(){
+        File saveFilePassTestFile = new File(saveFilePassTestFilePath);
+        if (saveFilePassTestFile.exists()) saveFilePassTestFile.delete();
+    }
 }
