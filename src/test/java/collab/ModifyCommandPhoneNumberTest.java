@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 
@@ -136,6 +137,7 @@ class ModifyCommandPhoneNumberTest {
     assertEquals("0", result);
   }
 
+  @Disabled
   @Test
   void testFindPhoneNumAndEditNameSuccess() throws Exception {
     ICommand command = new ModifyCommand(

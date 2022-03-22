@@ -254,6 +254,47 @@ public class EmployeeTest {
         cmdAssertionCheck(whiteBoxCommand, employee, assertMsg, () -> {employee.setCerti(whiteBoxCommand.get(5));});
     }
 
+    @Test
+    public void employeeStringFieldPassTest() throws Exception{
+        Employee employee = new Employee(Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV"));
+        assertEquals(employee.getStringField("employeeNum"), "99123099");
+        assertEquals(employee.getStringField("name"), "TTETHU HBO");
+        assertEquals(employee.getStringField("cl"), "CL4");
+        assertEquals(employee.getStringField("phoneNum"), "010-4528-3059");
+        assertEquals(employee.getStringField("certi"), "ADV");
+    }
 
+    @Test
+    public void employeeStringFieldFailTest() {
+        Employee employee = new Employee(Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV"));
+        Exception exception = assertThrows(Exception.class, () -> {
+            String res = employee.getStringField("wrongField");
+        });
+        assertTrue(exception instanceof java.lang.NoSuchMethodException);
+        System.out.println(exception);
+        exception = assertThrows(Exception.class, () -> {
+            String res = employee.getStringField("realEmployeeNumber");
+        });
+        assertTrue(exception instanceof java.lang.ClassCastException);
+    }
+    @Test
+    public void employeeIntFieldPassTest() throws Exception{
+        Employee employee = new Employee(Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV"));
+        assertEquals(employee.getIntField("realEmployeeNumber"), 1999123099);
+    }
+
+    @Test
+    public void employeeIntFieldFailTest() {
+        Employee employee = new Employee(Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV"));
+        Exception exception = assertThrows(Exception.class, () -> {
+            String res = employee.getStringField("wrongField");
+        });
+        assertTrue(exception instanceof java.lang.NoSuchMethodException);
+        System.out.println(exception);
+        exception = assertThrows(Exception.class, () -> {
+            int res = employee.getIntField("name");
+        });
+        assertTrue(exception instanceof java.lang.ClassCastException);
+    }
 
 }

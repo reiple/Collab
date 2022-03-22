@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -153,6 +154,7 @@ class SearchCommandNameTest {
     assertEquals("0", result);
   }
 
+  @Disabled
   @Test
   void testSearchNameSuccess() throws Exception {
 
@@ -175,6 +177,7 @@ class SearchCommandNameTest {
 
   }
 
+  @Disabled
   @Test
   void testSearchNamePrintSuccess() throws Exception {
 
