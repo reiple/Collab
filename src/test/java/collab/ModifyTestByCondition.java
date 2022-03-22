@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ModifyTestbyCondition {
+class ModifyTestByCondition {
   
   DataBase empDB = new DataBase();
     @BeforeEach
