@@ -16,10 +16,10 @@ public class PrintOptionTest {
     void EmployeeSortingTest() {
         ArrayList<Employee> employees = new ArrayList<Employee>();
         AbstractFirstOption printOption = new PrintOption();
-        String expectedResult = "88114052," + "NQ LVARW," + "CL4," + "010-4528-3059," + "19911021," +"PRO" + '\n';
-        expectedResult += "88115052," + "VSID TVO," + "CL1," + "010-3669-1077," + "20120718," + "PRO" + '\n';
-        expectedResult += "99129568," + "SRERLALH HMEF," + "CL2," + "010-3091-9521," + "19640910," + "PRO" + '\n';
-        expectedResult += "02117175," + "SBILHUT LDEXRI," + "CL4," + "010-2814-1699," + "19950704," + "ADV" + '\n';
+        String expectedResult = "88114052," + "NQ LVARW," + "CL4," + "010-4528-3059," + "19911021," +"PRO" + System.lineSeparator();
+        expectedResult += "88115052," + "VSID TVO," + "CL1," + "010-3669-1077," + "20120718," + "PRO" + System.lineSeparator();
+        expectedResult += "99129568," + "SRERLALH HMEF," + "CL2," + "010-3091-9521," + "19640910," + "PRO" + System.lineSeparator();
+        expectedResult += "02117175," + "SBILHUT LDEXRI," + "CL4," + "010-2814-1699," + "19950704," + "ADV" + System.lineSeparator();
         expectedResult += "03113260," + "HH LTUPF," + "CL2," + "010-5798-5383," + "19791018," + "PRO";
 
         employees.add(new Employee(Arrays.asList("15123099","VXIHXOTH JHOP","CL3","010-3112-2609","19771211","ADV")));
@@ -50,13 +50,13 @@ public class PrintOptionTest {
     void ThreeEmployeeSortingTest() {
         ArrayList<Employee> employees = new ArrayList<Employee>();
         AbstractFirstOption printOption = new PrintOption();
-        String expectedResult = "15123099," + "VXIHXOTH JHOP," + "CL3," + "010-3112-2609," + "19771211," +"ADV" + '\n';
-        expectedResult += "18111236," + "VSID TVO," + "CL1," + "010-3669-1077," + "20120718," +"PRO" + '\n';
+        String expectedResult = "15123099," + "VXIHXOTH JHOP," + "CL3," + "010-3112-2609," + "19771211," +"ADV" + System.lineSeparator();
+        expectedResult += "18111236," + "VSID TVO," + "CL1," + "010-3669-1077," + "20120718," +"PRO" + System.lineSeparator();
         expectedResult += "18117906," + "TWU QSOLT," + "CL4," + "010-6672-7186," + "20030413," +"PRO";
         employees.add(new Employee(Arrays.asList("15123099","VXIHXOTH JHOP","CL3","010-3112-2609","19771211","ADV")));
         employees.add(new Employee(Arrays.asList("18111236","VSID TVO","CL1","010-3669-1077","20120718","PRO")));
         employees.add(new Employee(Arrays.asList("18117906","TWU QSOLT","CL4","010-6672-7186","20030413","PRO")));
-
+        
         assertEquals(printOption.getFilteredList(employees), expectedResult);
     }
 
