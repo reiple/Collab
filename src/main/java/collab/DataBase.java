@@ -70,7 +70,7 @@ public class DataBase {
   public Employee deleteItemById(String id) {
     List<Employee> foundItems = deleteItemByCondition("employeeNum", id);
     if(foundItems.isEmpty()) return null;
-    return deleteItemByCondition("employeeNum", id).get(0);
+    return foundItems("employeeNum", id).get(0);
   }
   
   public List<Employee> deleteItemByCondition(String field, String value) {
