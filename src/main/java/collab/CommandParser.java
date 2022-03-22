@@ -16,7 +16,7 @@ public class CommandParser {
     protected static final String DELETE_COMMAND = "DEL";
     protected static final List<String> WHITE_COMMAND_LIST = Arrays.asList(ADD_COMMAND, SEARCH_COMMAND, MODIFY_COMMAND, DELETE_COMMAND);
     protected static final List<String> FIRST_OPTION_WHITE_LIST = Arrays.asList(" ", "-p");
-    protected static final Map<String, List<String>> SECOND_OPTION_WHITE_MAP = new HashMap<>(){{
+    protected static final Map<String, List<String>> SECOND_OPTION_WHITE_MAP = new HashMap<String, List<String>>(){{
         put("-f", Arrays.asList("name"));
         put("-l", Arrays.asList("name", "phoneNum"));
         put("-m", Arrays.asList("phoneNum", "birthday"));
