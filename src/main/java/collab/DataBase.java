@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class DataBase {
   HashSet<String> registerEmployeeNum = new HashSet<String>();
-  public ArrayList<Employee> employeeData = new ArrayList<Employee>();
+  private ArrayList<Employee> employeeData = new ArrayList<Employee>();
   
   public ArrayList<Employee> getEmployeeAllData() {
     return employeeData;
@@ -26,7 +26,7 @@ public class DataBase {
   
   public Employee searchItem(String id) {
     List<Employee> foundItems = searchItems("employeeNum", id); 
-    if(foundItems.size()==0) return null;
+    if(foundItems.isEmpty()) return null;
     return foundItems.get(0);
   }
 
@@ -41,13 +41,13 @@ public class DataBase {
     if(foundItem == null) return null;
     
     Employee returnItem = makeEmployee(foundItem);
-    foundItem = employee;
+    copyEmployee(employee, foundItem);
     return returnItem;
   }
   
   public Employee modifyItemById(String id, String field, String value) {
     List<Employee> foundItems = modifyItemByCondition("employeeNum", id, field, value);
-    if(foundItems.size()==0) return null;
+    if(foundItems.isEmpty()) return null;
     return foundItems.get(0);
   }
   
@@ -69,8 +69,8 @@ public class DataBase {
 
   public Employee deleteItemById(String id) {
     List<Employee> foundItems = deleteItemByCondition("employeeNum", id);
-    if(foundItems.size()==0) return null;
-    return deleteItemByCondition("employeeNum", id).get(0);
+    if(foundItems.isEmpty()) return null;
+    return foundItems.get(0);
   }
   
   public List<Employee> deleteItemByCondition(String field, String value) {
@@ -89,5 +89,12 @@ public class DataBase {
   
   private Employee makeEmployee(Employee employeeInfo) {
     return new Employee(Arrays.asList(employeeInfo.getEmployeeNumber(), employeeInfo.getName(), employeeInfo.getCareerLevel(), employeeInfo.getPhoneNumber(), employeeInfo.getBirthday(), employeeInfo.getCerti()));
+  }
+  private void copyEmployee(Employee source, Employee target) {
+    target.setName(source.getName());
+    target.setCareerLevel(source.getCareerLevel());
+    target.setPhoneNumber(source.getPhoneNumber());
+    target.setBirthday(source.getBirthday());
+    target.setCerti(source.getCerti());
   }
 }
