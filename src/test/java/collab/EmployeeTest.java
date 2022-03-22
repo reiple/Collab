@@ -279,14 +279,14 @@ public class EmployeeTest {
         assertEquals(employee.getStringField("phoneNum"), "010-4528-3058");
         assertEquals(employee.getStringField("certi"), "PRO");
     }
-    
+
     @Test
     public void employeeStringFieldFailTest() {
         Employee employee = new Employee(Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV"));
         Exception exception = assertThrows(Exception.class, () -> {
             String res = employee.getStringField("wrongField");
         });
-        assertTrue(exception instanceof java.lang.NoSuchMethodException);
+        assertTrue(exception instanceof java.lang.RuntimeException);
         System.out.println(exception);
         exception = assertThrows(Exception.class, () -> {
             String res = employee.getStringField("realEmployeeNumber");
@@ -306,7 +306,7 @@ public class EmployeeTest {
         Exception exception = assertThrows(Exception.class, () -> {
             String res = employee.getStringField("wrongField");
         });
-        assertTrue(exception instanceof java.lang.NoSuchMethodException);
+        assertTrue(exception instanceof java.lang.RuntimeException);
         System.out.println(exception);
         exception = assertThrows(Exception.class, () -> {
             int res = employee.getIntField("name");

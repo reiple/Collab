@@ -1,5 +1,4 @@
 package collab;
-import collab.columnList.*;
 
 import java.time.LocalDate;
 import java.time.chrono.IsoEra;
@@ -34,6 +33,8 @@ public class Employee{
     private int currentCentury = (currentYear/100)*100;
     private int lastCentury = currentCentury - 100;
     private int maxWorkYear = 80;
+
+    private List<String> fieldList = Arrays.asList("name","certi", "cl", "phoneNum", "birthday", "certi");
 
     private static final DateTimeFormatter DATE_PARSER
             = new DateTimeFormatterBuilder().appendPattern("yyyyMMdd")
@@ -242,35 +243,59 @@ public class Employee{
     public String getBirthMonthOnly() { return birthMonthOnly; }
     public String getBirthDayOnly() { return birthDayOnly; }
 
-    public Object getField(String fieldName) throws Exception {
-        List<String> matchNameList = Arrays.asList("name","certi");
-        if (!matchNameList.contains(fieldName)) {
-            switch(fieldName) {
-                case "employeeNum": return getEmployeeNumber();
-                case "cl": return getCareerLevel();
-                case "phoneNum": return getPhoneNumber();
-                case "birthday": return getBirthday();
-            }
+    public List<String> getFieldList() { return fieldList; }
 
-        }return getClass().getMethod("get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1)).invoke(this);
+    public Object getField(String fieldName) {
+        try {
+            List<String> matchNameList = Arrays.asList("name", "certi");
+            if (!matchNameList.contains(fieldName)) {
+                switch (fieldName) {
+                    case "employeeNum":
+                        return getEmployeeNumber();
+                    case "cl":
+                        return getCareerLevel();
+                    case "phoneNum":
+                        return getPhoneNumber();
+                    case "birthday":
+                        return getBirthday();
+
+                }
+
+            }
+            return getClass().getMethod("get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1)).invoke(this);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException("get wrong field string");
+            //return null;
+        }
     };
 
-    public void setField(String fieldName, String input) throws Exception {
-        List<String> matchNameList = Arrays.asList("name","certi");
-        if (!matchNameList.contains(fieldName)) {
-            switch(fieldName) {
-                case "employeeNum":
-                    setEmployeeNumber(input); break;
-                case "cl": setCareerLevel(input); break;
-                case "phoneNum": setPhoneNumber(input); break;
-                case "birthday": setBirthday(input);
-            }
+    public void setField(String fieldName, String input) {
+        try {
+            List<String> matchNameList = Arrays.asList("name", "certi");
+            if (!matchNameList.contains(fieldName)) {
+                switch (fieldName) {
+                    case "employeeNum":
+                        setEmployeeNumber(input);
+                        break;
+                    case "cl":
+                        setCareerLevel(input);
+                        break;
+                    case "phoneNum":
+                        setPhoneNumber(input);
+                        break;
+                    case "birthday":
+                        setBirthday(input);
+                }
 
-        }else{
-            System.out.println("set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1));
-            getClass()
-                    .getMethod("set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1), String.class)
-                    .invoke(this, input);
+            } else {
+                getClass()
+                        .getMethod("set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1), String.class)
+                        .invoke(this, input);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException("get wrong field string");
         }
     };
 
