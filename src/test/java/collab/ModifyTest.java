@@ -29,7 +29,7 @@ class ModifyTest {
       //"17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"
       empDB.modifyItemByCondition("employeeNum", "17112609", "name", "TEST TEST");
 
-      assertNull(empDB.searchItems("name","FB NTAWR"));
+      assertEquals(empDB.searchItems("name","FB NTAWR").size(),0);
       assertTrue(empDB.searchItems("name","TEST TEST").get(0).getEmployeeNumber() == "17112609");
     }
     
@@ -38,7 +38,7 @@ class ModifyTest {
       //"17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"
         empDB.modifyItemByCondition("employeeNum", "17112609", "cl", "CL1");
 
-        assertNull(empDB.searchItems("cl","CL4"));
+        assertEquals(empDB.searchItems("cl","CL4").size(),0);
         assertTrue(empDB.searchItems("cl","CL1").get(0).getEmployeeNumber() == "17112609");
       
     }
@@ -48,7 +48,7 @@ class ModifyTest {
       //"17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"
       empDB.modifyItemByCondition("employeeNum", "17112609", "phoneNum", "010-0000-0000");
 
-      assertNull(empDB.searchItems("phoneNum","010-5645-6122"));
+      assertEquals(empDB.searchItems("phoneNum","010-5645-6122").size(),0);
       assertTrue(empDB.searchItems("phoneNum","010-0000-0000").get(0).getEmployeeNumber() == "17112609");
     }
     
@@ -57,7 +57,7 @@ class ModifyTest {
       //"17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"
       empDB.modifyItemByCondition("employeeNum", "17112609", "birthday", "19001101");
 
-      assertNull(empDB.searchItems("birthday","19860903"));
+      assertEquals(empDB.searchItems("birthday","19860903").size(),0);
       assertTrue(empDB.searchItems("birthday","19001101").get(0).getEmployeeNumber() == "17112609");
     }    
     
@@ -66,9 +66,11 @@ class ModifyTest {
       //"17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"
       empDB.modifyItemByCondition("employeeNum", "17112609", "certi", "EX");
       
-      assertNull(empDB.searchItems("certi","PRO"));
+      assertEquals(empDB.searchItems("certi","PRO").size(),0);
       assertTrue(empDB.searchItems("certi","EX").get(0).getEmployeeNumber() == "17112609");
     }
 }
+
+
 
 
