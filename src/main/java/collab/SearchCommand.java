@@ -1,10 +1,5 @@
 package collab;
 
-
-import collab.options.first.NoneFirstOption;
-import collab.options.second.FirstNameOption;
-import collab.options.second.LastNameOption;
-import collab.options.second.NoneSecondOption;
 import collab.options.third.NoneThirdOption;
 
 import java.util.ArrayList;
