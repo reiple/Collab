@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -42,6 +43,9 @@ public class FileManagerTest {
         List<String> answers = fileManager.loadFile(filePath);
 
         assertTrue(!new File(saveFilePassTestFilePath).exists());
+        fileManager.saveFile(saveFilePassTestFilePath, answers.stream().collect(Collectors.joining("\n")));
+
+        assertTrue(new File(saveFilePassTestFilePath).exists());
         ArrayList<String> testOutput = new ArrayList<String>();
         BufferedReader testBr = new BufferedReader(new FileReader(saveFilePassTestFilePath));
         String testStr;
