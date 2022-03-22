@@ -1,9 +1,9 @@
 package collab;
 
 import java.util.List;
-import main.java.collab.DataBase;
-import main.java.collab.Employee;
-import main.java.collab.IDAO;
+import collab.DataBase;
+import collab.Employee;
+import collab.IDAO;
 
 public class EmployeeDAO implements IDAO<Employee> {
 
