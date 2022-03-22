@@ -18,7 +18,7 @@ class DeleteTest {
     @Test
     public void deleteTest_returnEmployee() {
       Employee targetEmployee = new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"));
-      Employee foundEmployee = empDB.deleteItemByCondition("employeeNum", "17112609").get(0);
+      Employee foundEmployee = empDB.deleteItemByCondition(Columns.COLUMN_EMPLOYEE_NUM, "17112609").get(0);
 
       assertEquals(foundEmployee.getEmployeeNumber(), targetEmployee.getEmployeeNumber());
     }
@@ -27,7 +27,8 @@ class DeleteTest {
     @Test
     public void deleteTest_NoReturn() {
       // "17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"
-      empDB.deleteItemByCondition("employeeNum", "17112609");
-      assertTrue(empDB.deleteItemByCondition("employeeNum", "17112609").size()==0);
+      empDB.deleteItemByCondition(Columns.COLUMN_EMPLOYEE_NUM, "17112609");
+      assertNull(empDB.searchItems(Columns.COLUMN_EMPLOYEE_NUM, "17112609"));
+      assertNull(empDB.deleteItemByCondition(Columns.COLUMN_EMPLOYEE_NUM, "17112609"));
     }
 }

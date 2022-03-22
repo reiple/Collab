@@ -2,6 +2,7 @@ package collab;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import collab.Employee;
@@ -11,69 +12,82 @@ import collab.columnList.Cl;
 import collab.columnList.EmployeeNum;
 import collab.columnList.Name;
 import collab.columnList.PhoneNum;
+import test.java.collab.options.Columns;
 
 public class DataBase {
-  private ArrayList<Employee> employeeData = new ArrayList<Employee>();
+  HashSet<String> registerEmployeeNum = new HashSet<String>();
+  public ArrayList<Employee> employeeData = new ArrayList<Employee>();
   
   public ArrayList<Employee> getEmployeeAllData() {
     return employeeData;
   }
   
   public void add(Employee employee) {
-    employeeData.add(employee);        
+    registerEmployeeNum.add(employee.getEmployeeNumber());
+    employeeData.add(employee);
   }
   
   
   public Employee searchItem(String id) {
-    return searchItems("employeeNum", id).get(0);
+    List<Employee> foundItems = searchItems("employeeNum", id); 
+    if(foundItems == null) return null;
+    return foundItems.get(0);
   }
 
-  public List<Employee> searchItems(String field, String value) {    
+  public List<Employee> searchItems(String field, String value) {
+    List<Employee> foundEmployee = new ArrayList<Employee>();
     switch(field) {
-      case "employeeNum": return (new EmployeeNum(value)).getFilteredList(employeeData); 
-      case "name": return (new Name(value)).getFilteredList(employeeData); 
-      case "cl": return (new Cl(value)).getFilteredList(employeeData); 
-      case "phoneNum": return (new PhoneNum(value)).getFilteredList(employeeData); 
-      case "birthday": return (new Birthday(value)).getFilteredList(employeeData); 
-      case "certi": return (new Certi(value)).getFilteredList(employeeData); 
+      case Columns.COLUMN_EMPLOYEE_NUM: 
+        if(registerEmployeeNum.contains(value)) 
+          foundEmployee = (new EmployeeNum(value)).getFilteredList(employeeData); break;
+      case Columns.COLUMN_NAME: 
+        foundEmployee = (new Name(value)).getFilteredList(employeeData); break;
+      case Columns.COLUMN_CARRER_LEVEL: 
+        foundEmployee = (new Cl(value)).getFilteredList(employeeData); break;
+      case Columns.COLUMN_PHONE_NUMBER: 
+        foundEmployee = (new PhoneNum(value)).getFilteredList(employeeData); break;
+      case Columns.COLUMN_BIRTHDAY: 
+        foundEmployee = (new Birthday(value)).getFilteredList(employeeData); break; 
+      case Columns.COLUMN_CERTIFICATE: 
+        foundEmployee = (new Certi(value)).getFilteredList(employeeData); break;
     }
-    return null;
+    if(foundEmployee.size()==0) return null;
+    return foundEmployee;
   }
 
   
   public Employee modifyItem(Employee employee) {
-    Employee foundItem = searchItems("employeeNum", employee.getEmployeeNumber()).get(0);
-    Employee returnItem = makeEmployee(foundItem);
-    foundItem = employee;
-    
-    return returnItem;
+    Employee foundItem = searchItem(employee.getEmployeeNumber());
+    if(foundItem == null) return null;
+    return makeEmployee(foundItem);
   }
   
   public Employee modifyItemById(String id, String field, String value) {
-    Employee foundItem = modifyItemByCondition("employeeNum", id, field, value).get(0);
-    return foundItem;
+    List<Employee> foundItems = modifyItemByCondition("employeeNum", id, field, value);
+    if(foundItems == null) return null;
+    return foundItems.get(0);
   }
   
   public List<Employee> modifyItemByCondition(String sField, String sValue, String cField, String cValue) {
-    List<Employee> returnItem = new ArrayList<Employee>();
+    List<Employee> foundItems = searchItems(sField, sValue);
+    if(foundItems==null) return null;
     
-    List<Employee> foundItem = searchItems(sField, sValue);
-    for(Employee employee : foundItem) {
-      returnItem.add(makeEmployee(employee));
+    List<Employee> returnItems = new ArrayList<Employee>();
+    for(Employee employee : foundItems) {
+      returnItems.add(makeEmployee(employee));
       modify(employee, cField, cValue);
     }
     
-    return returnItem;
+    return returnItems;
   }
   
   public void modify(Employee employee, String field, String value) {
     switch(field) {
-      case "eployeeNum": employee.setBirthday(value); return;
-      case "name": employee.setName(value); return;
-      case "cl": employee.setCareerLevel(value); return;
-      case "phoneNum": employee.setPhoneNumber(value); return;
-      case "birthday": employee.setBirthday(value); return;
-      case "certi": employee.setCerti(value); return;
+      case Columns.COLUMN_NAME: employee.setName(value); return;
+      case Columns.COLUMN_CARRER_LEVEL: employee.setCareerLevel(value); return;
+      case Columns.COLUMN_PHONE_NUMBER: employee.setPhoneNumber(value); return;
+      case Columns.COLUMN_BIRTHDAY: employee.setBirthday(value); return;
+      case Columns.COLUMN_CERTIFICATE: employee.setCerti(value); return;
     }
   }
   
@@ -87,14 +101,17 @@ public class DataBase {
   }
   
   public List<Employee> deleteItemByCondition(String field, String value) {
-    List<Employee> returnEmployee = new ArrayList<Employee>();
+    List<Employee> foundItems = searchItems(field, value);
+    if(foundItems==null) return null;
     
-    List<Employee> targetEmployee = searchItems(field, value);
-    for(Employee employee : targetEmployee) {
-      returnEmployee.add(makeEmployee(employee));
+    List<Employee> returnItems = new ArrayList<Employee>();
+    for(Employee employee : foundItems) {
+      returnItems.add(makeEmployee(employee));
+      registerEmployeeNum.remove(employee.getEmployeeNumber());
       employeeData.remove(employee);
     }
-    return returnEmployee;
+    
+    return returnItems;
   }
    
   
