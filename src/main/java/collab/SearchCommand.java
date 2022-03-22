@@ -1,10 +1,5 @@
 package collab;
 
-
-import collab.options.first.NoneFirstOption;
-import collab.options.second.FirstNameOption;
-import collab.options.second.LastNameOption;
-import collab.options.second.NoneSecondOption;
 import collab.options.third.NoneThirdOption;
 
 import java.util.ArrayList;
@@ -20,9 +15,6 @@ public class SearchCommand extends AbstractCommand{
     @Override
     public String executeCommand(IDAO employeeDAO) throws Exception {
 
-//        if(getSecondOption() instanceof NoneSecondOption) {
-//            return getSearchName((EmployeeDAO) employeeDAO);
-//        }
         List<Employee> list = getSecondOption().getFilteredList((EmployeeDAO) employeeDAO);
 
         // TODO: 임시로 조치한 것
@@ -33,11 +25,41 @@ public class SearchCommand extends AbstractCommand{
         return getFirstOption().getFilteredList(list);
     }
 
-    private String getSearchName(EmployeeDAO employeeDAO) throws Exception{
-        List<Employee> list = employeeDAO.getAllItems().stream()
-            .filter(item -> item.getName().equals(getSecondOption().getSearchValue()))
-            .collect(Collectors.toList());
-
-        return getFirstOption().getFilteredList(list);
+    private List<Employee> getSearchEmployeeList(EmployeeDAO employeeDAO) {
+        List<Employee> list = null;
+        switch(getSecondOption().getSearchColumn()) {
+            case "employeeNum":
+                list = employeeDAO.getAllItems().stream()
+                    .filter(item -> item.getEmployeeNumber().equals(getSecondOption().getSearchValue()))
+                    .collect(Collectors.toList());
+                break;
+            case "name":
+                list = employeeDAO.getAllItems().stream()
+                    .filter(item -> item.getName().equals(getSecondOption().getSearchValue()))
+                    .collect(Collectors.toList());
+                break;
+            case "cl":
+                list = employeeDAO.getAllItems().stream()
+                    .filter(item -> item.getCareerLevel().equals(getSecondOption().getSearchValue()))
+                    .collect(Collectors.toList());
+                break;
+            case "phoneNum":
+                list = employeeDAO.getAllItems().stream()
+                    .filter(item -> item.getPhoneNumber().equals(getSecondOption().getSearchValue()))
+                    .collect(Collectors.toList());
+                break;
+            case "birthday":
+                list = employeeDAO.getAllItems().stream()
+                    .filter(item -> item.getBirthday().equals(getSecondOption().getSearchValue()))
+                    .collect(Collectors.toList());
+                break;
+            case "certi":
+                list = employeeDAO.getAllItems().stream()
+                    .filter(item -> item.getCerti().equals(getSecondOption().getSearchValue()))
+                    .collect(Collectors.toList());
+                break;
+        }
+        return list;
     }
+
 }
