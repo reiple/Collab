@@ -88,7 +88,7 @@ public class SearchCommandPhoneNumberTest {
   @Test
   void testSearchPhoneNumAndPrintFail() {
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new NoneSecondOption(Arrays.asList("phoneNum", "010-0000-0000")));
+        new PrintOption(), new NoneSecondOption(Arrays.asList("phoneNum", "010-0000-0000")));
 
     String result = command.executeCommand(employeeDAO);
     assertEquals("NONE", result);
@@ -143,8 +143,8 @@ public class SearchCommandPhoneNumberTest {
         new PrintOption(), new MiddlePhoneNumberOption(Arrays.asList("phoneNum", "7174")));
 
     String[][] data = {
-        {"01122329", "DN WD", "CL4", "010-7174-5680", "20071117", "PRO"},
-        {"99117175", "FIRST LDEXRI", "CL4", "010-7174-1699", "19950704", "ADV"}
+        {"99117175", "FIRST LDEXRI", "CL4", "010-7174-1699", "19950704", "ADV"},
+        {"01122329", "DN WD", "CL4", "010-7174-5680", "20071117", "PRO"}
     };
     String result = command.executeCommand(employeeDAO);
     assertEquals(ResultStringMaker.makeResultString("SCH", data), result);
@@ -163,7 +163,7 @@ public class SearchCommandPhoneNumberTest {
   @Test
   void testSearchLastPhoneNumSuccess() {
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new MiddlePhoneNumberOption(Arrays.asList("phoneNum", "3059")));
+        new NoneFirstOption(), new LastPhoneNumberOption(Arrays.asList("phoneNum", "3059")));
 
     String[][] data = {
         {"01114052", "ABCE LVARW", "CL4", "010-1528-3059", "19911021", "PRO"},
@@ -190,16 +190,17 @@ public class SearchCommandPhoneNumberTest {
   @Test
   void testSearchLastPhoneNumAndPrintSuccess() {
     ICommand command = new SearchCommand(
-        new PrintOption(), new MiddlePhoneNumberOption(Arrays.asList("phoneNum", "3059")));
+        new PrintOption(), new LastPhoneNumberOption(Arrays.asList("phoneNum", "3059")));
 
     String[][] data = {
-        {"01114052", "ABCE LVARW", "CL4", "010-1528-3059", "19911021", "PRO"},
-        {"89114053", "DEFRE LVARW", "CL3", "010-2528-3059", "19911021", "PRO"},
         {"69114054", "GDFQW LVARW", "CL2", "010-3528-3059", "19911021", "PRO"},
-        {"88114056", "REWAA LVARW", "CL2", "010-4128-3059", "19911021", "PRO"},
         {"88114055", "QWE LVARW", "CL1", "010-4528-3059", "19911021", "PRO"},
+        {"88114056", "REWAA LVARW", "CL2", "010-4128-3059", "19911021", "PRO"},
+        {"89114053", "DEFRE LVARW", "CL3", "010-2528-3059", "19911021", "PRO"},
         {"00114057", "EREBB LVARW", "CL3", "010-4228-3059", "19911021", "PRO"},
-        {"00114058", "QQWE LVARW", "CL4", "010-4328-3059", "19911021", "PRO"}
+        // MAX 5
+        //{"00114058", "QQWE LVARW", "CL4", "010-4328-3059", "19911021", "PRO"},
+        //{"01114052", "ABCE LVARW", "CL4", "010-1528-3059", "19911021", "PRO"}
     };
     String result = command.executeCommand(employeeDAO);
     assertEquals(ResultStringMaker.makeResultString("SCH", data), result);
