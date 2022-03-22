@@ -254,6 +254,26 @@ public class Employee{
 
         }return getClass().getMethod("get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1)).invoke(this);
     };
+
+    public void setField(String fieldName, String input) throws Exception {
+        List<String> matchNameList = Arrays.asList("name","certi");
+        if (!matchNameList.contains(fieldName)) {
+            switch(fieldName) {
+                case "employeeNum":
+                    setEmployeeNumber(input); break;
+                case "cl": setCareerLevel(input); break;
+                case "phoneNum": setPhoneNumber(input); break;
+                case "birthday": setBirthday(input);
+            }
+
+        }else{
+            System.out.println("set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1));
+            getClass()
+                    .getMethod("set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1), String.class)
+                    .invoke(this, input);
+        }
+    };
+
     public String getStringField(String fieldName) throws Exception {
         return (String)getField(fieldName);
     };

@@ -265,6 +265,22 @@ public class EmployeeTest {
     }
 
     @Test
+    public void employeeStringFieldSetPassTest() throws Exception{
+        Employee employee = new Employee(Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV"));
+        employee.setField("employeeNum", "99122899");
+        employee.setField("name", "ATETHU HBO");
+        employee.setField("cl", "CL2");
+        employee.setField("phoneNum", "010-4528-3058");
+        employee.setField("certi", "PRO");
+
+        assertEquals(employee.getStringField("employeeNum"), "99122899");
+        assertEquals(employee.getStringField("name"), "ATETHU HBO");
+        assertEquals(employee.getStringField("cl"), "CL2");
+        assertEquals(employee.getStringField("phoneNum"), "010-4528-3058");
+        assertEquals(employee.getStringField("certi"), "PRO");
+    }
+    
+    @Test
     public void employeeStringFieldFailTest() {
         Employee employee = new Employee(Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV"));
         Exception exception = assertThrows(Exception.class, () -> {
@@ -277,6 +293,7 @@ public class EmployeeTest {
         });
         assertTrue(exception instanceof java.lang.ClassCastException);
     }
+
     @Test
     public void employeeIntFieldPassTest() throws Exception{
         Employee employee = new Employee(Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV"));
