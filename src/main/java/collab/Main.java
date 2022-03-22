@@ -22,7 +22,7 @@ public class Main {
             //System.out.println("exeResult: " + executionResult);
             employeeManager.saveExecutionResultToFile(outFilePath, executionResult);
         }catch(Exception e){
-            System.out.println("Error occurred!!!");
+            System.err.println("Error occurred!!!");
             System.out.println(e);
         }
     }
