@@ -22,7 +22,12 @@ public class SearchCommand extends AbstractCommand{
             list = new ArrayList<>();
         }
 
-        return getFirstOption().getFilteredList(list);
+        return getFirstOption().getFilteredList(list, this);
+    }
+
+    @Override
+    public String getName() {
+        return "SCH";
     }
 
     private List<Employee> getSearchEmployeeList(EmployeeDAO employeeDAO) {

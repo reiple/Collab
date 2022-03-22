@@ -25,6 +25,11 @@ public class ModifyCommand extends AbstractCommand {
             resultList.add(((EmployeeDAO) employeeDAO).modifyItemById(employee.getEmployeeNumber(),
                 getCommandArguments().get(0), getCommandArguments().get(1))));
 
-        return getFirstOption().getFilteredList(resultList);
+        return getFirstOption().getFilteredList(resultList, this);
+    }
+
+    @Override
+    public String getName() {
+        return "MOD";
     }
 }

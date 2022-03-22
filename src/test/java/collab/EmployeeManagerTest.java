@@ -160,7 +160,7 @@ public class EmployeeManagerTest {
         commandStringList.get(39).equals("SCH, , , ,name,FB NTAWR");
     }
 
-    @Disabled
+
     @Test
     void employeeManagerFileToFileTest() throws Exception {
         String inFilePath = "src/test/resources/input_20_20.txt";
@@ -195,10 +195,13 @@ public class EmployeeManagerTest {
         }
         testBr.close();
 
-        assertEquals(answers.size(), testOutput.size());
+
         for (int i = 0 ; i < answers.size(); i++){
             assertEquals(answers.get(i), testOutput.get(i));
+            System.out.println(testOutput.get(i));
         }
+        assertEquals(answers.size(), testOutput.size());
+
 
     }
 

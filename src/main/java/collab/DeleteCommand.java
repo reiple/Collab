@@ -23,7 +23,12 @@ public class DeleteCommand extends AbstractCommand {
 
         list.stream().forEach(employee -> ((EmployeeDAO) dao).deleteItemById(employee.getEmployeeNumber()));
 
-        return getFirstOption().getFilteredList(list);
+        return getFirstOption().getFilteredList(list, this);
 
+    }
+
+    @Override
+    public String getName() {
+        return "DEL";
     }
 }

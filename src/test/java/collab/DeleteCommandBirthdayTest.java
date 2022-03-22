@@ -115,7 +115,7 @@ class DeleteCommandBirthdayTest {
     );
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("0", result);
+    assertEquals("DEL,NONE", result);
 
   }
 
@@ -126,7 +126,7 @@ class DeleteCommandBirthdayTest {
     );
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("NONE", result);
+    assertEquals("DEL,NONE", result);
 
   }
 
@@ -147,7 +147,7 @@ class DeleteCommandBirthdayTest {
     };
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("" + data.length, result);
+    assertEquals("DEL," + data.length, result);
   }
 
   @Test
@@ -175,7 +175,7 @@ class DeleteCommandBirthdayTest {
     );
 
     String anotherResult = command.executeCommand(employeeDAO);
-    assertEquals("NONE", anotherResult);
+    assertEquals("DEL,NONE", anotherResult);
 
   }
 
@@ -186,7 +186,7 @@ class DeleteCommandBirthdayTest {
     );
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("0", result);
+    assertEquals("DEL,NONE", result);
   }
 
   @Test
@@ -206,7 +206,7 @@ class DeleteCommandBirthdayTest {
     };
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("" + data.length, result);
+    assertEquals("DEL," + data.length, result);
   }
 
   @Test
@@ -216,7 +216,7 @@ class DeleteCommandBirthdayTest {
     );
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("0", result);
+    assertEquals("DEL,NONE", result);
   }
 
   @Test
@@ -238,7 +238,7 @@ class DeleteCommandBirthdayTest {
     };
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("" + data.length, result);
+    assertEquals("DEL," + data.length, result);
   }
 
   @Test
@@ -248,7 +248,7 @@ class DeleteCommandBirthdayTest {
     );
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("0", result);
+    assertEquals("DEL,NONE", result);
   }
 
   @Test
@@ -268,7 +268,7 @@ class DeleteCommandBirthdayTest {
     };
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("" + data.length, result);
+    assertEquals("DEL," + data.length, result);
   }
 
 

@@ -84,7 +84,7 @@ class ModifyCommandPhoneNumberTest {
             new EmptySecondOption(Arrays.asList("phoneNum", "010-7174-5681")),
             Arrays.asList("name", "MODIFY NAME"));
         String result = command.executeCommand(employeeDAO);
-        assertEquals("0", result);
+        assertEquals("MOD,NONE", result);
     }
 
     @Test
@@ -94,7 +94,7 @@ class ModifyCommandPhoneNumberTest {
             new EmptySecondOption(Arrays.asList("phoneNum", "010-7174-5680")),
             Arrays.asList("name", "MODIFY NAME"));
         String result = command.executeCommand(employeeDAO);
-        assertEquals("1", result);
+        assertEquals("MOD,1", result);
 
         ICommand searchCommand = new SearchCommand(
             new PrintOption(),
@@ -148,7 +148,7 @@ class ModifyCommandPhoneNumberTest {
             new LastPhoneNumberOption(Arrays.asList("phoneNum", "3059")),
             Arrays.asList("name", "MODIFY NAME"));
         String result = command.executeCommand(employeeDAO);
-        assertEquals("" + checkData1.length, result);
+        assertEquals("MOD," + checkData1.length, result);
 
         ICommand searchCommand = new SearchCommand(
             new PrintOption(),

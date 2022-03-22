@@ -74,7 +74,7 @@ public class ModifyCommandEmployeeTest {
             Columns.COLUMN_EMPLOYEE_NUM, "00000000")), Arrays.asList(Columns.COLUMN_NAME, "TEST TEST"));
 
         String result = command.executeCommand(employeeDAO);
-        assertEquals("0", result);
+        assertEquals("MOD,NONE", result);
 
     }
 
@@ -84,7 +84,7 @@ public class ModifyCommandEmployeeTest {
             Columns.COLUMN_EMPLOYEE_NUM, "00114058")), Arrays.asList(Columns.COLUMN_NAME, "TEST TEST"));
 
         String result = command.executeCommand(employeeDAO);
-        assertEquals("1", result);
+        assertEquals("MOD,1", result);
     }
 
     @Test
@@ -93,7 +93,7 @@ public class ModifyCommandEmployeeTest {
             Columns.COLUMN_EMPLOYEE_NUM, "00000000")), Arrays.asList(Columns.COLUMN_NAME, "TEST TEST"));
 
         String result = command.executeCommand(employeeDAO);
-        assertEquals("NONE", result);
+        assertEquals("MOD,NONE", result);
     }
 
     @Test

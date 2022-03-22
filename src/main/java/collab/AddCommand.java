@@ -16,4 +16,9 @@ public class AddCommand extends AbstractCommand{
         dao.addItem(new Employee(getCommandArguments()));
         return "";
     }
+
+    @Override
+    public String getName() {
+        return "ADD";
+    }
 }

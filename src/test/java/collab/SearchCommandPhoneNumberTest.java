@@ -80,7 +80,7 @@ public class SearchCommandPhoneNumberTest {
         new NoneFirstOption(), new EmptySecondOption(Arrays.asList("phoneNum", "010-0000-0000")));
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("0", result);
+    assertEquals("SCH,NONE", result);
 
   }
 
@@ -90,7 +90,7 @@ public class SearchCommandPhoneNumberTest {
         new NoneFirstOption(), new EmptySecondOption(Arrays.asList("phoneNum", "010-7174-5680")));
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("1", result);
+    assertEquals("SCH,1", result);
 
   }
 
@@ -100,7 +100,7 @@ public class SearchCommandPhoneNumberTest {
         new PrintOption(), new EmptySecondOption(Arrays.asList("phoneNum", "010-0000-0000")));
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("NONE", result);
+    assertEquals("SCH,NONE", result);
   }
 
   @Test
@@ -121,7 +121,7 @@ public class SearchCommandPhoneNumberTest {
         new NoneFirstOption(), new MiddlePhoneNumberOption(Arrays.asList("phoneNum", "9777")));
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("0", result);
+    assertEquals("SCH,NONE", result);
   }
 
   @Test
@@ -134,7 +134,7 @@ public class SearchCommandPhoneNumberTest {
         {"99117175", "FIRST LDEXRI", "CL4", "010-7174-1699", "19950704", "ADV"}
     };
     String result = command.executeCommand(employeeDAO);
-    assertEquals("2", result);
+    assertEquals("SCH,2", result);
   }
 
   @Test
@@ -143,7 +143,7 @@ public class SearchCommandPhoneNumberTest {
         new PrintOption(), new MiddlePhoneNumberOption(Arrays.asList("phoneNum", "9777")));
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("NONE", result);
+    assertEquals("SCH,NONE", result);
   }
 
   @Test
@@ -166,7 +166,7 @@ public class SearchCommandPhoneNumberTest {
         new NoneFirstOption(), new LastPhoneNumberOption(Arrays.asList("phoneNum", "0000")));
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("0", result);
+    assertEquals("SCH,NONE", result);
   }
 
   @Test
@@ -184,7 +184,7 @@ public class SearchCommandPhoneNumberTest {
         {"00114058", "QQWE LVARW", "CL4", "010-4328-3059", "19911021", "PRO"}
     };
     String result = command.executeCommand(employeeDAO);
-    assertEquals("" + data.length, result);
+    assertEquals("SCH," + data.length, result);
   }
 
   @Test
@@ -193,7 +193,7 @@ public class SearchCommandPhoneNumberTest {
         new PrintOption(), new LastPhoneNumberOption(Arrays.asList("phoneNum", "0000")));
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("NONE", result);
+    assertEquals("SCH,NONE", result);
   }
 
   @Test

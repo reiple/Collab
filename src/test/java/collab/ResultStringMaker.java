@@ -5,7 +5,7 @@ public class ResultStringMaker {
   public static String makeResultString(String command, String[][] data) {
 
     // TODO: 리턴에 명령어 포함일 경우, 이 부분 수정해야 함
-    boolean needCommand = false;
+    boolean needCommand = true;
     boolean needLastNewLine = false;
     boolean useSystemNewLine = true;
 
