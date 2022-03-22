@@ -1,5 +1,5 @@
 package collab;
 
 public interface ICommand {
-    String executeCommand(IDAO dao);
+    String executeCommand(IDAO dao) throws Exception;
 }

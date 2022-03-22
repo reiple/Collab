@@ -144,7 +144,7 @@ class SearchCommandNameTest {
   }
 
   @Test
-  void testSearchNameFail() {
+  void testSearchNameFail() throws Exception {
 
     ICommand command = new SearchCommand(
         new NoneFirstOption(), new NoneSecondOption(Arrays.asList("name", "KYUMOK KIM")));
@@ -154,7 +154,7 @@ class SearchCommandNameTest {
   }
 
   @Test
-  void testSearchNameSuccess() {
+  void testSearchNameSuccess() throws Exception {
 
     ICommand command = new SearchCommand(
         new NoneFirstOption(), new NoneSecondOption(Arrays.asList("name", "DN WD")));
@@ -164,7 +164,7 @@ class SearchCommandNameTest {
   }
 
   @Test
-  void testSearchNamePrintFail() {
+  void testSearchNamePrintFail() throws Exception {
 
     ICommand command = new SearchCommand(
         new PrintOption(), new NoneSecondOption(Arrays.asList("name", "TEST CASE")));
@@ -176,7 +176,7 @@ class SearchCommandNameTest {
   }
 
   @Test
-  void testSearchNamePrintSuccess() {
+  void testSearchNamePrintSuccess() throws Exception {
 
     ICommand command = new SearchCommand(
         new PrintOption(), new NoneSecondOption(Arrays.asList("name", "DN WD")));
@@ -190,7 +190,7 @@ class SearchCommandNameTest {
   }
 
   @Test
-  void testSearchFirstNameFail() {
+  void testSearchFirstNameFail() throws Exception {
     ICommand command = new SearchCommand(
         new NoneFirstOption(), new NoneSecondOption(Arrays.asList("name", "TESTER")));
 
@@ -200,7 +200,7 @@ class SearchCommandNameTest {
   }
 
   @Test
-  void testSearchFirstNameSuccess() {
+  void testSearchFirstNameSuccess() throws Exception {
     ICommand command = new SearchCommand(
         new NoneFirstOption(), new FirstNameOption(Arrays.asList("name", "DN")));
     String result = command.executeCommand(employeeDAO);
@@ -208,7 +208,7 @@ class SearchCommandNameTest {
   }
 
   @Test
-  void testSearchFirstNamePrintFail() {
+  void testSearchFirstNamePrintFail() throws Exception {
     ICommand command = new SearchCommand(
         new PrintOption(), new FirstNameOption(Arrays.asList("name", "TESTER")));
     String result = command.executeCommand(employeeDAO);
@@ -218,7 +218,7 @@ class SearchCommandNameTest {
   }
 
   @Test
-  void testSearchFirstNamePrintSuccess() {
+  void testSearchFirstNamePrintSuccess() throws Exception {
     ICommand command = new SearchCommand(
         new PrintOption(), new FirstNameOption(Arrays.asList("name", "DN")));
     String result = command.executeCommand(employeeDAO);
@@ -232,7 +232,7 @@ class SearchCommandNameTest {
 
 
   @Test
-  void testSearchFistNameOver5Success() {
+  void testSearchFistNameOver5Success() throws Exception {
 
     ICommand command = new SearchCommand(
         new NoneFirstOption(), new FirstNameOption(Arrays.asList("name", "FIRST")));
@@ -250,7 +250,7 @@ class SearchCommandNameTest {
   }
 
   @Test
-  void testSearchFistNamePrintOver5Success() {
+  void testSearchFistNamePrintOver5Success() throws Exception {
 
     ICommand command = new SearchCommand(
         new PrintOption(), new FirstNameOption(Arrays.asList("name", "FIRST")));
@@ -269,7 +269,7 @@ class SearchCommandNameTest {
   }
 
   @Test
-  void testSearchLastNameFail() {
+  void testSearchLastNameFail() throws Exception {
     ICommand command = new SearchCommand(
         new NoneFirstOption(), new LastNameOption(Arrays.asList("name", "TESTER")));
     String result = command.executeCommand(employeeDAO);
@@ -278,7 +278,7 @@ class SearchCommandNameTest {
   }
 
   @Test
-  void testSearchLastNameSuccess() {
+  void testSearchLastNameSuccess() throws Exception {
     ICommand command = new SearchCommand(
         new NoneFirstOption(), new LastNameOption(Arrays.asList("name", "WD")));
     String result = command.executeCommand(employeeDAO);
@@ -287,7 +287,7 @@ class SearchCommandNameTest {
   }
 
   @Test
-  void testSearchLastNamePrintFail() {
+  void testSearchLastNamePrintFail() throws Exception {
     ICommand command = new SearchCommand(
         new PrintOption(), new LastNameOption(Arrays.asList("name", "TESTER")));
     String result = command.executeCommand(employeeDAO);
@@ -297,7 +297,7 @@ class SearchCommandNameTest {
   }
 
   @Test
-  void testSearchLastNamePrintSuccess() {
+  void testSearchLastNamePrintSuccess() throws Exception {
     ICommand command = new SearchCommand(
         new PrintOption(), new LastNameOption(Arrays.asList("name", "WD")));
     String result = command.executeCommand(employeeDAO);
@@ -309,7 +309,7 @@ class SearchCommandNameTest {
   }
 
   @Test
-  void testSearchLastNameOver5Success() {
+  void testSearchLastNameOver5Success() throws Exception {
 
     ICommand command = new SearchCommand(
         new NoneFirstOption(), new LastNameOption(Arrays.asList("name", "LVARW")));
@@ -328,7 +328,7 @@ class SearchCommandNameTest {
   }
 
   @Test
-  void testSearchLastNamePrintOver5Success() {
+  void testSearchLastNamePrintOver5Success() throws Exception {
 
     ICommand command = new SearchCommand(
         new PrintOption(), new LastNameOption(Arrays.asList("name", "LVARW")));

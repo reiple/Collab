@@ -128,7 +128,7 @@ class ModifyCommandPhoneNumberTest {
   }
 
   @Test
-  void testFindPhoneNumAndEditNameFail() {
+  void testFindPhoneNumAndEditNameFail() throws Exception {
     ICommand command = new ModifyCommand(
         new NoneFirstOption(), new NoneSecondOption(),
         Arrays.asList("phoneNum", "010-7174-5681", "name", "MODIFY NAME"));
@@ -137,7 +137,7 @@ class ModifyCommandPhoneNumberTest {
   }
 
   @Test
-  void testFindPhoneNumAndEditNameSuccess() {
+  void testFindPhoneNumAndEditNameSuccess() throws Exception {
     ICommand command = new ModifyCommand(
         new NoneFirstOption(), new NoneSecondOption(),
         Arrays.asList("phoneNum", "010-7174-5680", "name", "MODIFY NAME"));

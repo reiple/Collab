@@ -108,7 +108,7 @@ public class CommandParser {
 
     ICommand getCommandFromToken(AbstractFirstOption FirstOption, AbstractSecondOption SecondOption, AbstractThirdOption ThirdOption, String[] tokenList) throws Exception {
         String command = tokenList[0];
-        if (command.equals(ADD_COMMAND)) return new AddCommand(Arrays.asList(Arrays.copyOfRange(tokenList, 4, ADD_CMD_LENGTH-1)));
+        if (command.equals(ADD_COMMAND)) return new AddCommand(Arrays.asList(Arrays.copyOfRange(tokenList, 4, ADD_CMD_LENGTH)));
         if (command.equals(SEARCH_COMMAND)) return new SearchCommand(FirstOption, SecondOption);
         if (command.equals(MODIFY_COMMAND)) return new ModifyCommand(FirstOption, SecondOption, Arrays.asList(Arrays.copyOfRange(tokenList, 6, MOD_CMD_LENGTH-1)));
         if (command.equals(DELETE_COMMAND)) return new DeleteCommand(FirstOption, SecondOption);

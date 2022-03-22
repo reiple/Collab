@@ -18,7 +18,7 @@ public class SearchCommand extends AbstractCommand{
     }
 
     @Override
-    public String executeCommand(IDAO employeeDAO) {
+    public String executeCommand(IDAO employeeDAO) throws Exception {
 
         if(getSecondOption() instanceof NoneSecondOption) {
             return getSearchName((EmployeeDAO) employeeDAO);

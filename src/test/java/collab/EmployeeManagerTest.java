@@ -9,6 +9,7 @@ import collab.options.second.NoneSecondOption;
 import collab.options.third.NoneThirdOption;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
@@ -111,6 +112,7 @@ public class EmployeeManagerTest {
         assertTrue(((DeleteCommand) commandList.get(3)).getThirdOption() instanceof NoneThirdOption);
     }
 
+
     @Test
     public void executeCommandTest() throws Exception{
         EmployeeManager employeeManager = new EmployeeManager();
@@ -167,7 +169,7 @@ public class EmployeeManagerTest {
 
         EmployeeManager employeeManager = new EmployeeManager();
 
-                List<String> commandStringList = employeeManager.loadCommandStringListFromFile(inFilePath);
+        List<String> commandStringList = employeeManager.loadCommandStringListFromFile(inFilePath);
         List<ICommand> commandList = employeeManager.parseCommandList(commandStringList);
         String executionResult = employeeManager.executeCommandList(commandList);
         employeeManager.saveExecutionResultToFile(employeeManagerFileToFileTestFilePath, executionResult);
@@ -181,6 +183,7 @@ public class EmployeeManagerTest {
         }
         br.close();
 
+
         assertTrue(new File(employeeManagerFileToFileTestFilePath).exists());
         ArrayList<String> testOutput = new ArrayList<String>();
         BufferedReader testBr = new BufferedReader(new FileReader(employeeManagerFileToFileTestFilePath));
@@ -190,10 +193,11 @@ public class EmployeeManagerTest {
         }
         testBr.close();
 
-        assertTrue(answers.size() == testOutput.size());
+        assertEquals(answers.size(), testOutput.size());
         for (int i = 0 ; i < answers.size(); i++){
             assertEquals(answers.get(i), testOutput.get(i));
         }
+
     }
 
     @AfterAll

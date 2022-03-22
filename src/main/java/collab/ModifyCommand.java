@@ -13,7 +13,7 @@ public class ModifyCommand extends AbstractCommand{
     }
 
     @Override
-    public String executeCommand(IDAO employeeDAO) {
+    public String executeCommand(IDAO employeeDAO) throws Exception {
 
         if(getSecondOption() instanceof NoneSecondOption) {
             return getValues((EmployeeDAO) employeeDAO);
@@ -28,7 +28,7 @@ public class ModifyCommand extends AbstractCommand{
         List<String> commandArguments = getCommandArguments();
         list.stream()
             .forEach(employee ->
-                employeeDAO.modifyItemById(employee.getEmployeeNumber(), commandArguments.get(2), commandArguments.get(3)));
+                ((EmployeeDAO)employeeDAO).modifyItemById(employee.getEmployeeNumber(), commandArguments.get(2), commandArguments.get(3)));
 
         return getFirstOption().getFilteredList(list);
     }
