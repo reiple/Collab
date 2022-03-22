@@ -10,14 +10,14 @@ class ModifyTest_byCondition {
   
   DataBase empDB = new DataBase();
     @BeforeEach
-    public void setUp() {
+    void setUp() {
       empDB.add(new Employee(Arrays.asList("15123099","VXIHXOTH JHOP","CL3","010-3112-2609","19771211","ADV")));
       empDB.add(new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO")));
       empDB.add(new Employee(Arrays.asList("18115040","TTETHU HBO","CL3","010-4581-2050","20080718", "ADV")));
     }
     
     @Test
-    public void modifyTest_sName_cName() {
+    void modifyTest_sName_cName() {
       Employee targetEmployee = new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"));
       List<Employee> foundEmployee = empDB.modifyItemByCondition("name", "FB NTAWR", "name", "TEST TEST");
 
@@ -28,7 +28,7 @@ class ModifyTest_byCondition {
     }
     
     @Test
-    public void modifyTest_sName_cCl() {
+    void modifyTest_sName_cCl() {
       Employee targetEmployee = new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"));
       List<Employee> foundEmployee = empDB.modifyItemByCondition("name", "FB NTAWR", "cl", "CL2");
 
@@ -39,7 +39,7 @@ class ModifyTest_byCondition {
     }
     
     @Test
-    public void modifyTest_sName_cPhoneNumber() {
+    void modifyTest_sName_cPhoneNumber() {
       Employee targetEmployee = new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"));
       List<Employee> foundEmployee = empDB.modifyItemByCondition("name", "FB NTAWR", "phoneNum", "010-5645-0000");
 
@@ -50,7 +50,7 @@ class ModifyTest_byCondition {
     }
     
     @Test
-    public void modifyTest_sName_cBirthday() {
+    void modifyTest_sName_cBirthday() {
       Employee targetEmployee = new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"));
       List<Employee> foundEmployee = empDB.modifyItemByCondition("name", "FB NTAWR", "birthday", "19860101");
 
@@ -61,7 +61,7 @@ class ModifyTest_byCondition {
     }
     
     @Test
-    public void modifyTest_sName_cCerti() {
+    void modifyTest_sName_cCerti() {
       Employee targetEmployee = new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"));
       List<Employee> foundEmployee = empDB.modifyItemByCondition("name", "FB NTAWR", "certi", "EX");
 
