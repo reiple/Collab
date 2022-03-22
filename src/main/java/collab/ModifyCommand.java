@@ -15,17 +15,16 @@ public class ModifyCommand extends AbstractCommand {
     @Override
     public String executeCommand(IDAO employeeDAO) throws Exception {
 
-        List<Employee> list = null;
-        list = getSecondOption().getFilteredList((EmployeeDAO) employeeDAO);
+        List<Employee> list = getSecondOption().getFilteredList((EmployeeDAO) employeeDAO);
         if (list == null) {
             list = new ArrayList<>();
         }
 
-        List<String> commandArguments = getCommandArguments();
-        list.stream()
-            .forEach(employee ->
-                ((EmployeeDAO)employeeDAO).modifyItemById(employee.getEmployeeNumber(), commandArguments.get(0), commandArguments.get(1)));
+        List<Employee> resultList = new ArrayList<>();
+        list.forEach(employee ->
+            resultList.add(((EmployeeDAO) employeeDAO).modifyItemById(employee.getEmployeeNumber(),
+                getCommandArguments().get(0), getCommandArguments().get(1))));
 
-        return getFirstOption().getFilteredList(list);
+        return getFirstOption().getFilteredList(resultList);
     }
 }
