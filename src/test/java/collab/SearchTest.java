@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -105,8 +106,11 @@ class SearchTest {
   
   @Test
   public void searchTestNotFound() {
-    Employee noAnswer = new Employee(Arrays.asList("19000000","TEST TEST","CL5","010-0000-0000","19000101","TEST"));
-    assertTrue(searchTest_Total(noAnswer)==0);
+    assertThrows(RuntimeException.class, () -> {
+      Employee noAnswer = new Employee(Arrays.asList("19000000","TEST TEST","CL5","010-0000-0000","19000101","TEST"));
+      assertTrue(searchTest_Total(noAnswer)==0);
+    });
+
   }
 }
 

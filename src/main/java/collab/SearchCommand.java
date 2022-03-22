@@ -7,6 +7,7 @@ import collab.options.second.LastNameOption;
 import collab.options.second.NoneSecondOption;
 import collab.options.third.NoneThirdOption;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,12 +21,14 @@ public class SearchCommand extends AbstractCommand{
     public String executeCommand(IDAO employeeDAO) {
 
         if(getSecondOption() instanceof NoneSecondOption) {
-            return getSearchName(employeeDAO);
+            return getSearchName((EmployeeDAO) employeeDAO);
         }
+        List<Employee> list = getSecondOption().getFilteredList((EmployeeDAO) employeeDAO);
 
-
-        List<Employee> list = getSecondOption().getFilteredList(employeeDAO);
-        System.out.println("SECOND: " + list.size());
+        // TODO: 임시로 조치한 것
+        if(list == null) {
+            list = new ArrayList<>();
+        }
 
         return getFirstOption().getFilteredList(list);
     }

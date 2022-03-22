@@ -40,10 +40,13 @@ class ModifyTest {
       //"17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"
       
       // cl 변경 Test
-      empDB.modifyItemByCondition("employeeNum", "17112609", "cl", "CL5");
-      
-      assertTrue(empDB.searchItems("cl","CL4").size()==0);
-      assertTrue(empDB.searchItems("cl","CL5").size()==1);
+      assertThrows(RuntimeException.class, () -> {
+        empDB.modifyItemByCondition("employeeNum", "17112609", "cl", "CL5");
+
+        assertTrue(empDB.searchItems("cl","CL4").size()==0);
+        assertTrue(empDB.searchItems("cl","CL5").size()==1);
+      });
+
     }
     
     @Test
