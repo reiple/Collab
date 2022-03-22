@@ -5,7 +5,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ModifyTest_byID {
+class ModifyTestbyID {
   
   DataBase empDB = new DataBase();
     @BeforeEach
