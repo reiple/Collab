@@ -7,6 +7,7 @@ import collab.options.second.LastNameOption;
 import collab.options.second.NoneSecondOption;
 import collab.options.third.NoneThirdOption;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,15 +18,20 @@ public class SearchCommand extends AbstractCommand{
     }
 
     @Override
-    public String executeCommand(EmployeeDAO employeeDAO) {
+    public String executeCommand(IDAO employeeDAO) {
 
         List<Employee> list = null;
         if(getSecondOption() instanceof NoneSecondOption) {
-            list = getSearchEmployeeList(employeeDAO);
+            list = getSearchEmployeeList((EmployeeDAO)employeeDAO);
         } else {
-            list = getSecondOption().getFilteredList(employeeDAO);
+            list = getSecondOption().getFilteredList((EmployeeDAO)employeeDAO);
         }
-
+        List<Employee> list = getSecondOption().getFilteredList((EmployeeDAO) employeeDAO);
+      
+        // TODO: 임시로 조치한 것
+        if(list == null) {
+          list = new ArrayList<>();
+        }
         return getFirstOption().getFilteredList(list);
     }
 
@@ -65,5 +71,5 @@ public class SearchCommand extends AbstractCommand{
         }
         return list;
     }
-
+  
 }
