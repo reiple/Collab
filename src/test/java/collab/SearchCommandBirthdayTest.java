@@ -79,7 +79,7 @@ class SearchCommandBirthdayTest {
         new EmptySecondOption(Arrays.asList("birthday", "20071101")));
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("0", result);
+    assertEquals("SCH,NONE", result);
 
   }
 
@@ -97,7 +97,7 @@ class SearchCommandBirthdayTest {
         {"00114058", "QQWE LVARW", "CL4", "010-4328-3059", "19911021", "PRO"}};
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("" + data.length, result);
+    assertEquals("SCH," + data.length, result);
   }
 
   @Test
@@ -106,7 +106,7 @@ class SearchCommandBirthdayTest {
         new EmptySecondOption(Arrays.asList("birthday", "20071101")));
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("NONE", result);
+    assertEquals("SCH,NONE", result);
 
   }
 
@@ -137,7 +137,7 @@ class SearchCommandBirthdayTest {
         new YearOfBirthdayOption(Arrays.asList("birthday", "2022")));
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("0", result);
+    assertEquals("SCH,NONE", result);
   }
 
   @Test
@@ -154,7 +154,7 @@ class SearchCommandBirthdayTest {
         {"00114058", "QQWE LVARW", "CL4", "010-4328-3059", "19911021", "PRO"}};
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("" + data.length, result);
+    assertEquals("SCH," + data.length, result);
   }
 
   @Test
@@ -163,7 +163,7 @@ class SearchCommandBirthdayTest {
         new YearOfBirthdayOption(Arrays.asList("birthday", "2022")));
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("NONE", result);
+    assertEquals("SCH,NONE", result);
   }
 
   @Test
@@ -194,7 +194,7 @@ class SearchCommandBirthdayTest {
         new YearOfBirthdayOption(Arrays.asList("birthday", "05")));
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("0", result);
+    assertEquals("SCH,NONE", result);
   }
 
   @Test
@@ -216,7 +216,7 @@ class SearchCommandBirthdayTest {
     };
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("" + data.length, result);
+    assertEquals("SCH," + data.length, result);
   }
 
   @Test
@@ -225,7 +225,7 @@ class SearchCommandBirthdayTest {
         new YearOfBirthdayOption(Arrays.asList("birthday", "05")));
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("NONE", result);
+    assertEquals("SCH,NONE", result);
   }
 
   @Test
@@ -257,7 +257,7 @@ class SearchCommandBirthdayTest {
         new YearOfBirthdayOption(Arrays.asList("birthday", "31")));
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("0", result);
+    assertEquals("SCH,NONE", result);
   }
 
   @Test
@@ -274,7 +274,7 @@ class SearchCommandBirthdayTest {
         {"00114058", "QQWE LVARW", "CL4", "010-4328-3059", "19911021", "PRO"}};
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("" + data.length, result);
+    assertEquals("SCH," + data.length, result);
   }
 
   @Test
@@ -283,7 +283,7 @@ class SearchCommandBirthdayTest {
         new YearOfBirthdayOption(Arrays.asList("birthday", "31")));
 
     String result = command.executeCommand(employeeDAO);
-    assertEquals("NONE", result);
+    assertEquals("SCH,NONE", result);
   }
 
   @Test

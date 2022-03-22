@@ -18,40 +18,42 @@ public class FirstNameSearchOptionTest {
   private EmployeeDAO employeeDAO;
 
   @BeforeEach
-  void setup() {
-    list = mock(ArrayList.class);
-    employeeDAO = mock(EmployeeDAO.class);
+  void setup() throws Exception {
+    //list = mock(ArrayList.class);
+    //employeeDAO = mock(EmployeeDAO.class);
+    employeeDAO = new EmployeeDAO();
+    employeeDAO.initDatabase();
 
-    String[] data = {
-        "DN WD",
-        "SBILHUT LDEXRI",
-        "HH LTUPF",
-        "VCUHLE HMU",
-        "RTAH VNUP",
-        "BMU MPOSXU",
-        "WN XV",
-        "KBU MHU",
-        "QKAHCEX LTODDO",
-        "TKOQKIS HC",
-        "LFIS JJIVL",
-        "RPO JK",
-        "VXIHXOTH JHOP",
-        "VSID TVO",
-        "FB NTAWR",
-        "TTETHU HBO",
-        "TWU QSOLT",
-        "SRERLALH HMEF",
-        "FBAH RTIJ",
-        "NQ LVARW"
-    };
-
-    for(int index = 0; index < data.length; index++) {
-      Employee employee = new Employee(Arrays.asList("00000000", data[index], "CL1", "010-0000-0000", "19000101", "ADV"));
-      employee.setName(data[index]);
-      when(list.get(index)).thenReturn(employee);
-    }
-
-    when(list.size()).thenReturn(20);
+//    String[] data = {
+//        "DN WD",
+//        "SBILHUT LDEXRI",
+//        "HH LTUPF",
+//        "VCUHLE HMU",
+//        "RTAH VNUP",
+//        "BMU MPOSXU",
+//        "WN XV",
+//        "KBU MHU",
+//        "QKAHCEX LTODDO",
+//        "TKOQKIS HC",
+//        "LFIS JJIVL",
+//        "RPO JK",
+//        "VXIHXOTH JHOP",
+//        "VSID TVO",
+//        "FB NTAWR",
+//        "TTETHU HBO",
+//        "TWU QSOLT",
+//        "SRERLALH HMEF",
+//        "FBAH RTIJ",
+//        "NQ LVARW"
+//    };
+//
+//    for(int index = 0; index < data.length; index++) {
+//      Employee employee = new Employee(Arrays.asList("00000000", data[index], "CL1", "010-0000-0000", "19000101", "ADV"));
+//      employee.setName(data[index]);
+//      when(list.get(index)).thenReturn(employee);
+//    }
+//
+//    when(list.size()).thenReturn(20);
 
     String[][] data2 = {
         {"01122329", "DN WD", "CL4", "010-7174-5680", "20071117", "PRO"},
@@ -76,13 +78,14 @@ public class FirstNameSearchOptionTest {
         {"88114052", "NQ LVARW", "CL4", "010-4528-3059", "19911021", "PRO"}
     };
 
-    List<Employee> dataList = new ArrayList<>();
+    //List<Employee> dataList = new ArrayList<>();
     for(String[] employeeData: data2) {
-      Employee employee = new Employee(Arrays.asList(employeeData));
-      dataList.add(employee);
+//      Employee employee = new Employee(Arrays.asList(employeeData));
+//      dataList.add(employee);
+      employeeDAO.addItemFromStringTokens(Arrays.asList(employeeData));
 
     }
-    when(employeeDAO.getAllItems()).thenReturn(dataList);
+    //when(employeeDAO.getAllItems()).thenReturn(dataList);
 
   }
 

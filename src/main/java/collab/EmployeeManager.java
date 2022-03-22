@@ -29,6 +29,10 @@ public class EmployeeManager  {
                 executionResult += command.executeCommand(this.dao);
                 executionResult += "\n";
             }
+            else {
+                command.executeCommand(this.dao);
+            }
+
         }
         return executionResult.substring(0, executionResult.length()-1);
     }

@@ -35,4 +35,6 @@ public abstract class AbstractCommand implements ICommand{
     @Override
     public abstract String executeCommand(IDAO dao) throws Exception;
 
+    public abstract String getName();
+
 }

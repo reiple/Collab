@@ -4,26 +4,20 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import collab.options.first.NoneFirstOption;
-import collab.options.second.NoneSecondOption;
+import collab.options.first.PrintOption;
+import collab.options.second.EmptySecondOption;
+import collab.options.second.LastPhoneNumberOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 
 class ModifyCommandPhoneNumberTest {
 
-  private EmployeeDAO employeeDAO;
-
-  @BeforeEach
-  void setup() {
-
-    employeeDAO = mock(EmployeeDAO.class);
-    List<Employee> list = new ArrayList<>();
-
-    String[][] data = {
+    private EmployeeDAO employeeDAO;
+    private String[][] data = {
         {"01122329", "DN WD", "CL4", "010-7174-5680", "20071117", "PRO"},
         {"99117175", "FIRST LDEXRI", "CL4", "010-2814-1699", "19950704", "ADV"},
         {"03113260", "FIRST LTUPF", "CL2", "010-5798-5383", "19791018", "PRO"},
@@ -52,100 +46,184 @@ class ModifyCommandPhoneNumberTest {
         {"00114058", "QQWE LVARW", "CL4", "010-4328-3059", "19911021", "PRO"}
     };
 
-    for (String[] employeeData : data) {
-      Employee employee = new Employee(Arrays.asList(employeeData));
-      list.add(employee);
 
-    }
-    when(employeeDAO.getAllItems()).thenReturn(list);
-    when(employeeDAO.modifyItemById(anyString(), anyString(), anyString()))
-        .thenReturn(new Employee(Arrays.asList("00114058", "QQWE LVARW", "CL4", "010-4328-3059", "19911021", "PRO")));
-  }
+    void setup() {
 
-  @Test
-  void testMakeResultStringMultiple() {
-    String[][] data = {
-        {"88114052", "NQ LVARW", "CL4", "010-4528-3059", "19911021", "PRO"},
-        {"85125741", "FBAH RTIJ", "CL1", "010-8900-1478", "19780228", "ADV"}
-    };
+        employeeDAO = mock(EmployeeDAO.class);
+        List<Employee> list = new ArrayList<>();
 
-    String result = makeResultString("SCH", data);
-//    assertEquals(
-//        "SCH,88114052,NQ LVARW,CL4,010-4528-3059,19911021,PRO"
-//            + System.lineSeparator()
-//            + "SCH,85125741,FBAH RTIJ,CL1,010-8900-1478,19780228,ADV"
-//        , result);
+        for (String[] employeeData : data) {
+            Employee employee = new Employee(Arrays.asList(employeeData));
+            list.add(employee);
 
-    // TODO: 개행문자 변경 시, 이 부분 수정해야 함
-    // TODO: 리턴에 명령어 포함일 경우, 이 부분 수정해야 함
-    assertEquals(
-        "88114052,NQ LVARW,CL4,010-4528-3059,19911021,PRO"
-            + "\n"
-            + "85125741,FBAH RTIJ,CL1,010-8900-1478,19780228,ADV\n"
-        , result);
-  }
-
-  private String makeResultString(String command, String[][] data) {
-
-    // TODO: 개행문자 변경 시, 이 부분 수정해야 함
-    // TODO: 리턴에 명령어 포함일 경우, 이 부분 수정해야 함
-    boolean needCommand = false;
-    boolean needLastNewLine = true;
-    boolean useSystemNewLine = false;
-
-    StringBuilder builder = new StringBuilder();
-    for(int next = 0; next < data.length; next++) {
-      String[] employeeData = data[next];
-
-      if(needCommand) {
-        builder.append(command);
-        builder.append(",");
-      }
-
-      for (int index = 0; index < employeeData.length; index++) {
-        builder.append(employeeData[index]);
-        if (index == employeeData.length - 1) {
-          break;
         }
-        builder.append(",");
-      }
-
-      if(!needLastNewLine) {
-        if(next == data.length - 1) {
-          break;
-        }
-      }
-
-      if(useSystemNewLine) {
-        builder.append(System.lineSeparator());
-      } else {
-        builder.append("\n");
-      }
-
-
+        when(employeeDAO.getAllItems()).thenReturn(list);
+        when(employeeDAO.modifyItemById(anyString(), anyString(), anyString()))
+            .thenReturn(new Employee(
+                Arrays.asList("00114058", "QQWE LVARW", "CL4", "010-4328-3059", "19911021",
+                    "PRO")));
     }
 
-    return builder.toString();
-  }
+    @BeforeEach
+    void setupDAO() throws Exception {
+        employeeDAO = new EmployeeDAO();
+        employeeDAO.initDatabase();
+        for (String[] employeeData : data) {
+            try {
+                employeeDAO.addItemFromStringTokens(Arrays.asList(employeeData));
+            } catch (Exception e) {
+                System.err.println("SKIP: " + e.getMessage());
+            }
+        }
+    }
 
-  @Test
-  void testFindPhoneNumAndEditNameFail() throws Exception {
-    ICommand command = new ModifyCommand(
-        new NoneFirstOption(), new NoneSecondOption(),
-        Arrays.asList("phoneNum", "010-7174-5681", "name", "MODIFY NAME"));
-    String result = command.executeCommand(employeeDAO);
-    assertEquals("0", result);
-  }
+    @Test
+    void testFindPhoneNumAndEditNameFail() throws Exception {
+        ICommand command = new ModifyCommand(
+            new NoneFirstOption(),
+            new EmptySecondOption(Arrays.asList("phoneNum", "010-7174-5681")),
+            Arrays.asList("name", "MODIFY NAME"));
+        String result = command.executeCommand(employeeDAO);
+        assertEquals("MOD,NONE", result);
+    }
 
-  @Disabled
-  @Test
-  void testFindPhoneNumAndEditNameSuccess() throws Exception {
-    ICommand command = new ModifyCommand(
-        new NoneFirstOption(), new NoneSecondOption(),
-        Arrays.asList("phoneNum", "010-7174-5680", "name", "MODIFY NAME"));
-    String result = command.executeCommand(employeeDAO);
-    assertEquals("1", result);
-  }
+    @Test
+    void testFindPhoneNumAndEditNameSuccess() throws Exception {
+        ICommand command = new ModifyCommand(
+            new NoneFirstOption(),
+            new EmptySecondOption(Arrays.asList("phoneNum", "010-7174-5680")),
+            Arrays.asList("name", "MODIFY NAME"));
+        String result = command.executeCommand(employeeDAO);
+        assertEquals("MOD,1", result);
+
+        ICommand searchCommand = new SearchCommand(
+            new PrintOption(),
+            new EmptySecondOption(Arrays.asList("name", "MODIFY NAME")));
+
+        String[][] data = {
+            {"01122329", "MODIFY NAME", "CL4", "010-7174-5680", "20071117", "PRO"}
+        };
+        String searchResult = searchCommand.executeCommand(employeeDAO);
+        assertEquals(ResultStringMaker.makeResultString("SCH", data), searchResult);
+    }
+
+    @Test
+    void testFindLastPhoneNumANdEditNameSuccess() throws Exception {
+
+        String[][] checkData1 = {
+            {"69114054", "GDFQW LVARW", "CL2", "010-3528-3059", "19911021", "PRO"},
+            {"88114055", "QWE LVARW", "CL1", "010-4528-3059", "19911021", "PRO"},
+            {"88114056", "REWAA LVARW", "CL2", "010-4128-3059", "19911021", "PRO"},
+            {"89114053", "DEFRE LVARW", "CL3", "010-2528-3059", "19911021", "PRO"},
+            {"00114057", "EREBB LVARW", "CL3", "010-4228-3059", "19911021", "PRO"},
+            // MAX 5
+            {"00114058", "QQWE LVARW", "CL4", "010-4328-3059", "19911021", "PRO"},
+            {"01114052", "ABCE LVARW", "CL4", "010-1528-3059", "19911021", "PRO"},
+        };
+
+        String[][] checkData2 = {
+            {"69114054", "GDFQW LVARW", "CL2", "010-3528-3059", "19911021", "PRO"},
+            {"88114055", "QWE LVARW", "CL1", "010-4528-3059", "19911021", "PRO"},
+            {"88114056", "REWAA LVARW", "CL2", "010-4128-3059", "19911021", "PRO"},
+            {"89114053", "DEFRE LVARW", "CL3", "010-2528-3059", "19911021", "PRO"},
+            {"00114057", "EREBB LVARW", "CL3", "010-4228-3059", "19911021", "PRO"},
+            // MAX 5
+            //{"00114058", "QQWE LVARW", "CL4", "010-4328-3059", "19911021", "PRO"},
+            //{"01114052", "ABCE LVARW", "CL4", "010-1528-3059", "19911021", "PRO"},
+        };
+
+        String[][] checkData3 = {
+            {"69114054", "MODIFY NAME", "CL2", "010-3528-3059", "19911021", "PRO"},
+            {"88114055", "MODIFY NAME", "CL1", "010-4528-3059", "19911021", "PRO"},
+            {"88114056", "MODIFY NAME", "CL2", "010-4128-3059", "19911021", "PRO"},
+            {"89114053", "MODIFY NAME", "CL3", "010-2528-3059", "19911021", "PRO"},
+            {"00114057", "MODIFY NAME", "CL3", "010-4228-3059", "19911021", "PRO"}
+            // MAX 5
+            //{"00114058", "QQWE LVARW", "CL4", "010-4328-3059", "19911021", "PRO"}
+            //{"01114052", "ABCE LVARW", "CL4", "010-1528-3059", "19911021", "PRO"},
+        };
+
+        ICommand command = new ModifyCommand(
+            new NoneFirstOption(),
+            new LastPhoneNumberOption(Arrays.asList("phoneNum", "3059")),
+            Arrays.asList("name", "MODIFY NAME"));
+        String result = command.executeCommand(employeeDAO);
+        assertEquals("MOD," + checkData1.length, result);
+
+        ICommand searchCommand = new SearchCommand(
+            new PrintOption(),
+            new EmptySecondOption(Arrays.asList("name", "MODIFY NAME")));
+        String searchResult = searchCommand.executeCommand(employeeDAO);
+        assertEquals(ResultStringMaker.makeResultString("SCH", checkData3), searchResult);
+    }
+
+    @Test
+    void testFindLastPhoneNumANdEditNamePrintSuccess() throws Exception {
+
+        String[][] checkData1 = {
+            {"69114054", "GDFQW LVARW", "CL2", "010-3528-3059", "19911021", "PRO"},
+            {"88114055", "QWE LVARW", "CL1", "010-4528-3059", "19911021", "PRO"},
+            {"88114056", "REWAA LVARW", "CL2", "010-4128-3059", "19911021", "PRO"},
+            {"89114053", "DEFRE LVARW", "CL3", "010-2528-3059", "19911021", "PRO"},
+            {"00114057", "EREBB LVARW", "CL3", "010-4228-3059", "19911021", "PRO"},
+            // MAX 5
+            {"00114058", "QQWE LVARW", "CL4", "010-4328-3059", "19911021", "PRO"},
+            {"01114052", "ABCE LVARW", "CL4", "010-1528-3059", "19911021", "PRO"},
+        };
+
+        String[][] checkData2 = {
+            {"69114054", "GDFQW LVARW", "CL2", "010-3528-3059", "19911021", "PRO"},
+            {"88114055", "QWE LVARW", "CL1", "010-4528-3059", "19911021", "PRO"},
+            {"88114056", "REWAA LVARW", "CL2", "010-4128-3059", "19911021", "PRO"},
+            {"89114053", "DEFRE LVARW", "CL3", "010-2528-3059", "19911021", "PRO"},
+            {"00114057", "EREBB LVARW", "CL3", "010-4228-3059", "19911021", "PRO"},
+            // MAX 5
+            //{"00114058", "QQWE LVARW", "CL4", "010-4328-3059", "19911021", "PRO"},
+            //{"01114052", "ABCE LVARW", "CL4", "010-1528-3059", "19911021", "PRO"},
+        };
+
+        String[][] checkData3 = {
+            {"69114054", "MODIFY NAME", "CL2", "010-3528-3059", "19911021", "PRO"},
+            {"88114055", "MODIFY NAME", "CL1", "010-4528-3059", "19911021", "PRO"},
+            {"88114056", "MODIFY NAME", "CL2", "010-4128-3059", "19911021", "PRO"},
+            {"89114053", "MODIFY NAME", "CL3", "010-2528-3059", "19911021", "PRO"},
+            {"00114057", "MODIFY NAME", "CL3", "010-4228-3059", "19911021", "PRO"}
+            // MAX 5
+            //{"00114058", "QQWE LVARW", "CL4", "010-4328-3059", "19911021", "PRO"}
+            //{"01114052", "ABCE LVARW", "CL4", "010-1528-3059", "19911021", "PRO"},
+        };
+
+        ICommand command = new ModifyCommand(
+            new PrintOption(),
+            new LastPhoneNumberOption(Arrays.asList("phoneNum", "3059")),
+            Arrays.asList("name", "MODIFY NAME"));
+        String result = command.executeCommand(employeeDAO);
+        assertEquals(ResultStringMaker.makeResultString("MOD", checkData2), result);
+
+        ICommand searchCommand = new SearchCommand(
+            new PrintOption(),
+            new EmptySecondOption(Arrays.asList("name", "MODIFY NAME")));
+        String searchResult = searchCommand.executeCommand(employeeDAO);
+        assertEquals(ResultStringMaker.makeResultString("SCH", checkData3), searchResult);
+    }
+
+    private void checkModify(String findColumn, String findValue, String changeColumn,
+        String changeValue, String[][] data)
+        throws Exception {
+
+        ICommand command = new ModifyCommand(
+            new NoneFirstOption(),
+            new EmptySecondOption(Arrays.asList(findColumn, findValue)),
+            Arrays.asList(changeColumn, changeValue));
+        String result = command.executeCommand(employeeDAO);
+        assertEquals("" + data.length, result);
+
+        ICommand searchCommand = new SearchCommand(
+            new PrintOption(),
+            new EmptySecondOption(Arrays.asList(changeColumn, changeValue)));
+        String searchResult = searchCommand.executeCommand(employeeDAO);
+        assertEquals(ResultStringMaker.makeResultString("SCH", data), searchResult);
+    }
 }
 
 
