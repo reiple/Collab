@@ -22,10 +22,10 @@ public class DataBase {
     registerEmployeeNum.add(employee.getEmployeeNumber());
     employeeData.add(employee);
   }
-  
-  
+
+
   public Employee searchItem(String id) {
-    List<Employee> foundItems = searchItems("employeeNum", id); 
+    List<Employee> foundItems = searchItems("employeeNum", id);
     if(foundItems.isEmpty()) return null;
     return foundItems.get(0);
   }
@@ -39,7 +39,7 @@ public class DataBase {
   public Employee modifyItem(Employee employee) {
     Employee foundItem = searchItem(employee.getEmployeeNumber());
     if(foundItem == null) return null;
-    
+
     Employee returnItem = makeEmployee(foundItem);
     foundItem = employee;
     return returnItem;
@@ -59,7 +59,7 @@ public class DataBase {
       returnItems.add(makeEmployee(employee));
       employee.setField(cField, cValue);
     }
-    
+
     return returnItems;
   }
   
@@ -82,7 +82,7 @@ public class DataBase {
       registerEmployeeNum.remove(employee.getEmployeeNumber());
       employeeData.remove(employee);
     }
-    
+
     return returnItems;
   }
    
