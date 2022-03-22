@@ -220,7 +220,7 @@ class SearchCommandBirthdayTest {
 
   @Test
   void testSearchMonthOfBirthdayAndPrintSuccess() {
-    ICommand command = new SearchCommand(new NoneFirstOption(),
+    ICommand command = new SearchCommand(new PrintOption(),
         new MonthOfBirthdayOption(Arrays.asList("birthday", "10")));
 
     String[][] data = {
@@ -230,10 +230,10 @@ class SearchCommandBirthdayTest {
         {"89114053", "DEFRE LVARW", "CL3", "010-2528-3059", "19911021", "PRO"},
         {"00114057", "EREBB LVARW", "CL3", "010-4228-3059", "19911021", "PRO"},
         // MAX 5
-        {"00114058", "QQWE LVARW", "CL4", "010-4328-3059", "19911021", "PRO"},
-        {"01114052", "ABCE LVARW", "CL4", "010-1528-3059", "19911021", "PRO"},
-        {"03113260", "FIRST LTUPF", "CL2", "010-5798-5383", "19791018", "PRO"},
-        {"11125777", "TKOQKIS HC", "CL1", "010-6734-2289", "19991001", "PRO"}
+        //{"00114058", "QQWE LVARW", "CL4", "010-4328-3059", "19911021", "PRO"},
+        //{"01114052", "ABCE LVARW", "CL4", "010-1528-3059", "19911021", "PRO"},
+        //{"03113260", "FIRST LTUPF", "CL2", "010-5798-5383", "19791018", "PRO"},
+        //{"11125777", "TKOQKIS HC", "CL1", "010-6734-2289", "19991001", "PRO"}
     };
 
     String result = command.executeCommand(employeeDAO);

@@ -56,6 +56,11 @@ public class SearchCommand extends AbstractCommand{
                     .filter(item -> item.getPhoneNumber().equals(getSecondOption().getSearchValue()))
                     .collect(Collectors.toList());
                 break;
+            case "birthday":
+                list = employeeDAO.getAllItems().stream()
+                    .filter(item -> item.getBirthday().equals(getSecondOption().getSearchValue()))
+                    .collect(Collectors.toList());
+                break;
         }
         return list;
     }
