@@ -254,6 +254,29 @@ public class EmployeeTest {
         cmdAssertionCheck(whiteBoxCommand, employee, assertMsg, () -> {employee.setCerti(whiteBoxCommand.get(5));});
     }
 
+    @Test
+    public void employeeStringFieldPassTest() throws Exception{
+        Employee employee = new Employee(Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV"));
+        assertTrue(employee.getStringField("employeeNumber").equals("99123099"));
+        assertTrue(employee.getStringField("name").equals("TTETHU HBO"));
+        assertTrue(employee.getStringField("cl").equals("CL4"));
+        assertTrue(employee.getStringField("phoneNum").equals("19771208"));
+        assertTrue(employee.getStringField("certi").equals("ADV"));
+    }
+
+    @Test
+    public void employeeStringFieldFailTest() throws Exception{
+        Employee employee = new Employee(Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV"));
+        Exception exception = assertThrows(Exception.class, () -> {
+            String res = employee.getStringField("wrongField");
+        });
+        assertTrue(exception instanceof java.lang.NoSuchMethodException);
+        System.out.println(exception);
+        exception = assertThrows(Exception.class, () -> {
+            String res = employee.getStringField("realEmployeeNumber");
+        });
+        assertTrue(exception instanceof java.lang.ClassCastException);
+    }
 
 
 }
