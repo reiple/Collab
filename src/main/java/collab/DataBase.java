@@ -5,13 +5,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
-import collab.Employee;
-import collab.columnList.Birthday;
-import collab.columnList.Certi;
-import collab.columnList.Cl;
-import collab.columnList.EmployeeNum;
-import collab.columnList.Name;
-import collab.columnList.PhoneNum;
 
 public class DataBase {
   HashSet<String> registerEmployeeNum = new HashSet<String>();
@@ -38,22 +31,17 @@ public class DataBase {
   }
 
   public List<Employee> searchItems(String field, String value) {
-    List<Employee> foundEmployee = new ArrayList<Employee>();
-    switch(field) {
-      case "employeeNum": 
-        if(registerEmployeeNum.contains(value)) 
-          foundEmployee = (new EmployeeNum(value)).getFilteredList(employeeData); break;
-      case "name": 
-        foundEmployee = (new Name(value)).getFilteredList(employeeData); break;
-      case "cl": 
-        foundEmployee = (new Cl(value)).getFilteredList(employeeData); break;
-      case "phoneNum": 
-        foundEmployee = (new PhoneNum(value)).getFilteredList(employeeData); break;
-      case "birthday": 
-        foundEmployee = (new Birthday(value)).getFilteredList(employeeData); break; 
-      case "certi": 
-        foundEmployee = (new Certi(value)).getFilteredList(employeeData); break;
-    }
+    List<Employee> foundEmployee 
+    = employeeData.stream().filter(item -> {
+      try {
+        return item.getStringField(field).equals(value);
+      } catch (Exception e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+      return false;
+    }).collect(Collectors.toList()); 
+    
     if(foundEmployee.size()==0) {
       System.out.println(field + " : "+ value + "Not Registerd!!");
       return null;
