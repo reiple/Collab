@@ -28,6 +28,6 @@ class DeleteTest {
     public void deleteTest_NoReturn() {
       // "17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"
       empDB.deleteItemByCondition("employeeNum", "17112609");
-      assertTrue(empDB.deleteItemByCondition("employeeNum", "17112609").size()==0);
+      assertEquals(empDB.deleteItemByCondition("employeeNum", "17112609").size(),0);
     }
 }
