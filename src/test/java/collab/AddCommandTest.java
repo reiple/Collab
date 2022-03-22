@@ -20,7 +20,7 @@ public class AddCommandTest {
         ICommand command = new AddCommand(
                 Arrays.asList("18050301", "KYUMOK KIM", "CL2", "010-9777-6055", "19980906", "PRO"));
         String result = command.executeCommand(employeeDAO);
-        assertEquals("NONE", result);
+        assertEquals("", result);
     }
 
     @Test
