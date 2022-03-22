@@ -25,9 +25,12 @@ public class EmployeeManager  {
     public String executeCommandList(List<ICommand> commandList) throws Exception{
         String executionResult = "";
         for (ICommand command : commandList){
-            executionResult += command.executeCommand(this.dao);
+            if(!(command instanceof AddCommand)) {
+                executionResult += command.executeCommand(this.dao);
+                executionResult += "\n";
+            }
         }
-        return executionResult;
+        return executionResult.substring(0, executionResult.length()-1);
     }
 
     public void saveExecutionResultToFile(String filePath, String executionResult) throws Exception{
