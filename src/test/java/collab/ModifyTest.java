@@ -20,8 +20,8 @@ class ModifyTest {
       Employee targetEmployee = new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"));
       Employee foundEmployee = empDB.modifyItemByCondition("employeeNum", "17112609", "name", "TEST TEST").get(0);
 
-      assertEquals(foundEmployee.getEmployeeNumber(), targetEmployee.getEmployeeNumber());
-      assertEquals(foundEmployee.getName(), targetEmployee.getName());
+      assertEquals(targetEmployee.getEmployeeNumber(), foundEmployee.getEmployeeNumber());
+      assertEquals(targetEmployee.getName(), foundEmployee.getName());
     }
     
     @Test
@@ -29,8 +29,8 @@ class ModifyTest {
       //"17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"
       empDB.modifyItemByCondition("employeeNum", "17112609", "name", "TEST TEST");
 
-      assertNull(empDB.searchItems("name","FB NTAWR"));
-      assertTrue(empDB.searchItems("name","TEST TEST").get(0).getEmployeeNumber() == "17112609");
+      assertTrue(empDB.searchItems("name","FB NTAWR").isEmpty());
+      assertEquals("17112609", empDB.searchItems("name","TEST TEST").get(0).getEmployeeNumber());
     }
     
     @Test
@@ -38,8 +38,8 @@ class ModifyTest {
       //"17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"
         empDB.modifyItemByCondition("employeeNum", "17112609", "cl", "CL1");
 
-        assertNull(empDB.searchItems("cl","CL4"));
-        assertTrue(empDB.searchItems("cl","CL1").get(0).getEmployeeNumber() == "17112609");
+        assertTrue(empDB.searchItems("cl","CL4").isEmpty());
+        assertEquals("17112609", empDB.searchItems("cl","CL1").get(0).getEmployeeNumber());
       
     }
     
@@ -48,8 +48,8 @@ class ModifyTest {
       //"17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"
       empDB.modifyItemByCondition("employeeNum", "17112609", "phoneNum", "010-0000-0000");
 
-      assertNull(empDB.searchItems("phoneNum","010-5645-6122"));
-      assertTrue(empDB.searchItems("phoneNum","010-0000-0000").get(0).getEmployeeNumber() == "17112609");
+      assertTrue(empDB.searchItems("phoneNum","010-5645-6122").isEmpty());
+      assertEquals("17112609", empDB.searchItems("phoneNum","010-0000-0000").get(0).getEmployeeNumber());
     }
     
     @Test
@@ -57,8 +57,8 @@ class ModifyTest {
       //"17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"
       empDB.modifyItemByCondition("employeeNum", "17112609", "birthday", "19001101");
 
-      assertNull(empDB.searchItems("birthday","19860903"));
-      assertTrue(empDB.searchItems("birthday","19001101").get(0).getEmployeeNumber() == "17112609");
+      assertTrue(empDB.searchItems("birthday","19860903").isEmpty());
+      assertEquals("17112609", empDB.searchItems("birthday","19001101").get(0).getEmployeeNumber());
     }    
     
     @Test
@@ -66,9 +66,7 @@ class ModifyTest {
       //"17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"
       empDB.modifyItemByCondition("employeeNum", "17112609", "certi", "EX");
       
-      assertNull(empDB.searchItems("certi","PRO"));
-      assertTrue(empDB.searchItems("certi","EX").get(0).getEmployeeNumber() == "17112609");
+      assertTrue(empDB.searchItems("certi","PRO").isEmpty());
+      assertEquals("17112609", empDB.searchItems("certi","EX").get(0).getEmployeeNumber());
     }
 }
-
-

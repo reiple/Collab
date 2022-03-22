@@ -20,7 +20,7 @@ class DeleteTest {
       Employee targetEmployee = new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"));
       Employee foundEmployee = empDB.deleteItemByCondition("employeeNum", "17112609").get(0);
 
-      assertEquals(foundEmployee.getEmployeeNumber(), targetEmployee.getEmployeeNumber());
+      assertEquals(targetEmployee.getEmployeeNumber(), foundEmployee.getEmployeeNumber());
     }
 
       
@@ -28,6 +28,6 @@ class DeleteTest {
     public void deleteTest_NoReturn() {
       // "17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"
       empDB.deleteItemByCondition("employeeNum", "17112609");
-      assertNull(empDB.deleteItemByCondition("employeeNum", "17112609"));
+      assertTrue(empDB.deleteItemByCondition("employeeNum", "17112609").isEmpty());
     }
 }

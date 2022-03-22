@@ -47,43 +47,44 @@ class SearchTest {
   public void searchTest_EmployeeNum(boolean isMatch, Employee answer) {
     List<Employee> foundList = empDB.searchItems("employeeNum", answer.getEmployeeNumber());
 
-    if(isMatch) assertEquals(foundList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-    if(!isMatch) assertNull(foundList);
+    if(isMatch) assertEquals(answer.getEmployeeNumber(), foundList.get(0).getEmployeeNumber());
+    if(!isMatch) assertTrue(foundList.isEmpty());
   }   
   
   public void searchTest_Name(boolean isMatch, Employee answer) {
     List<Employee> foundList = empDB.searchItems("name", answer.getName());
 
-    if(isMatch) assertEquals(foundList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-    if(!isMatch) assertNull(foundList);
+    if(isMatch) assertEquals(answer.getEmployeeNumber(), foundList.get(0).getEmployeeNumber());
+    if(!isMatch) assertTrue(foundList.isEmpty());
   }    
 
   public void searchTest_Cl(boolean isMatch, Employee answer) {
     List<Employee> foundList = empDB.searchItems("cl", answer.getCareerLevel());
 
-    if(isMatch) assertEquals(foundList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-    if(!isMatch) assertNull(foundList);
+    if(isMatch) assertEquals(answer.getEmployeeNumber(), foundList.get(0).getEmployeeNumber());
+    if(!isMatch) assertTrue(foundList.isEmpty());
   }
 
   public void searchTest_PhoneNum(boolean isMatch, Employee answer) {
     List<Employee> foundList = empDB.searchItems("phoneNum", answer.getPhoneNumber());
 
-    if(isMatch) assertEquals(foundList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-    if(!isMatch) assertNull(foundList);
+    if(isMatch) assertEquals(answer.getEmployeeNumber(), foundList.get(0).getEmployeeNumber());
+    if(!isMatch) assertTrue(foundList.isEmpty());
   }
 
   public void searchTest_BirthDay(boolean isMatch, Employee answer) {
     List<Employee> foundList = empDB.searchItems("birthday", answer.getBirthday());
 
-    if(isMatch) assertEquals(foundList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-    if(!isMatch) assertNull(foundList);
+    if(isMatch) assertEquals(answer.getEmployeeNumber(), foundList.get(0).getEmployeeNumber());
+    if(!isMatch) assertTrue(foundList.isEmpty());
   }
   
   public void searchTest_Certi(boolean isMatch, Employee answer) {
     List<Employee> foundList = empDB.searchItems("certi", answer.getCerti());
 
-    if(isMatch) assertEquals(foundList.get(0).getEmployeeNumber(), answer.getEmployeeNumber());
-    if(!isMatch) assertNull(foundList);
+    if(isMatch) assertEquals(answer.getEmployeeNumber(), foundList.get(0).getEmployeeNumber());
+    if(!isMatch) assertTrue(foundList.isEmpty());
   }
 }
+
 
