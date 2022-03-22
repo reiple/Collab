@@ -12,7 +12,6 @@ import collab.columnList.Cl;
 import collab.columnList.EmployeeNum;
 import collab.columnList.Name;
 import collab.columnList.PhoneNum;
-import test.java.collab.options.Columns;
 
 public class DataBase {
   HashSet<String> registerEmployeeNum = new HashSet<String>();
@@ -23,6 +22,10 @@ public class DataBase {
   }
   
   public void add(Employee employee) {
+    if(registerEmployeeNum.contains(employee.getEmployeeNumber())) {
+      System.out.println(employee.getEmployeeNumber() + "Register Fail!! Employee Data Duplicated!!");
+      return;
+    }
     registerEmployeeNum.add(employee.getEmployeeNumber());
     employeeData.add(employee);
   }
@@ -37,21 +40,24 @@ public class DataBase {
   public List<Employee> searchItems(String field, String value) {
     List<Employee> foundEmployee = new ArrayList<Employee>();
     switch(field) {
-      case Columns.COLUMN_EMPLOYEE_NUM: 
+      case "employeeNum": 
         if(registerEmployeeNum.contains(value)) 
           foundEmployee = (new EmployeeNum(value)).getFilteredList(employeeData); break;
-      case Columns.COLUMN_NAME: 
+      case "name": 
         foundEmployee = (new Name(value)).getFilteredList(employeeData); break;
-      case Columns.COLUMN_CARRER_LEVEL: 
+      case "cl": 
         foundEmployee = (new Cl(value)).getFilteredList(employeeData); break;
-      case Columns.COLUMN_PHONE_NUMBER: 
+      case "phoneNum": 
         foundEmployee = (new PhoneNum(value)).getFilteredList(employeeData); break;
-      case Columns.COLUMN_BIRTHDAY: 
+      case "birthday": 
         foundEmployee = (new Birthday(value)).getFilteredList(employeeData); break; 
-      case Columns.COLUMN_CERTIFICATE: 
+      case "certi": 
         foundEmployee = (new Certi(value)).getFilteredList(employeeData); break;
     }
-    if(foundEmployee.size()==0) return null;
+    if(foundEmployee.size()==0) {
+      System.out.println(field + " : "+ value + "Not Registerd!!");
+      return null;
+    }
     return foundEmployee;
   }
 
@@ -83,11 +89,11 @@ public class DataBase {
   
   public void modify(Employee employee, String field, String value) {
     switch(field) {
-      case Columns.COLUMN_NAME: employee.setName(value); return;
-      case Columns.COLUMN_CARRER_LEVEL: employee.setCareerLevel(value); return;
-      case Columns.COLUMN_PHONE_NUMBER: employee.setPhoneNumber(value); return;
-      case Columns.COLUMN_BIRTHDAY: employee.setBirthday(value); return;
-      case Columns.COLUMN_CERTIFICATE: employee.setCerti(value); return;
+      case "name": employee.setName(value); return;
+      case "cl": employee.setCareerLevel(value); return;
+      case "phoneNum": employee.setPhoneNumber(value); return;
+      case "birthday": employee.setBirthday(value); return;
+      case "certi": employee.setCerti(value); return;
     }
   }
   
