@@ -5,7 +5,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ModifyTest {
+class ModifyTest_byID {
   
   DataBase empDB = new DataBase();
     @BeforeEach
@@ -18,8 +18,7 @@ class ModifyTest {
     @Test
     public void modifyTest_returnCheck_Name() {
       Employee targetEmployee = new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"));
-      Employee changeEmployee = new Employee(Arrays.asList("17112609","TEST TEST","CL4","010-5645-6122","19860903","PRO"));
-      Employee foundEmployee = empDB.modifyItem(changeEmployee);
+      Employee foundEmployee = empDB.modifyItemById("17112609", "name", "TEST TEST");
 
       assertEquals(targetEmployee.getEmployeeNumber(), foundEmployee.getEmployeeNumber());
       assertEquals(targetEmployee.getName(), foundEmployee.getName());
@@ -30,9 +29,8 @@ class ModifyTest {
     @Test
     public void modifyTest_returnCheck_Cl() {
       Employee targetEmployee = new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"));
-      Employee changeEmployee = new Employee(Arrays.asList("17112609","FB NTAWR","CL2","010-5645-6122","19860903","PRO"));
-      Employee foundEmployee = empDB.modifyItem(changeEmployee);
-
+      Employee foundEmployee = empDB.modifyItemById("17112609", "cl", "CL2");
+      
       assertEquals(targetEmployee.getEmployeeNumber(), foundEmployee.getEmployeeNumber());
       assertEquals(targetEmployee.getCareerLevel(), foundEmployee.getCareerLevel());
       assertTrue(empDB.searchItems("cl", "CL4").isEmpty());
@@ -42,8 +40,7 @@ class ModifyTest {
     @Test
     public void modifyTest_returnCheck_PhoneNum() {
       Employee targetEmployee = new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"));
-      Employee changeEmployee = new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-0000","19860903","PRO"));
-      Employee foundEmployee = empDB.modifyItem(changeEmployee);
+      Employee foundEmployee = empDB.modifyItemById("17112609", "phoneNum", "010-5645-0000");
 
       assertEquals(targetEmployee.getEmployeeNumber(), foundEmployee.getEmployeeNumber());
       assertEquals(targetEmployee.getPhoneNumber(), foundEmployee.getPhoneNumber());
@@ -54,9 +51,8 @@ class ModifyTest {
     @Test
     public void modifyTest_returnCheck_Birthday() {
       Employee targetEmployee = new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"));
-      Employee changeEmployee = new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19870903","PRO"));
-      Employee foundEmployee = empDB.modifyItem(changeEmployee);
-
+      Employee foundEmployee = empDB.modifyItemById("17112609", "birthday", "19870903");
+      
       assertEquals(targetEmployee.getEmployeeNumber(), foundEmployee.getEmployeeNumber());
       assertEquals(targetEmployee.getBirthday(), foundEmployee.getBirthday());
       assertTrue(empDB.searchItems("birthday", "19860903").isEmpty());
@@ -66,13 +62,11 @@ class ModifyTest {
     @Test
     public void modifyTest_returnCheck_Certi() {
       Employee targetEmployee = new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19860903","PRO"));
-      Employee changeEmployee = new Employee(Arrays.asList("17112609","FB NTAWR","CL4","010-5645-6122","19860903","EX"));
-      Employee foundEmployee = empDB.modifyItem(changeEmployee);
-
+      Employee foundEmployee = empDB.modifyItemById("17112609", "certi", "EX");
+      
       assertEquals(targetEmployee.getEmployeeNumber(), foundEmployee.getEmployeeNumber());
       assertEquals(targetEmployee.getCerti(), foundEmployee.getCerti());
       assertTrue(empDB.searchItems("certi", "PRO").isEmpty());
       assertTrue(!empDB.searchItems("certi", "EX").isEmpty());
     }
 }
-
