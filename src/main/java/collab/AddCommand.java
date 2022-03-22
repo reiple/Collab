@@ -12,7 +12,8 @@ public class AddCommand extends AbstractCommand{
     }
 
     @Override
-    public String executeCommand(IDAO dao) {
-        return null;
+    public String executeCommand(IDAO dao) throws Exception {
+        dao.addItem(new Employee(getCommandArguments()));
+        return "NONE";
     }
 }
