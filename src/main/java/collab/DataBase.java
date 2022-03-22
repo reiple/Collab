@@ -16,7 +16,7 @@ public class DataBase {
   
   public void add(Employee employee) {
     if(registerEmployeeNum.contains(employee.getEmployeeNumber())) {
-      System.out.println(employee.getEmployeeNumber() + "Register Fail!! Employee Data Duplicated!!");
+      System.out.println(employee.getEmployeeNumber() + "Register Fail!! Employee Data Duplicate!!");
       return;
     }
     registerEmployeeNum.add(employee.getEmployeeNumber());
@@ -26,63 +26,55 @@ public class DataBase {
   
   public Employee searchItem(String id) {
     List<Employee> foundItems = searchItems("employeeNum", id); 
-    if(foundItems == null) return null;
+    if(foundItems.size()==0) return null;
     return foundItems.get(0);
   }
 
   public List<Employee> searchItems(String field, String value) {
-      List<Employee> resultItem = new ArrayList<Employee>();
-      resultItem.addAll(employeeData.stream()
+      return employeeData.stream()
               .filter(item -> item.getField(field).equals(value))
-              .collect(Collectors.toList()));
-      if(resultItem.size()==0) {
-        System.out.println("(field:"+field +" value : "+value+ ") can't find!!");
-        return null;
-      }
-      return resultItem;
+              .collect(Collectors.toList());
   }
   
   public Employee modifyItem(Employee employee) {
     Employee foundItem = searchItem(employee.getEmployeeNumber());
     if(foundItem == null) return null;
-    return makeEmployee(foundItem);
+    
+    Employee returnItem = makeEmployee(foundItem);
+    foundItem = employee;
+    return returnItem;
   }
   
   public Employee modifyItemById(String id, String field, String value) {
     List<Employee> foundItems = modifyItemByCondition("employeeNum", id, field, value);
-    if(foundItems == null) return null;
+    if(foundItems.size()==0) return null;
     return foundItems.get(0);
   }
   
   public List<Employee> modifyItemByCondition(String sField, String sValue, String cField, String cValue) {
     List<Employee> foundItems = searchItems(sField, sValue);
-    if(foundItems==null) return null;
     
     List<Employee> returnItems = new ArrayList<Employee>();
     for(Employee employee : foundItems) {
       returnItems.add(makeEmployee(employee));
-      modify(employee, cField, cValue);
+      employee.setField(cField, cValue);
     }
     
     return returnItems;
   }
-  
-  public void modify(Employee employee, String field, String value) {
-    employee.setField(field, value);
-  }
-  
   
   public Employee deleteItem(Employee item) {
     return deleteItemById(item.getEmployeeNumber());
   }
 
   public Employee deleteItemById(String id) {
+    List<Employee> foundItems = deleteItemByCondition("employeeNum", id);
+    if(foundItems.size()==0) return null;
     return deleteItemByCondition("employeeNum", id).get(0);
   }
   
   public List<Employee> deleteItemByCondition(String field, String value) {
     List<Employee> foundItems = searchItems(field, value);
-    if(foundItems==null) return null;
     
     List<Employee> returnItems = new ArrayList<Employee>();
     for(Employee employee : foundItems) {
