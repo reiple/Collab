@@ -33,7 +33,7 @@ public class ModifyCommand extends AbstractCommand{
         return getFirstOption().getFilteredList(list);
     }
 
-    private String getValues(EmployeeDAO employeeDAO) {
+    private String getValues(EmployeeDAO employeeDAO) throws Exception{
         List<Employee> list = employeeDAO.getAllItems().stream()
             .filter(item -> item.getPhoneNumber().equals(getCommandArguments().get(1)))
             .collect(Collectors.toList());

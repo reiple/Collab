@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PrintOptionTest {
 
     @Test
-    void EmployeeSortingTest() {
+    void EmployeeSortingTest() throws Exception{
         ArrayList<Employee> employees = new ArrayList<Employee>();
         AbstractFirstOption printOption = new PrintOption();
         String expectedResult = "88114052," + "NQ LVARW," + "CL4," + "010-4528-3059," + "19911021," +"PRO" + System.lineSeparator();
@@ -37,7 +37,7 @@ public class PrintOptionTest {
     }
 
     @Test
-    void OneEmployeeSortingTest() {
+    void OneEmployeeSortingTest() throws Exception{
         ArrayList<Employee> employees = new ArrayList<Employee>();
         AbstractFirstOption printOption = new PrintOption();
         String expectedResult = "15123099," + "VXIHXOTH JHOP," + "CL3," + "010-3112-2609," + "19771211," +"ADV";
@@ -47,7 +47,7 @@ public class PrintOptionTest {
     }
 
     @Test
-    void ThreeEmployeeSortingTest() {
+    void ThreeEmployeeSortingTest() throws Exception{
         ArrayList<Employee> employees = new ArrayList<Employee>();
         AbstractFirstOption printOption = new PrintOption();
         String expectedResult = "15123099," + "VXIHXOTH JHOP," + "CL3," + "010-3112-2609," + "19771211," +"ADV" + System.lineSeparator();
@@ -62,7 +62,7 @@ public class PrintOptionTest {
 
 
     @Test
-    void EmptyEmployeeListTest() {
+    void EmptyEmployeeListTest() throws Exception{
         ArrayList<Employee> employees = new ArrayList<Employee>();
         AbstractFirstOption printOption = new PrintOption();
         String expectedResult = "NONE";
