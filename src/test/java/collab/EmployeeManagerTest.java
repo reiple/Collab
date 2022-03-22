@@ -9,6 +9,7 @@ import collab.options.second.NoneSecondOption;
 import collab.options.third.NoneThirdOption;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
@@ -111,6 +112,8 @@ public class EmployeeManagerTest {
         assertTrue(((DeleteCommand) commandList.get(3)).getThirdOption() instanceof NoneThirdOption);
     }
 
+    // TODO: FileManager가 개발되면 활성화할 것
+    @Disabled
     @Test
     public void executeCommandTest() throws Exception{
         EmployeeManager employeeManager = new EmployeeManager();
@@ -123,6 +126,8 @@ public class EmployeeManagerTest {
         resultLines[2].equals("DEL,18117906,TWU QSOLT,CL3,010-6672-7186,20030413,PRO");
     }
 
+    // TODO: FileManager가 개발되면 활성화할 것
+    @Disabled
     @Test
     void saveResultToFileTest() throws Exception {
         assertTrue(!new File(employeeManagerSaveFileTestFilePath).exists());
@@ -159,6 +164,10 @@ public class EmployeeManagerTest {
         commandStringList.get(0).equals("ADD, , , ,15123099,VXIHXOTH JHOP,CL3,010-3112-2609,19771211,ADV");
         commandStringList.get(39).equals("SCH, , , ,name,FB NTAWR");
     }
+
+
+    // TODO: FileManager가 개발되면 활성화할 것
+    @Disabled
     @Test
     void employeeManagerFileToFileTest() throws Exception {
         String inFilePath = "src/test/resources/input_20_20.txt";
