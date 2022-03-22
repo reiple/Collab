@@ -16,12 +16,14 @@ public class ModifyCommand extends AbstractCommand{
     public String executeCommand(IDAO employeeDAO) {
 
         if(getSecondOption() instanceof NoneSecondOption) {
-            return getValues(employeeDAO);
+            return getValues((EmployeeDAO) employeeDAO);
         }
 
-        List<Employee> list = new ArrayList<>();
-        list = getSecondOption().getFilteredList(employeeDAO);
-        String result = getFirstOption().getFilteredList(list);
+        List<Employee> list = null;
+        list = getSecondOption().getFilteredList((EmployeeDAO) employeeDAO);
+        if(list == null) {
+            list = new ArrayList<>();
+        }
 
         List<String> commandArguments = getCommandArguments();
         list.stream()
