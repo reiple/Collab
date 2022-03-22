@@ -31,8 +31,8 @@ public class SearchCommand extends AbstractCommand{
     }
 
     private String getSearchName(EmployeeDAO employeeDAO) {
-        List<Employee> list = employeeDAO.getAll().stream()
-            .filter(item -> item.getName().equals(getCommandArguments().get(1)))
+        List<Employee> list = employeeDAO.getAllItems().stream()
+            .filter(item -> item.getName().equals(getSecondOption().getSearchValue()))
             .collect(Collectors.toList());
 
         return getFirstOption().getFilteredList(list);
