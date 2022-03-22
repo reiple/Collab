@@ -196,18 +196,17 @@ public class EmployeeTest {
 
     @Test
     public void employeePhoneNumberValidationTest() {
-        List<String> lengthFailCommand = Arrays.asList("99123099","TTETHU HBO","cl4","010-45289-3059","19771208","ADV");
-        List<String> numberFailCommand = Arrays.asList("99123099","TTETHU HBO","cl4","019-45289-3059","19771208","ADV");
-        List<String> digitFailCommand = Arrays.asList("99123099","TTETHU HBO","cl4","010-4ase-3059","19771208","ADV");
-        List<String> splitFailCommand1 = Arrays.asList("99123099","TTETHU HBO","cl4","010+45289-3059","19771208","ADV");
-        List<String> splitFailCommand2 = Arrays.asList("99123099","TTETHU HBO","cl4","010--45289-3059","19771208","ADV");
-        List<String> splitFailCommand3 = Arrays.asList("99123099","TTETHU HBO","cl4","010--3059-45289","19771208","ADV");
+        List<String> lengthFailCommand = Arrays.asList("99123099","TTETHU HBO","CL4","010-45289-3059","19771208","ADV");
+        List<String> numberFailCommand = Arrays.asList("99123099","TTETHU HBO","CL4","019-45289-3059","19771208","ADV");
+        List<String> digitFailCommand = Arrays.asList("99123099","TTETHU HBO","CL4","010-4ase-3059","19771208","ADV");
+        List<String> splitFailCommand1 = Arrays.asList("99123099","TTETHU HBO","CL4","010+45289-3059","19771208","ADV");
+        List<String> splitFailCommand2 = Arrays.asList("99123099","TTETHU HBO","CL4","010--45289-3059","19771208","ADV");
+        List<String> splitFailCommand3 = Arrays.asList("99123099","TTETHU HBO","CL4","010--3059-45289","19771208","ADV");
         List<String> passCommand = Arrays.asList("99123099","TTETHU HBO","CL4","010-4528-3059","19771208","ADV");
         String assertMsg = "Employee phone number input is not valid";
         Employee employee = new Employee(passCommand);
 
         Assertions.assertDoesNotThrow(() -> {new Employee(passCommand);});
-
         cmdAssertionCheck(lengthFailCommand, employee, assertMsg, () -> {employee.setPhoneNumber(lengthFailCommand.get(3));});
         cmdAssertionCheck(numberFailCommand, employee, assertMsg, () -> {employee.setPhoneNumber(numberFailCommand.get(3));});
         cmdAssertionCheck(digitFailCommand, employee, assertMsg, () -> {employee.setPhoneNumber(digitFailCommand.get(3));});

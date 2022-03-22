@@ -1,268 +1,84 @@
 package collab;
 
-import java.time.LocalDate;
-import java.time.chrono.IsoEra;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.format.ResolverStyle;
-import java.time.temporal.ChronoField;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
+import collab.employeeFields.*;
+
+import java.util.*;
 
 public class Employee{
     // column명도 바로 받을수 있으면 좋을것 같습니다.
-    private String employeeNumber;
-    private String phoneNumber;
-    private String name;
-    private String birthday;
-    private String careerLevel;
-    private String certi;
+    private final String employeeNumberFieldName = "employeeNum";
+    private final String nameFieldName = "name";
+    private final String careerLevelFieldName = "cl";
+    private final String phoneNumberFieldName = "phoneNum";
+    private final String birthdayFieldName = "birthday";
+    private final String certiFieldName = "certi";
 
-    private String lastName;
-    private String firstName;
-    private int realEmployeeNumber;
-    private String middlePhoneNumber;
-    private String lastPhoneNumber;
-    private String birthYearOnly;
-    private String birthMonthOnly;
-    private String birthDayOnly;
-
-    private int currentYear = LocalDate.now().getYear();
-    private int currentCentury = (currentYear/100)*100;
-    private int lastCentury = currentCentury - 100;
-    private int maxWorkYear = 80;
-
-    private List<String> fieldList = Arrays.asList("name","certi", "cl", "phoneNum", "birthday", "certi");
-
-    private static final DateTimeFormatter DATE_PARSER
-            = new DateTimeFormatterBuilder().appendPattern("yyyyMMdd")
-            .parseDefaulting(ChronoField.ERA, IsoEra.CE.getValue())
-            .toFormatter(Locale.ROOT)
-            .withResolverStyle(ResolverStyle.STRICT);
-
+    private HashMap<String, InputField> fieldHashMap = new HashMap<String, InputField>();
     public Employee(List<String> commandArguments) {
-        employeeNumber = commandArguments.get(0);
-        name = commandArguments.get(1);
-
-        // careerLevel 이름변경 review 필요
-        careerLevel = commandArguments.get(2);
-        phoneNumber = commandArguments.get(3);
-        birthday = commandArguments.get(4);
-        certi = commandArguments.get(5);
-        validateInput();
-        dataProcessing();
+        fieldHashMap.put(employeeNumberFieldName, new EmployeeNumberField(employeeNumberFieldName, commandArguments.get(0)));
+        fieldHashMap.put(nameFieldName, new NameField(nameFieldName, commandArguments.get(1)));
+        fieldHashMap.put(careerLevelFieldName, new CareerLevelField(careerLevelFieldName, commandArguments.get(2)));
+        fieldHashMap.put(phoneNumberFieldName, new PhoneNumberField(phoneNumberFieldName, commandArguments.get(3)));
+        fieldHashMap.put(birthdayFieldName, new BirthdayField(birthdayFieldName, commandArguments.get(4)));
+        fieldHashMap.put(certiFieldName, new CertiField(certiFieldName, commandArguments.get(5)));
     }
 
-    private void dataProcessing(){
-        processEmployeeNumber();
-        processName();
-        processPhoneNumber();
-        processBirthday();
+    public void setEmployeeNumber(String str) {fieldHashMap.get(employeeNumberFieldName).setData(str);}
+    public void setPhoneNumber(String str) {fieldHashMap.get(phoneNumberFieldName).setData(str);}
+    public void setName(String str) {fieldHashMap.get(nameFieldName).setData(str);}
+    public void setBirthday(String str) {fieldHashMap.get(birthdayFieldName).setData(str);}
+    public void setCareerLevel(String str) {fieldHashMap.get(careerLevelFieldName).setData(str);}
+    public void setCerti(String str) {fieldHashMap.get(certiFieldName).setData(str);}
+
+    public String getEmployeeNumber() {return fieldHashMap.get(employeeNumberFieldName).getData();}
+    public String getPhoneNumber() { return fieldHashMap.get(phoneNumberFieldName).getData(); }
+    public String getName() { return fieldHashMap.get(nameFieldName).getData(); }
+    public String getBirthday() { return fieldHashMap.get(birthdayFieldName).getData(); }
+    public String getCareerLevel() { return fieldHashMap.get(careerLevelFieldName).getData(); }
+    public String getCerti() { return fieldHashMap.get(certiFieldName).getData(); }
+
+    public String getLastName() {
+        NameField field = (NameField)fieldHashMap.get(nameFieldName);
+        return field.getLastName();
     }
-
-    private int convertRealEmployeeYear(int employeeNumberYearInt){
-        int realEmployeeNumberYearInt;
-
-        if (employeeNumberYearInt <= (currentYear - currentCentury) && employeeNumberYearInt >= 0){
-            realEmployeeNumberYearInt = currentCentury + employeeNumberYearInt;
-        } else {
-            realEmployeeNumberYearInt = lastCentury + employeeNumberYearInt;
-        }
-        return realEmployeeNumberYearInt;
+    public String getFirstName() {
+        NameField field = (NameField)fieldHashMap.get(nameFieldName);
+        return field.getFirstName();
     }
-
-    private void processEmployeeNumber(){
-        int employeeNumberYear = Integer.parseInt(employeeNumber.substring(0,2));
-        int employeeNumberOther = Integer.parseInt(employeeNumber.substring(2));
-        int realEmployeeYear = convertRealEmployeeYear(employeeNumberYear);
-        realEmployeeNumber= realEmployeeYear*1000000 + employeeNumberOther;
+    public int getRealEmployeeNumber() {
+        EmployeeNumberField field = (EmployeeNumberField)fieldHashMap.get(employeeNumberFieldName);
+        return field.getRealEmployeeNum();
     }
-
-    private void processName(){
-        firstName = name.split(" ")[0];
-        lastName = name.split(" ")[1];
+    public String getMiddlePhoneNumber() {
+        PhoneNumberField field = (PhoneNumberField)fieldHashMap.get(phoneNumberFieldName);
+        return field.getMiddlePhoneNumber();
     }
-
-    private void processPhoneNumber(){
-        middlePhoneNumber = phoneNumber.split("-")[1];
-        lastPhoneNumber = phoneNumber.split("-")[2];
+    public String getLastPhoneNumber() {
+        PhoneNumberField field = (PhoneNumberField)fieldHashMap.get(phoneNumberFieldName);
+        return field.getLastPhoneNumber();
     }
-
-    private void processBirthday(){
-        birthYearOnly = birthday.substring(0,4);
-        birthMonthOnly = birthday.substring(4,6);
-        birthDayOnly = birthday.substring(6);
+    public String getBirthYearOnly() {
+        BirthdayField field = (BirthdayField)fieldHashMap.get(birthdayFieldName);
+        return field.getBirthYearOnly();
     }
-
-    public void setEmployeeNumber(String str) {
-        employeeNumber = str;
-        validateEmployeeNumber();
-        processEmployeeNumber();
+    public String getBirthMonthOnly() {
+        BirthdayField field = (BirthdayField)fieldHashMap.get(birthdayFieldName);
+        return field.getBirthMonthOnly();
     }
-
-    public void setPhoneNumber(String str) {
-        phoneNumber = str;
-        validatePhoneNumber();
-        processPhoneNumber();
+    public String getBirthDayOnly() {
+        BirthdayField field = (BirthdayField)fieldHashMap.get(birthdayFieldName);
+        return field.getBirthDayOnly();
     }
-
-    public void setName(String str) {
-        name = str;
-        validateName();
-        processName();
-    }
-
-    public void setBirthday(String str) {
-        birthday = str;
-        validateBirthday();
-        processBirthday();
-    }
-
-    // careerLevel 이름변경 review 필요
-    public void setCareerLevel(String str) {
-        careerLevel = str;
-        validateCareerLevel();
-    }
-
-    public void setCerti(String str) {
-        certi = str;
-        validateCerti();
-    }
-
-    private void validateInput(){
-        validateEmployeeNumber();
-        validatePhoneNumber();
-        validateName();
-        validateBirthday();
-        validateCareerLevel();
-        validateCerti();
-    }
-
-    static boolean isDigit(String str){
-        for (int i=0; i <str.length(); i++){
-            if(!Character.isDigit(str.charAt(i))){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    static boolean isUpper(String str){
-        for (int i=0; i <str.length(); i++){
-            if(!Character.isUpperCase(str.charAt(i))){
-                return false;
-            }
-        }
-        return true;
-    }
-
-
-    boolean isValidEmployeeYear(String str){
-        int employeeNumberYear = Integer.parseInt(str.substring(0,2));
-        int realEmployeeYear = convertRealEmployeeYear(employeeNumberYear);
-        return (currentYear - realEmployeeYear) < maxWorkYear;
-    }
-
-    private void validateEmployeeNumber(){
-        if (employeeNumber.length() != 8 || !isDigit(employeeNumber) || !isValidEmployeeYear(employeeNumber)){
-            throw new RuntimeException("Employee number input is not valid");
-        }
-    }
-
-    private void validatePhoneNumber(){
-        if (phoneNumber.split("-").length != 3){
-            throw new RuntimeException("Employee phone number input is not valid");
-        }
-
-        if (!phoneNumber.split("-")[0].equals("010")){
-            throw new RuntimeException("Employee phone number input is not valid");
-        }
-
-        for (int i=1; i<3; i++){
-            if(phoneNumber.split("-")[i].length() !=4 || !isDigit(phoneNumber.split("-")[i])){
-                throw new RuntimeException("Employee phone number input is not valid");
-            }
-        }
-    }
-
-    private void validateName(){
-        if (name.length() > 15 || name.split(" ").length != 2){
-            throw new RuntimeException("Employee name input is not valid");
-        }
-
-        for (int i=0; i<2; i++){
-            if (!isUpper(name.split(" ")[i])){
-                throw new RuntimeException("Employee name input is not valid");
-            }
-        }
-    }
-
-    private void validateBirthday(){
-        try {
-            LocalDate.parse(birthday, DATE_PARSER);
-        } catch(Exception e) {
-            throw new RuntimeException("Employee birth day input is not valid");
-        }
-
-        if (Integer.parseInt(birthday.substring(0,4)) > currentYear) {
-            throw new RuntimeException("Employee birth day input is not valid");
-        }
-    }
-
-    // careerLevel 이름변경 review 필요
-    private void validateCareerLevel(){
-        List<String> careerLevelWhiteBox = Arrays.asList("CL1","CL2","CL3","CL4");
-        if (!careerLevelWhiteBox.contains(careerLevel)){
-            throw new RuntimeException("Employee career level input is not valid");
-        }
-    }
-
-    private void validateCerti(){
-        List<String> certiWhiteBox = Arrays.asList("ADV","PRO","EX");
-        if (!certiWhiteBox.contains(certi)){
-            throw new RuntimeException("Employee certi input is not valid");
-        }
-    }
-
-    public String getEmployeeNumber() { return employeeNumber; }
-    public String getPhoneNumber() { return phoneNumber; }
-    public String getName() { return name; }
-    public String getBirthday() { return birthday; }
-    // careerLevel 이름변경 review 필요
-    public String getCareerLevel() { return careerLevel; }
-    public String getCerti() { return certi; }
-
-    public String getLastName() { return lastName; }
-    public String getFirstName() { return firstName; }
-    public int getRealEmployeeNumber() { return realEmployeeNumber; }
-    public String getMiddlePhoneNumber() { return middlePhoneNumber; }
-    public String getLastPhoneNumber() { return lastPhoneNumber; }
-    public String getBirthYearOnly() { return birthYearOnly; }
-    public String getBirthMonthOnly() { return birthMonthOnly; }
-    public String getBirthDayOnly() { return birthDayOnly; }
-
-    public List<String> getFieldList() { return fieldList; }
 
     public Object getField(String fieldName) {
         try {
-            List<String> matchNameList = Arrays.asList("name", "certi");
-            if (!matchNameList.contains(fieldName)) {
-                switch (fieldName) {
-                    case "employeeNum":
-                        return getEmployeeNumber();
-                    case "cl":
-                        return getCareerLevel();
-                    case "phoneNum":
-                        return getPhoneNumber();
-                    case "birthday":
-                        return getBirthday();
-
-                }
-
+            if (fieldHashMap.containsKey(fieldName)){
+                return fieldHashMap.get(fieldName).getData();
+            } else {
+                return getClass()
+                        .getMethod("get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1))
+                        .invoke(this);
             }
-            return getClass().getMethod("get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1)).invoke(this);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             throw new RuntimeException("get wrong field string");
@@ -272,22 +88,8 @@ public class Employee{
 
     public void setField(String fieldName, String input) {
         try {
-            List<String> matchNameList = Arrays.asList("name", "certi");
-            if (!matchNameList.contains(fieldName)) {
-                switch (fieldName) {
-                    case "employeeNum":
-                        setEmployeeNumber(input);
-                        break;
-                    case "cl":
-                        setCareerLevel(input);
-                        break;
-                    case "phoneNum":
-                        setPhoneNumber(input);
-                        break;
-                    case "birthday":
-                        setBirthday(input);
-                }
-
+            if (fieldHashMap.containsKey(fieldName)) {
+                fieldHashMap.get(fieldName).setData(input);
             } else {
                 getClass()
                         .getMethod("set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1), String.class)

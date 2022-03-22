@@ -15,7 +15,6 @@ public class BirthdayField extends InputField{
             .toFormatter(Locale.ROOT)
             .withResolverStyle(ResolverStyle.STRICT);
 
-    private int currentYear = LocalDate.now().getYear();
     private String birthYearOnly;
     private String birthMonthOnly;
     private String birthDayOnly;
@@ -26,6 +25,8 @@ public class BirthdayField extends InputField{
 
     @Override
     public void validateData() {
+        int currentYear = LocalDate.now().getYear();
+
         try {
             LocalDate.parse(data, DATE_PARSER);
         } catch(Exception e) {

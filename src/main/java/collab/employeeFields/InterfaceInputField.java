@@ -1,6 +1,6 @@
 package collab.employeeFields;
 
 public interface InterfaceInputField {
-    void validateData();
+    void validateData();;
     void processData();
 }

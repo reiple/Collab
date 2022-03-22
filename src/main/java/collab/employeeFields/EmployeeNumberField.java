@@ -4,18 +4,24 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class EmployeeNumberField extends InputField{
-    private int currentYear = LocalDate.now().getYear();
-    private int currentCentury = (currentYear/100)*100;
-    private int lastCentury = currentCentury - 100;
-    private int maxWorkYear = 80;
+    private final int maxWorkYear = 80;
     private int realEmployeeNum;
+    private int currentYear;
+    private int currentCentury;
+    private int lastCentury;
+
 
     public EmployeeNumberField(String inputColumn, String inputData) {
         super(inputColumn, inputData);
+
     }
 
     @Override
     public void validateData() {
+        currentYear = LocalDate.now().getYear();
+        currentCentury = (currentYear/100)*100;
+        lastCentury = currentCentury - 100;
+
         if (data.length() != 8 || !isDigit(data) || !isValidEmployeeYear(data)){
             throw new RuntimeException("Employee number input is not valid");
         }
@@ -30,6 +36,7 @@ public class EmployeeNumberField extends InputField{
     }
 
     private boolean isValidEmployeeYear(String str){
+
         int employeeNumberYear = Integer.parseInt(str.substring(0,2));
         int realEmployeeYear = convertRealEmployeeYear(employeeNumberYear);
         return (currentYear - realEmployeeYear) < maxWorkYear;
