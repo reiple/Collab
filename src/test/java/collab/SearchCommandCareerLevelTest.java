@@ -5,7 +5,7 @@ import static org.mockito.Mockito.when;
 
 import collab.options.first.NoneFirstOption;
 import collab.options.first.PrintOption;
-import collab.options.second.NoneSecondOption;
+import collab.options.second.EmptySecondOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,9 +40,9 @@ public class SearchCommandCareerLevelTest {
   }
 
   @Test
-  void testSearchCareerLevelFail() {
+  void testSearchCareerLevelFail() throws Exception {
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new NoneSecondOption(Arrays.asList("cl", "CL1")));
+        new NoneFirstOption(), new EmptySecondOption(Arrays.asList("cl", "CL1")));
 
     String result = command.executeCommand(employeeDAO);
     assertEquals("0", result);
@@ -50,9 +50,9 @@ public class SearchCommandCareerLevelTest {
   }
 
   @Test
-  void testSearchCareerLevelSuccess() {
+  void testSearchCareerLevelSuccess() throws Exception {
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new NoneSecondOption(Arrays.asList("cl", "CL4")));
+        new NoneFirstOption(), new EmptySecondOption(Arrays.asList("cl", "CL4")));
 
     String[][] data = {
         {"01122329", "DN WD", "CL4", "010-7174-5680", "20071117", "PRO"},
@@ -65,9 +65,9 @@ public class SearchCommandCareerLevelTest {
   }
 
   @Test
-  void testSearchCareerLevelAndPrintFail() {
+  void testSearchCareerLevelAndPrintFail() throws Exception {
     ICommand command = new SearchCommand(
-        new PrintOption(), new NoneSecondOption(Arrays.asList("cl", "CL1")));
+        new PrintOption(), new EmptySecondOption(Arrays.asList("cl", "CL1")));
 
     String result = command.executeCommand(employeeDAO);
     assertEquals("NONE", result);
@@ -75,21 +75,17 @@ public class SearchCommandCareerLevelTest {
   }
 
   @Test
-  void testSearchCareerLevelAndPrintSuccess() {
+  void testSearchCareerLevelAndPrintSuccess() throws Exception {
     ICommand command = new SearchCommand(
-        new PrintOption(), new NoneSecondOption(Arrays.asList("cl", "CL4")));
+        new PrintOption(), new EmptySecondOption(Arrays.asList("cl", "CL4")));
 
     String[][] data = {
         {"99117175", "FIRST LDEXRI", "CL4", "010-2814-1699", "19950704", "ADV"},
         {"01122329", "DN WD", "CL4", "010-7174-5680", "20071117", "PRO"}
-
     };
 
     String result = command.executeCommand(employeeDAO);
-
-    assertEquals(
-        "99117175,FIRST LDEXRI,CL4,010-2814-1699,19950704,ADV\n01122329,DN WD,CL4,010-7174-5680,20071117,PRO",
-        result);
+    assertEquals(ResultStringMaker.makeResultString("SCH", data), result);
 
   }
 

@@ -5,7 +5,7 @@ import static org.mockito.Mockito.when;
 
 import collab.options.first.NoneFirstOption;
 import collab.options.first.PrintOption;
-import collab.options.second.NoneSecondOption;
+import collab.options.second.EmptySecondOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -45,9 +45,9 @@ class SearchCommandCertiTest {
   }
 
   @Test
-  void testSearchCertiFail() {
+  void testSearchCertiFail() throws Exception {
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new NoneSecondOption(Arrays.asList("certi", "EX")));
+        new NoneFirstOption(), new EmptySecondOption(Arrays.asList("certi", "EX")));
 
     String result = command.executeCommand(employeeDAO);
     assertEquals("0", result);
@@ -55,9 +55,9 @@ class SearchCommandCertiTest {
   }
 
   @Test
-  void testSearchCertiSuccess() {
+  void testSearchCertiSuccess() throws Exception {
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new NoneSecondOption(Arrays.asList("certi", "ADV")));
+        new NoneFirstOption(), new EmptySecondOption(Arrays.asList("certi", "ADV")));
 
     String[][] data = {
         {"85125741", "FBAH RTIJ", "CL1", "010-8900-1478", "19780228", "ADV"},
@@ -75,9 +75,9 @@ class SearchCommandCertiTest {
   }
 
   @Test
-  void testSearchCertiAndPrintFail() {
+  void testSearchCertiAndPrintFail() throws Exception {
     ICommand command = new SearchCommand(
-        new PrintOption(), new NoneSecondOption(Arrays.asList("certi", "EX")));
+        new PrintOption(), new EmptySecondOption(Arrays.asList("certi", "EX")));
 
     String result = command.executeCommand(employeeDAO);
     assertEquals("NONE", result);
@@ -85,9 +85,9 @@ class SearchCommandCertiTest {
   }
 
   @Test
-  void testSearchCertiAndPrintSuccess() {
+  void testSearchCertiAndPrintSuccess() throws Exception {
     ICommand command = new SearchCommand(
-        new PrintOption(), new NoneSecondOption(Arrays.asList("certi", "ADV")));
+        new PrintOption(), new EmptySecondOption(Arrays.asList("certi", "ADV")));
 
     String[][] data = {
         {"85125741", "FBAH RTIJ", "CL1", "010-8900-1478", "19780228", "ADV"},

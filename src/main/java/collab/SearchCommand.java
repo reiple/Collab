@@ -1,10 +1,5 @@
 package collab;
 
-
-import collab.options.first.NoneFirstOption;
-import collab.options.second.FirstNameOption;
-import collab.options.second.LastNameOption;
-import collab.options.second.NoneSecondOption;
 import collab.options.third.NoneThirdOption;
 
 import java.util.ArrayList;
@@ -20,12 +15,6 @@ public class SearchCommand extends AbstractCommand{
     @Override
     public String executeCommand(IDAO employeeDAO) throws Exception {
 
-        List<Employee> list = null;
-        if(getSecondOption() instanceof NoneSecondOption) {
-            list = getSearchEmployeeList((EmployeeDAO)employeeDAO);
-        } else {
-            list = getSecondOption().getFilteredList((EmployeeDAO)employeeDAO);
-        }
         List<Employee> list = getSecondOption().getFilteredList((EmployeeDAO) employeeDAO);
       
         // TODO: 임시로 조치한 것

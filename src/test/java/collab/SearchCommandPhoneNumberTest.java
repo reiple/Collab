@@ -5,9 +5,9 @@ import static org.mockito.Mockito.when;
 
 import collab.options.first.NoneFirstOption;
 import collab.options.first.PrintOption;
+import collab.options.second.EmptySecondOption;
 import collab.options.second.LastPhoneNumberOption;
 import collab.options.second.MiddlePhoneNumberOption;
-import collab.options.second.NoneSecondOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -65,10 +65,10 @@ public class SearchCommandPhoneNumberTest {
   }
 
   @Test
-  void testSearchPhoneNumFail() {
+  void testSearchPhoneNumFail() throws Exception {
 
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new NoneSecondOption(Arrays.asList("phoneNum", "010-0000-0000")));
+        new NoneFirstOption(), new EmptySecondOption(Arrays.asList("phoneNum", "010-0000-0000")));
 
     String result = command.executeCommand(employeeDAO);
     assertEquals("0", result);
@@ -76,9 +76,9 @@ public class SearchCommandPhoneNumberTest {
   }
 
   @Test
-  void testSearchPhoneNumSuccess() {
+  void testSearchPhoneNumSuccess() throws Exception {
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new NoneSecondOption(Arrays.asList("phoneNum", "010-7174-5680")));
+        new NoneFirstOption(), new EmptySecondOption(Arrays.asList("phoneNum", "010-7174-5680")));
 
     String result = command.executeCommand(employeeDAO);
     assertEquals("1", result);
@@ -86,18 +86,18 @@ public class SearchCommandPhoneNumberTest {
   }
 
   @Test
-  void testSearchPhoneNumAndPrintFail() {
+  void testSearchPhoneNumAndPrintFail() throws Exception {
     ICommand command = new SearchCommand(
-        new PrintOption(), new NoneSecondOption(Arrays.asList("phoneNum", "010-0000-0000")));
+        new PrintOption(), new EmptySecondOption(Arrays.asList("phoneNum", "010-0000-0000")));
 
     String result = command.executeCommand(employeeDAO);
     assertEquals("NONE", result);
   }
 
   @Test
-  void testSearchPhoneNumAndPrintSuccess() {
+  void testSearchPhoneNumAndPrintSuccess() throws Exception {
     ICommand command = new SearchCommand(
-        new PrintOption(), new NoneSecondOption(Arrays.asList("phoneNum", "010-7174-5680")));
+        new PrintOption(), new EmptySecondOption(Arrays.asList("phoneNum", "010-7174-5680")));
 
     String[][] data = {
         {"01122329", "DN WD", "CL4", "010-7174-5680", "20071117", "PRO"}
@@ -107,7 +107,7 @@ public class SearchCommandPhoneNumberTest {
   }
 
   @Test
-  void testSearchMiddlePhoneNumFail() {
+  void testSearchMiddlePhoneNumFail() throws Exception {
     ICommand command = new SearchCommand(
         new NoneFirstOption(), new MiddlePhoneNumberOption(Arrays.asList("phoneNum", "9777")));
 
@@ -116,7 +116,7 @@ public class SearchCommandPhoneNumberTest {
   }
 
   @Test
-  void testSearchMiddlePhoneNumSuccess() {
+  void testSearchMiddlePhoneNumSuccess() throws Exception {
     ICommand command = new SearchCommand(
         new NoneFirstOption(), new MiddlePhoneNumberOption(Arrays.asList("phoneNum", "7174")));
 
@@ -129,7 +129,7 @@ public class SearchCommandPhoneNumberTest {
   }
 
   @Test
-  void testSearchMiddlePhoneNumAndPrintFail() {
+  void testSearchMiddlePhoneNumAndPrintFail() throws Exception {
     ICommand command = new SearchCommand(
         new PrintOption(), new MiddlePhoneNumberOption(Arrays.asList("phoneNum", "9777")));
 
@@ -138,7 +138,7 @@ public class SearchCommandPhoneNumberTest {
   }
 
   @Test
-  void testSearchMiddlePhoneNumAndPrintSuccess() {
+  void testSearchMiddlePhoneNumAndPrintSuccess() throws Exception {
     ICommand command = new SearchCommand(
         new PrintOption(), new MiddlePhoneNumberOption(Arrays.asList("phoneNum", "7174")));
 
@@ -152,7 +152,7 @@ public class SearchCommandPhoneNumberTest {
 
 
   @Test
-  void testSearchLastPhoneNumFail() {
+  void testSearchLastPhoneNumFail() throws Exception {
     ICommand command = new SearchCommand(
         new NoneFirstOption(), new LastPhoneNumberOption(Arrays.asList("phoneNum", "0000")));
 
@@ -161,7 +161,7 @@ public class SearchCommandPhoneNumberTest {
   }
 
   @Test
-  void testSearchLastPhoneNumSuccess() {
+  void testSearchLastPhoneNumSuccess() throws Exception {
     ICommand command = new SearchCommand(
         new NoneFirstOption(), new LastPhoneNumberOption(Arrays.asList("phoneNum", "3059")));
 
@@ -179,7 +179,7 @@ public class SearchCommandPhoneNumberTest {
   }
 
   @Test
-  void testSearchLastPhoneNumAndPrintFail() {
+  void testSearchLastPhoneNumAndPrintFail() throws Exception {
     ICommand command = new SearchCommand(
         new PrintOption(), new LastPhoneNumberOption(Arrays.asList("phoneNum", "0000")));
 
@@ -188,7 +188,7 @@ public class SearchCommandPhoneNumberTest {
   }
 
   @Test
-  void testSearchLastPhoneNumAndPrintSuccess() {
+  void testSearchLastPhoneNumAndPrintSuccess() throws Exception {
     ICommand command = new SearchCommand(
         new PrintOption(), new LastPhoneNumberOption(Arrays.asList("phoneNum", "3059")));
 

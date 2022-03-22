@@ -5,7 +5,7 @@ import static org.mockito.Mockito.when;
 
 import collab.options.first.NoneFirstOption;
 import collab.options.first.PrintOption;
-import collab.options.second.NoneSecondOption;
+import collab.options.second.EmptySecondOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -63,36 +63,36 @@ public class SearchCommandEmployeeNumTest {
   }
 
   @Test
-  void testSearchEmployeeNumFail() {
+  void testSearchEmployeeNumFail() throws Exception {
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new NoneSecondOption(Arrays.asList("employeeNum", "00000000")));
+        new NoneFirstOption(), new EmptySecondOption(Arrays.asList("employeeNum", "00000000")));
 
     String result = command.executeCommand(employeeDAO);
     assertEquals("0", result);
   }
 
   @Test
-  void testSearchEmployeeNumSuccess() {
+  void testSearchEmployeeNumSuccess() throws Exception {
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new NoneSecondOption(Arrays.asList("employeeNum", "00114058")));
+        new NoneFirstOption(), new EmptySecondOption(Arrays.asList("employeeNum", "00114058")));
 
     String result = command.executeCommand(employeeDAO);
     assertEquals("1", result);
   }
 
   @Test
-  void testSearchEmployeeNumAndPrintFail() {
+  void testSearchEmployeeNumAndPrintFail() throws Exception {
     ICommand command = new SearchCommand(
-        new PrintOption(), new NoneSecondOption(Arrays.asList("employeeNum", "00000000")));
+        new PrintOption(), new EmptySecondOption(Arrays.asList("employeeNum", "00000000")));
 
     String result = command.executeCommand(employeeDAO);
     assertEquals("NONE", result);
   }
 
   @Test
-  void testSearchEmployeeNumAndPrintSuccess() {
+  void testSearchEmployeeNumAndPrintSuccess() throws Exception {
     ICommand command = new SearchCommand(
-        new PrintOption(), new NoneSecondOption(Arrays.asList("employeeNum", "00114058")));
+        new PrintOption(), new EmptySecondOption(Arrays.asList("employeeNum", "00114058")));
 
     String result = command.executeCommand(employeeDAO);
     assertEquals("00114058,QQWE LVARW,CL4,010-4328-3059,19911021,PRO", result);

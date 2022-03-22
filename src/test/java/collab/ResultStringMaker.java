@@ -7,7 +7,7 @@ public class ResultStringMaker {
     // TODO: 리턴에 명령어 포함일 경우, 이 부분 수정해야 함
     boolean needCommand = false;
     boolean needLastNewLine = false;
-    boolean useSystemNewLine = false;
+    boolean useSystemNewLine = true;
 
     StringBuilder builder = new StringBuilder();
     for(int next = 0; next < data.length; next++) {

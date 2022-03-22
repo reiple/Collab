@@ -6,8 +6,8 @@ import static org.mockito.Mockito.when;
 import collab.options.first.NoneFirstOption;
 import collab.options.first.PrintOption;
 import collab.options.second.DayOfBirthdayOption;
+import collab.options.second.EmptySecondOption;
 import collab.options.second.MonthOfBirthdayOption;
-import collab.options.second.NoneSecondOption;
 import collab.options.second.YearOfBirthdayOption;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -64,9 +64,9 @@ class SearchCommandBirthdayTest {
   }
 
   @Test
-  void testSearchBirthdayFail() {
+  void testSearchBirthdayFail() throws Exception {
     ICommand command = new SearchCommand(new NoneFirstOption(),
-        new NoneSecondOption(Arrays.asList("birthday", "20071101")));
+        new EmptySecondOption(Arrays.asList("birthday", "20071101")));
 
     String result = command.executeCommand(employeeDAO);
     assertEquals("0", result);
@@ -74,9 +74,9 @@ class SearchCommandBirthdayTest {
   }
 
   @Test
-  void testSearchBirthdaySuccess() {
+  void testSearchBirthdaySuccess() throws Exception {
     ICommand command = new SearchCommand(new NoneFirstOption(),
-        new NoneSecondOption(Arrays.asList("birthday", "19911021")));
+        new EmptySecondOption(Arrays.asList("birthday", "19911021")));
 
     String[][] data = {{"01114052", "ABCE LVARW", "CL4", "010-1528-3059", "19911021", "PRO"},
         {"89114053", "DEFRE LVARW", "CL3", "010-2528-3059", "19911021", "PRO"},
@@ -91,9 +91,9 @@ class SearchCommandBirthdayTest {
   }
 
   @Test
-  void testSearchBirthdayAndPrintFail() {
+  void testSearchBirthdayAndPrintFail() throws Exception {
     ICommand command = new SearchCommand(new PrintOption(),
-        new NoneSecondOption(Arrays.asList("birthday", "20071101")));
+        new EmptySecondOption(Arrays.asList("birthday", "20071101")));
 
     String result = command.executeCommand(employeeDAO);
     assertEquals("NONE", result);
@@ -101,9 +101,9 @@ class SearchCommandBirthdayTest {
   }
 
   @Test
-  void testSearchBirthdayAndPrintSuccess() {
+  void testSearchBirthdayAndPrintSuccess() throws Exception {
     ICommand command = new SearchCommand(new PrintOption(),
-        new NoneSecondOption(Arrays.asList("birthday", "19911021")));
+        new EmptySecondOption(Arrays.asList("birthday", "19911021")));
 
     String[][] data = {
         {"69114054", "GDFQW LVARW", "CL2", "010-3528-3059", "19911021", "PRO"},
@@ -122,7 +122,7 @@ class SearchCommandBirthdayTest {
 
 
   @Test
-  void testSearchYearOfBirthdayFail() {
+  void testSearchYearOfBirthdayFail() throws Exception {
     ICommand command = new SearchCommand(new NoneFirstOption(),
         new YearOfBirthdayOption(Arrays.asList("birthday", "2022")));
 
@@ -131,7 +131,7 @@ class SearchCommandBirthdayTest {
   }
 
   @Test
-  void testSearchYearOfBirthdaySuccess() {
+  void testSearchYearOfBirthdaySuccess() throws Exception {
     ICommand command = new SearchCommand(new NoneFirstOption(),
         new YearOfBirthdayOption(Arrays.asList("birthday", "1991")));
 
@@ -148,7 +148,7 @@ class SearchCommandBirthdayTest {
   }
 
   @Test
-  void testSearchYearOfBirthdayAndPrintFail() {
+  void testSearchYearOfBirthdayAndPrintFail() throws Exception {
     ICommand command = new SearchCommand(new PrintOption(),
         new YearOfBirthdayOption(Arrays.asList("birthday", "2022")));
 
@@ -157,7 +157,7 @@ class SearchCommandBirthdayTest {
   }
 
   @Test
-  void testSearchYearOfBirthdayAndPrintSuccess() {
+  void testSearchYearOfBirthdayAndPrintSuccess() throws Exception {
     ICommand command = new SearchCommand(new PrintOption(),
         new YearOfBirthdayOption(Arrays.asList("birthday", "1991")));
 
@@ -179,7 +179,7 @@ class SearchCommandBirthdayTest {
 
 
   @Test
-  void testSearchMonthOfBirthdayFail() {
+  void testSearchMonthOfBirthdayFail() throws Exception {
     ICommand command = new SearchCommand(new NoneFirstOption(),
         new YearOfBirthdayOption(Arrays.asList("birthday", "05")));
 
@@ -188,7 +188,7 @@ class SearchCommandBirthdayTest {
   }
 
   @Test
-  void testSearchMonthOfBirthdaySuccess() {
+  void testSearchMonthOfBirthdaySuccess() throws Exception {
     ICommand command = new SearchCommand(new NoneFirstOption(),
         new MonthOfBirthdayOption(Arrays.asList("birthday", "10")));
 
@@ -210,7 +210,7 @@ class SearchCommandBirthdayTest {
   }
 
   @Test
-  void testSearchMonthOfBirthdayAndPrintFail() {
+  void testSearchMonthOfBirthdayAndPrintFail() throws Exception {
     ICommand command = new SearchCommand(new PrintOption(),
         new YearOfBirthdayOption(Arrays.asList("birthday", "05")));
 
@@ -219,7 +219,7 @@ class SearchCommandBirthdayTest {
   }
 
   @Test
-  void testSearchMonthOfBirthdayAndPrintSuccess() {
+  void testSearchMonthOfBirthdayAndPrintSuccess() throws Exception {
     ICommand command = new SearchCommand(new PrintOption(),
         new MonthOfBirthdayOption(Arrays.asList("birthday", "10")));
 
@@ -242,7 +242,7 @@ class SearchCommandBirthdayTest {
 
 
   @Test
-  void testSearchDayOfBirthdayFail() {
+  void testSearchDayOfBirthdayFail() throws Exception {
     ICommand command = new SearchCommand(new NoneFirstOption(),
         new YearOfBirthdayOption(Arrays.asList("birthday", "31")));
 
@@ -251,7 +251,7 @@ class SearchCommandBirthdayTest {
   }
 
   @Test
-  void testSearchDayOfBirthdaySuccess() {
+  void testSearchDayOfBirthdaySuccess() throws Exception {
     ICommand command = new SearchCommand(new NoneFirstOption(),
         new DayOfBirthdayOption(Arrays.asList("birthday", "21")));
 
@@ -268,7 +268,7 @@ class SearchCommandBirthdayTest {
   }
 
   @Test
-  void testSearchDayOfBirthdayAndPrintFail() {
+  void testSearchDayOfBirthdayAndPrintFail() throws Exception {
     ICommand command = new SearchCommand(new PrintOption(),
         new YearOfBirthdayOption(Arrays.asList("birthday", "31")));
 
@@ -277,7 +277,7 @@ class SearchCommandBirthdayTest {
   }
 
   @Test
-  void testSearchDayOfBirthdayAndPrintSuccess() {
+  void testSearchDayOfBirthdayAndPrintSuccess() throws Exception {
     ICommand command = new SearchCommand(new PrintOption(),
         new DayOfBirthdayOption(Arrays.asList("birthday", "21")));
 
