@@ -260,7 +260,7 @@ public class EmployeeTest {
         assertEquals(employee.getStringField("employeeNum"), "99123099");
         assertEquals(employee.getStringField("name"), "TTETHU HBO");
         assertEquals(employee.getStringField("cl"), "CL4");
-        assertEquals(employee.getStringField("phoneNum"), "19771208");
+        assertEquals(employee.getStringField("phoneNum"), "010-4528-3059");
         assertEquals(employee.getStringField("certi"), "ADV");
     }
 

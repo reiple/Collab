@@ -1,10 +1,13 @@
 package collab;
+import collab.columnList.*;
+
 import java.time.LocalDate;
 import java.time.chrono.IsoEra;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.ResolverStyle;
 import java.time.temporal.ChronoField;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -16,7 +19,6 @@ public class Employee{
     private String name;
     private String birthday;
     private String careerLevel;
-    private String cl;
     private String certi;
 
     private String lastName;
@@ -45,7 +47,6 @@ public class Employee{
 
         // careerLevel 이름변경 review 필요
         careerLevel = commandArguments.get(2);
-        cl = commandArguments.get(2);
         phoneNumber = commandArguments.get(3);
         birthday = commandArguments.get(4);
         certi = commandArguments.get(5);
@@ -122,11 +123,6 @@ public class Employee{
     public void setCareerLevel(String str) {
         careerLevel = str;
         validateCareerLevel();
-    }
-
-    public void setCl(String str) {
-        cl = str;
-        validateCl();
     }
 
     public void setCerti(String str) {
@@ -222,13 +218,6 @@ public class Employee{
         }
     }
 
-    private void validateCl(){
-        List<String> careerLevelWhiteBox = Arrays.asList("CL1","CL2","CL3","CL4");
-        if (!careerLevelWhiteBox.contains(cl)){
-            throw new RuntimeException("Employee career level input is not valid");
-        }
-    }
-
     private void validateCerti(){
         List<String> certiWhiteBox = Arrays.asList("ADV","PRO","EX");
         if (!certiWhiteBox.contains(certi)){
@@ -242,7 +231,6 @@ public class Employee{
     public String getBirthday() { return birthday; }
     // careerLevel 이름변경 review 필요
     public String getCareerLevel() { return careerLevel; }
-    public String getCl() { return cl; }
     public String getCerti() { return certi; }
 
     public String getLastName() { return lastName; }
@@ -255,7 +243,16 @@ public class Employee{
     public String getBirthDayOnly() { return birthDayOnly; }
 
     public Object getField(String fieldName) throws Exception {
-        return getClass().getMethod("get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1)).invoke(this);
+        List<String> matchNameList = Arrays.asList("name","certi");
+        if (!matchNameList.contains(fieldName)) {
+            switch(fieldName) {
+                case "employeeNum": return getEmployeeNumber();
+                case "cl": return getCareerLevel();
+                case "phoneNum": return getPhoneNumber();
+                case "birthday": return getBirthday();
+            }
+
+        }return getClass().getMethod("get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1)).invoke(this);
     };
     public String getStringField(String fieldName) throws Exception {
         return (String)getField(fieldName);
