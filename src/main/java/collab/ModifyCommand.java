@@ -1,27 +1,23 @@
 package collab;
 
-import collab.options.second.NoneSecondOption;
 import collab.options.third.NoneThirdOption;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class ModifyCommand extends AbstractCommand{
-    public ModifyCommand(AbstractFirstOption option1, AbstractSecondOption option2, List<String> commandArguments) {
+public class ModifyCommand extends AbstractCommand {
+
+    public ModifyCommand(AbstractFirstOption option1, AbstractSecondOption option2,
+        List<String> commandArguments) {
         super(option1, option2, new NoneThirdOption(), commandArguments);
     }
 
     @Override
     public String executeCommand(IDAO employeeDAO) throws Exception {
 
-//        if(getSecondOption() instanceof NoneSecondOption) {
-//            return getValues((EmployeeDAO) employeeDAO);
-//        }
-
         List<Employee> list = null;
         list = getSecondOption().getFilteredList((EmployeeDAO) employeeDAO);
-        if(list == null) {
+        if (list == null) {
             list = new ArrayList<>();
         }
 
@@ -37,6 +33,9 @@ public class ModifyCommand extends AbstractCommand{
         List<Employee> list = employeeDAO.getAllItems().stream()
             .filter(item -> item.getPhoneNumber().equals(getCommandArguments().get(1)))
             .collect(Collectors.toList());
+        list.stream().forEach(
+            employee -> ((EmployeeDAO) employeeDAO).modifyItemById(employee.getEmployeeNumber(),
+                getCommandArguments().get(0), getCommandArguments().get(1)));
 
         return getFirstOption().getFilteredList(list);
     }
