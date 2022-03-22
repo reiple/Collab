@@ -2,7 +2,7 @@ package collab;
 
 import java.util.List;
 
-public abstract class AbstractSecondOption {
+public abstract class AbstractSecondOption  {
     protected static final int COL = 0;
     protected static final int VAL= 1;
     protected List<String> optionArgument;
@@ -15,5 +15,5 @@ public abstract class AbstractSecondOption {
     public String getSearchValue(){
         return optionArgument.get(VAL);
     }
-    abstract public List<Employee> getFilteredList(EmployeeDAO DAO);
+    abstract public List<Employee> getFilteredList(EmployeeDAO DAO) throws Exception;
 }

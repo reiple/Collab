@@ -33,7 +33,7 @@ public class SearchCommand extends AbstractCommand{
         return getFirstOption().getFilteredList(list);
     }
 
-    private String getSearchName(EmployeeDAO employeeDAO) {
+    private String getSearchName(EmployeeDAO employeeDAO) throws Exception{
         List<Employee> list = employeeDAO.getAllItems().stream()
             .filter(item -> item.getName().equals(getSecondOption().getSearchValue()))
             .collect(Collectors.toList());
