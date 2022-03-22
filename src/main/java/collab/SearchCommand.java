@@ -19,22 +19,31 @@ public class SearchCommand extends AbstractCommand{
     @Override
     public String executeCommand(EmployeeDAO employeeDAO) {
 
+        List<Employee> list = null;
         if(getSecondOption() instanceof NoneSecondOption) {
-            return getSearchName(employeeDAO);
+            list = getSearchEmployeeList(employeeDAO);
+        } else {
+            list = getSecondOption().getFilteredList(employeeDAO);
         }
 
-
-        List<Employee> list = getSecondOption().getFilteredList(employeeDAO);
-        System.out.println("SECOND: " + list.size());
-
         return getFirstOption().getFilteredList(list);
     }
 
-    private String getSearchName(EmployeeDAO employeeDAO) {
-        List<Employee> list = employeeDAO.getAllItems().stream()
-            .filter(item -> item.getName().equals(getSecondOption().getSearchValue()))
-            .collect(Collectors.toList());
-
-        return getFirstOption().getFilteredList(list);
+    private List<Employee> getSearchEmployeeList(EmployeeDAO employeeDAO) {
+        List<Employee> list = null;
+        switch(getSecondOption().getSearchColumn()) {
+            case "employeeNum":
+                list = employeeDAO.getAllItems().stream()
+                    .filter(item -> item.getEmployeeNumber().equals(getSecondOption().getSearchValue()))
+                    .collect(Collectors.toList());
+                break;
+            case "name":
+                list = employeeDAO.getAllItems().stream()
+                    .filter(item -> item.getName().equals(getSecondOption().getSearchValue()))
+                    .collect(Collectors.toList());
+                break;
+        }
+        return list;
     }
+
 }
