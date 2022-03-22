@@ -15,9 +15,9 @@ public class ModifyCommand extends AbstractCommand{
     @Override
     public String executeCommand(IDAO employeeDAO) throws Exception {
 
-        if(getSecondOption() instanceof NoneSecondOption) {
-            return getValues((EmployeeDAO) employeeDAO);
-        }
+//        if(getSecondOption() instanceof NoneSecondOption) {
+//            return getValues((EmployeeDAO) employeeDAO);
+//        }
 
         List<Employee> list = null;
         list = getSecondOption().getFilteredList((EmployeeDAO) employeeDAO);

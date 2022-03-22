@@ -20,9 +20,9 @@ public class SearchCommand extends AbstractCommand{
     @Override
     public String executeCommand(IDAO employeeDAO) throws Exception {
 
-        if(getSecondOption() instanceof NoneSecondOption) {
-            return getSearchName((EmployeeDAO) employeeDAO);
-        }
+//        if(getSecondOption() instanceof NoneSecondOption) {
+//            return getSearchName((EmployeeDAO) employeeDAO);
+//        }
         List<Employee> list = getSecondOption().getFilteredList((EmployeeDAO) employeeDAO);
 
         // TODO: 임시로 조치한 것
