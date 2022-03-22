@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class SearchTest {
-  
   DataBase empDB = new DataBase();
   @BeforeEach
   public void setUp() {
@@ -110,5 +109,4 @@ class SearchTest {
     assertTrue(searchTest_Total(noAnswer)==0);
   }
 }
-
 

@@ -1,5 +1,13 @@
 package collab;
+import java.time.LocalDate;
+import java.time.chrono.IsoEra;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.ResolverStyle;
+import java.time.temporal.ChronoField;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class Employee{
     private String employeeNumber;
@@ -18,6 +26,17 @@ public class Employee{
     private String birthMonthOnly;
     private String birthDayOnly;
 
+    private int currentYear = LocalDate.now().getYear();
+    private int currentCentury = (currentYear/100)*100;
+    private int lastCentury = currentCentury - 100;
+    private int maxWorkYear = 80;
+
+    private static final DateTimeFormatter DATE_PARSER
+            = new DateTimeFormatterBuilder().appendPattern("yyyyMMdd")
+            .parseDefaulting(ChronoField.ERA, IsoEra.CE.getValue())
+            .toFormatter(Locale.ROOT)
+            .withResolverStyle(ResolverStyle.STRICT);
+
     public Employee(List<String> commandArguments) {
         employeeNumber = commandArguments.get(0);
         name = commandArguments.get(1);
@@ -25,6 +44,7 @@ public class Employee{
         phoneNumber = commandArguments.get(3);
         birthday = commandArguments.get(4);
         certi = commandArguments.get(5);
+        validateInput();
         dataProcessing();
     }
 
@@ -37,9 +57,6 @@ public class Employee{
 
     private int convertRealEmployeeYear(int employeeNumberYearInt){
         int realEmployeeNumberYearInt;
-        int currentYear = 2022;
-        int currentCentury = 2000;
-        int lastCentury = 1900;
 
         if (employeeNumberYearInt <= (currentYear - currentCentury) && employeeNumberYearInt >= 0){
             realEmployeeNumberYearInt = currentCentury + employeeNumberYearInt;
@@ -74,26 +91,131 @@ public class Employee{
 
     public void setEmployeeNumber(String str) {
         employeeNumber = str;
+        validateEmployeeNumber();
         processEmployeeNumber();
     }
 
     public void setPhoneNumber(String str) {
         phoneNumber = str;
+        validatePhoneNumber();
         processPhoneNumber();
     }
 
     public void setName(String str) {
         name = str;
+        validateName();
         processName();
     }
 
     public void setBirthday(String str) {
         birthday = str;
+        validateBirthday();
         processBirthday();
     }
 
-    public void setCareerLevel(String str) { careerLevel = str; }
-    public void setCerti(String str) { certi = str; }
+    public void setCareerLevel(String str) {
+        careerLevel = str;
+        validateCareerLevel();
+    }
+
+    public void setCerti(String str) {
+        certi = str;
+        validateCerti();
+    }
+
+    private void validateInput(){
+        validateEmployeeNumber();
+        validatePhoneNumber();
+        validateName();
+        validateBirthday();
+        validateCareerLevel();
+        validateCerti();
+    }
+
+    static boolean isDigit(String str){
+        for (int i=0; i <str.length(); i++){
+            if(!Character.isDigit(str.charAt(i))){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    static boolean isUpper(String str){
+        for (int i=0; i <str.length(); i++){
+            if(!Character.isUpperCase(str.charAt(i))){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    boolean isValidEmployeeYear(String str){
+        int employeeNumberYear = Integer.parseInt(str.substring(0,2));
+        int realEmployeeYear = convertRealEmployeeYear(employeeNumberYear);
+        return (currentYear - realEmployeeYear) < maxWorkYear;
+    }
+
+    private void validateEmployeeNumber(){
+        if (employeeNumber.length() != 8 || !isDigit(employeeNumber) || !isValidEmployeeYear(employeeNumber)){
+            throw new RuntimeException("Employee number input is not valid");
+        }
+    }
+
+    private void validatePhoneNumber(){
+        if (phoneNumber.split("-").length != 3){
+            throw new RuntimeException("Employee phone number input is not valid");
+        }
+
+        if (!phoneNumber.split("-")[0].equals("010")){
+            throw new RuntimeException("Employee phone number input is not valid");
+        }
+
+        for (int i=1; i<3; i++){
+            if(phoneNumber.split("-")[i].length() !=4 || !isDigit(phoneNumber.split("-")[i])){
+                throw new RuntimeException("Employee phone number input is not valid");
+            }
+        }
+    }
+
+    private void validateName(){
+        if (name.length() > 15 || name.split(" ").length != 2){
+            throw new RuntimeException("Employee name input is not valid");
+        }
+
+        for (int i=0; i<2; i++){
+            if (!isUpper(name.split(" ")[i])){
+                throw new RuntimeException("Employee name input is not valid");
+            }
+        }
+    }
+
+    private void validateBirthday(){
+        try {
+            LocalDate.parse(birthday, DATE_PARSER);
+        } catch(Exception e) {
+            throw new RuntimeException("Employee birth day input is not valid");
+        }
+
+        if (Integer.parseInt(birthday.substring(0,4)) > currentYear) {
+            throw new RuntimeException("Employee birth day input is not valid");
+        }
+    }
+
+    private void validateCareerLevel(){
+        List<String> careerLevelWhiteBox = Arrays.asList("CL1","CL2","CL3","CL4");
+        if (!careerLevelWhiteBox.contains(careerLevel)){
+            throw new RuntimeException("Employee career level input is not valid");
+        }
+    }
+
+    private void validateCerti(){
+        List<String> certiWhiteBox = Arrays.asList("ADV","PRO","EX");
+        if (!certiWhiteBox.contains(certi)){
+            throw new RuntimeException("Employee certi input is not valid");
+        }
+    }
 
     public String getEmployeeNumber() { return employeeNumber; }
     public String getPhoneNumber() { return phoneNumber; }
@@ -112,5 +234,3 @@ public class Employee{
     public String getBirthDayOnly() { return birthDayOnly; }
 
 }
-
-
