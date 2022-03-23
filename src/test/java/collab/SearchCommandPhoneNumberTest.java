@@ -3,7 +3,8 @@ package collab;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import collab.options.first.NoneFirstOption;
+//import collab.options.first.NoneFirstOption;
+import collab.options.first.EmptyFirstOption;
 import collab.options.first.PrintOption;
 import collab.options.second.EmptySecondOption;
 import collab.options.second.LastPhoneNumberOption;
@@ -77,7 +78,7 @@ public class SearchCommandPhoneNumberTest {
   void testSearchPhoneNumFail() throws Exception {
 
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new EmptySecondOption(Arrays.asList("phoneNum", "010-0000-0000")));
+        new EmptyFirstOption(), new EmptySecondOption(Arrays.asList("phoneNum", "010-0000-0000")));
 
     String result = command.executeCommand(employeeDAO);
     assertEquals("SCH,NONE", result);
@@ -87,7 +88,7 @@ public class SearchCommandPhoneNumberTest {
   @Test
   void testSearchPhoneNumSuccess() throws Exception {
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new EmptySecondOption(Arrays.asList("phoneNum", "010-7174-5680")));
+        new EmptyFirstOption(), new EmptySecondOption(Arrays.asList("phoneNum", "010-7174-5680")));
 
     String result = command.executeCommand(employeeDAO);
     assertEquals("SCH,1", result);
@@ -118,7 +119,7 @@ public class SearchCommandPhoneNumberTest {
   @Test
   void testSearchMiddlePhoneNumFail() throws Exception {
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new MiddlePhoneNumberOption(Arrays.asList("phoneNum", "9777")));
+        new EmptyFirstOption(), new MiddlePhoneNumberOption(Arrays.asList("phoneNum", "9777")));
 
     String result = command.executeCommand(employeeDAO);
     assertEquals("SCH,NONE", result);
@@ -127,7 +128,7 @@ public class SearchCommandPhoneNumberTest {
   @Test
   void testSearchMiddlePhoneNumSuccess() throws Exception {
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new MiddlePhoneNumberOption(Arrays.asList("phoneNum", "7174")));
+        new EmptyFirstOption(), new MiddlePhoneNumberOption(Arrays.asList("phoneNum", "7174")));
 
     String[][] data = {
         {"01122329", "DN WD", "CL4", "010-7174-5680", "20071117", "PRO"},
@@ -163,7 +164,7 @@ public class SearchCommandPhoneNumberTest {
   @Test
   void testSearchLastPhoneNumFail() throws Exception {
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new LastPhoneNumberOption(Arrays.asList("phoneNum", "0000")));
+        new EmptyFirstOption(), new LastPhoneNumberOption(Arrays.asList("phoneNum", "0000")));
 
     String result = command.executeCommand(employeeDAO);
     assertEquals("SCH,NONE", result);
@@ -172,7 +173,7 @@ public class SearchCommandPhoneNumberTest {
   @Test
   void testSearchLastPhoneNumSuccess() throws Exception {
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new LastPhoneNumberOption(Arrays.asList("phoneNum", "3059")));
+        new EmptyFirstOption(), new LastPhoneNumberOption(Arrays.asList("phoneNum", "3059")));
 
     String[][] data = {
         {"01114052", "ABCE LVARW", "CL4", "010-1528-3059", "19911021", "PRO"},

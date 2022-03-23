@@ -3,7 +3,8 @@ package collab;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import collab.options.first.NoneFirstOption;
+//import collab.options.first.NoneFirstOption;
+import collab.options.first.EmptyFirstOption;
 import collab.options.first.PrintOption;
 import collab.options.second.EmptySecondOption;
 import collab.options.second.FirstNameOption;
@@ -76,7 +77,7 @@ class SearchCommandNameTest {
   void testSearchNameFail() throws Exception {
 
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new EmptySecondOption(Arrays.asList("name", "KYUMOK KIM")));
+        new EmptyFirstOption(), new EmptySecondOption(Arrays.asList("name", "KYUMOK KIM")));
 
     String result = command.executeCommand(employeeDAO);
     assertEquals("SCH,NONE", result);
@@ -86,7 +87,7 @@ class SearchCommandNameTest {
   void testSearchNameSuccess() throws Exception {
 
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new EmptySecondOption(Arrays.asList("name", "DN WD")));
+        new EmptyFirstOption(), new EmptySecondOption(Arrays.asList("name", "DN WD")));
 
     String result = command.executeCommand(employeeDAO);
     assertEquals("SCH,1", result);
@@ -121,7 +122,7 @@ class SearchCommandNameTest {
   @Test
   void testSearchFirstNameFail() throws Exception {
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new EmptySecondOption(Arrays.asList("name", "TESTER")));
+        new EmptyFirstOption(), new EmptySecondOption(Arrays.asList("name", "TESTER")));
 
     String result = command.executeCommand(employeeDAO);
 
@@ -131,7 +132,7 @@ class SearchCommandNameTest {
   @Test
   void testSearchFirstNameSuccess() throws Exception {
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new FirstNameOption(Arrays.asList("name", "DN")));
+        new EmptyFirstOption(), new FirstNameOption(Arrays.asList("name", "DN")));
     String result = command.executeCommand(employeeDAO);
     assertEquals("SCH,1", result);
   }
@@ -164,7 +165,7 @@ class SearchCommandNameTest {
   void testSearchFistNameOver5Success() throws Exception {
 
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new FirstNameOption(Arrays.asList("name", "FIRST")));
+        new EmptyFirstOption(), new FirstNameOption(Arrays.asList("name", "FIRST")));
     String result = command.executeCommand(employeeDAO);
 
     String[][] data = {
@@ -200,7 +201,7 @@ class SearchCommandNameTest {
   @Test
   void testSearchLastNameFail() throws Exception {
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new LastNameOption(Arrays.asList("name", "TESTER")));
+        new EmptyFirstOption(), new LastNameOption(Arrays.asList("name", "TESTER")));
     String result = command.executeCommand(employeeDAO);
 
     assertEquals("SCH,NONE", result);
@@ -209,7 +210,7 @@ class SearchCommandNameTest {
   @Test
   void testSearchLastNameSuccess() throws Exception {
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new LastNameOption(Arrays.asList("name", "WD")));
+        new EmptyFirstOption(), new LastNameOption(Arrays.asList("name", "WD")));
     String result = command.executeCommand(employeeDAO);
 
     assertEquals("SCH,1", result);
@@ -241,7 +242,7 @@ class SearchCommandNameTest {
   void testSearchLastNameOver5Success() throws Exception {
 
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new LastNameOption(Arrays.asList("name", "LVARW")));
+        new EmptyFirstOption(), new LastNameOption(Arrays.asList("name", "LVARW")));
     String result = command.executeCommand(employeeDAO);
 
     String[][] data = {

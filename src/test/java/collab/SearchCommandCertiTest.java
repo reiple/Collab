@@ -3,7 +3,8 @@ package collab;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import collab.options.first.NoneFirstOption;
+//import collab.options.first.NoneFirstOption;
+import collab.options.first.EmptyFirstOption;
 import collab.options.first.PrintOption;
 import collab.options.second.EmptySecondOption;
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ class SearchCommandCertiTest {
   @Test
   void testSearchCertiFail() throws Exception {
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new EmptySecondOption(Arrays.asList("certi", "EX")));
+        new EmptyFirstOption(), new EmptySecondOption(Arrays.asList("certi", "EX")));
 
     String result = command.executeCommand(employeeDAO);
     assertEquals("SCH,NONE", result);
@@ -66,7 +67,7 @@ class SearchCommandCertiTest {
   @Test
   void testSearchCertiSuccess() throws Exception {
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new EmptySecondOption(Arrays.asList("certi", "ADV")));
+        new EmptyFirstOption(), new EmptySecondOption(Arrays.asList("certi", "ADV")));
 
     String[][] data = {
         {"85125741", "FBAH RTIJ", "CL1", "010-8900-1478", "19780228", "ADV"},

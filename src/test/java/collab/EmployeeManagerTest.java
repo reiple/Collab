@@ -13,6 +13,9 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -118,11 +121,15 @@ public class EmployeeManagerTest {
         EmployeeManager employeeManager = new EmployeeManager();
         List<ICommand> commandList = employeeManager.parseCommandList(commandStringList1);
         String executionResult = employeeManager.executeCommandList(commandList);
-        String[] resultLines = executionResult.split("\n");
+        assertEquals(executionResult, "SCH,NONE" + System.lineSeparator() +
+                "MOD,18117906,TWU QSOLT,CL4,010-6672-7186,20030413,PRO" + System.lineSeparator() +
+                "DEL,18117906,TWU QSOLT,CL3,010-6672-7186,20030413,PRO"  + System.lineSeparator());
+
+        String[] resultLines = executionResult.split(System.lineSeparator());
         assertTrue(resultLines.length == 3);
-        resultLines[0].equals("SCH,18117906,TWU QSOLT,CL4,010-6672-7186,20030413,PRO");
-        resultLines[1].equals("MOD,18117906,TWU QSOLT,CL3,010-6672-7186,20030413,PRO");
-        resultLines[2].equals("DEL,18117906,TWU QSOLT,CL3,010-6672-7186,20030413,PRO");
+        assertEquals(resultLines[0].trim(), "SCH,NONE");
+        assertEquals(resultLines[1].trim(), "MOD,18117906,TWU QSOLT,CL4,010-6672-7186,20030413,PRO");
+        assertEquals(resultLines[2].trim(), "DEL,18117906,TWU QSOLT,CL3,010-6672-7186,20030413,PRO");
     }
 
     @Test
@@ -141,7 +148,8 @@ public class EmployeeManagerTest {
             contents.add(str);
         }
         br.close();
-        String[] resultLines = executionResult.split("\n");
+
+        String[] resultLines = executionResult.split(System.lineSeparator());
         assertTrue(resultLines.length == contents.size());
         for (int i = 0 ; i < resultLines.length; i++){
             assertEquals(resultLines[i], contents.get(i));
@@ -174,6 +182,9 @@ public class EmployeeManagerTest {
         List<String> commandStringList = employeeManager.loadCommandStringListFromFile(inFilePath);
         List<ICommand> commandList = employeeManager.parseCommandList(commandStringList);
         String executionResult = employeeManager.executeCommandList(commandList);
+
+        String stringAnswers = new String(Files.readAllBytes(Paths.get(outFilePath)), StandardCharsets.UTF_8);
+        assertEquals(stringAnswers, executionResult);
         employeeManager.saveExecutionResultToFile(employeeManagerFileToFileTestFilePath, executionResult);
 
         assertTrue(new File(outFilePath).exists());
@@ -185,7 +196,6 @@ public class EmployeeManagerTest {
         }
         br.close();
 
-
         assertTrue(new File(employeeManagerFileToFileTestFilePath).exists());
         ArrayList<String> testOutput = new ArrayList<String>();
         BufferedReader testBr = new BufferedReader(new FileReader(employeeManagerFileToFileTestFilePath));
@@ -195,14 +205,14 @@ public class EmployeeManagerTest {
         }
         testBr.close();
 
-
         for (int i = 0 ; i < answers.size(); i++){
             assertEquals(answers.get(i), testOutput.get(i));
-            System.out.println(testOutput.get(i));
+            //System.out.println(testOutput.get(i));
         }
         assertEquals(answers.size(), testOutput.size());
 
-
+        String stringOurs = new String(Files.readAllBytes(Paths.get(employeeManagerFileToFileTestFilePath)), StandardCharsets.UTF_8);
+        assertEquals(stringAnswers, stringOurs);
     }
 
     @AfterAll

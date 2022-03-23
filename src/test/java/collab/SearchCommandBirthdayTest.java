@@ -3,7 +3,8 @@ package collab;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import collab.options.first.NoneFirstOption;
+//import collab.options.first.NoneFirstOption;
+import collab.options.first.EmptyFirstOption;
 import collab.options.first.PrintOption;
 import collab.options.second.DayOfBirthdayOption;
 import collab.options.second.EmptySecondOption;
@@ -75,7 +76,7 @@ class SearchCommandBirthdayTest {
 
   @Test
   void testSearchBirthdayFail() throws Exception {
-    ICommand command = new SearchCommand(new NoneFirstOption(),
+    ICommand command = new SearchCommand(new EmptyFirstOption(),
         new EmptySecondOption(Arrays.asList("birthday", "20071101")));
 
     String result = command.executeCommand(employeeDAO);
@@ -85,7 +86,7 @@ class SearchCommandBirthdayTest {
 
   @Test
   void testSearchBirthdaySuccess() throws Exception {
-    ICommand command = new SearchCommand(new NoneFirstOption(),
+    ICommand command = new SearchCommand(new EmptyFirstOption(),
         new EmptySecondOption(Arrays.asList("birthday", "19911021")));
 
     String[][] data = {{"01114052", "ABCE LVARW", "CL4", "010-1528-3059", "19911021", "PRO"},
@@ -133,7 +134,7 @@ class SearchCommandBirthdayTest {
 
   @Test
   void testSearchYearOfBirthdayFail() throws Exception {
-    ICommand command = new SearchCommand(new NoneFirstOption(),
+    ICommand command = new SearchCommand(new EmptyFirstOption(),
         new YearOfBirthdayOption(Arrays.asList("birthday", "2022")));
 
     String result = command.executeCommand(employeeDAO);
@@ -142,7 +143,7 @@ class SearchCommandBirthdayTest {
 
   @Test
   void testSearchYearOfBirthdaySuccess() throws Exception {
-    ICommand command = new SearchCommand(new NoneFirstOption(),
+    ICommand command = new SearchCommand(new EmptyFirstOption(),
         new YearOfBirthdayOption(Arrays.asList("birthday", "1991")));
 
     String[][] data = {{"01114052", "ABCE LVARW", "CL4", "010-1528-3059", "19911021", "PRO"},
@@ -190,7 +191,7 @@ class SearchCommandBirthdayTest {
 
   @Test
   void testSearchMonthOfBirthdayFail() throws Exception {
-    ICommand command = new SearchCommand(new NoneFirstOption(),
+    ICommand command = new SearchCommand(new EmptyFirstOption(),
         new YearOfBirthdayOption(Arrays.asList("birthday", "05")));
 
     String result = command.executeCommand(employeeDAO);
@@ -199,7 +200,7 @@ class SearchCommandBirthdayTest {
 
   @Test
   void testSearchMonthOfBirthdaySuccess() throws Exception {
-    ICommand command = new SearchCommand(new NoneFirstOption(),
+    ICommand command = new SearchCommand(new EmptyFirstOption(),
         new MonthOfBirthdayOption(Arrays.asList("birthday", "10")));
 
     String[][] data = {
@@ -253,7 +254,7 @@ class SearchCommandBirthdayTest {
 
   @Test
   void testSearchDayOfBirthdayFail() throws Exception {
-    ICommand command = new SearchCommand(new NoneFirstOption(),
+    ICommand command = new SearchCommand(new EmptyFirstOption(),
         new YearOfBirthdayOption(Arrays.asList("birthday", "31")));
 
     String result = command.executeCommand(employeeDAO);
@@ -262,7 +263,7 @@ class SearchCommandBirthdayTest {
 
   @Test
   void testSearchDayOfBirthdaySuccess() throws Exception {
-    ICommand command = new SearchCommand(new NoneFirstOption(),
+    ICommand command = new SearchCommand(new EmptyFirstOption(),
         new DayOfBirthdayOption(Arrays.asList("birthday", "21")));
 
     String[][] data = {{"01114052", "ABCE LVARW", "CL4", "010-1528-3059", "19911021", "PRO"},

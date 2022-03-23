@@ -14,7 +14,6 @@ public class EmployeeManager  {
     }
 
     public List<String> loadCommandStringListFromFile(String filePath) throws Exception{
-        //FileManager 구현 필요
         return this.fileManager.loadFile(filePath);
     }
 
@@ -25,20 +24,13 @@ public class EmployeeManager  {
     public String executeCommandList(List<ICommand> commandList) throws Exception{
         String executionResult = "";
         for (ICommand command : commandList){
-            if(!(command instanceof AddCommand)) {
-                executionResult += command.executeCommand(this.dao);
-                executionResult += "\n";
-            }
-            else {
-                command.executeCommand(this.dao);
-            }
-
+            String commandResult = command.executeCommand(this.dao);
+            if (!commandResult.isEmpty()) executionResult += commandResult + System.lineSeparator();
         }
-        return executionResult.substring(0, executionResult.length()-1);
+        return executionResult;
     }
 
     public void saveExecutionResultToFile(String filePath, String executionResult) throws Exception{
-        //FileManager 구현 필요
         this.fileManager.saveFile(filePath, executionResult);
     }
 }

@@ -26,14 +26,14 @@ public class PrintOption extends AbstractFirstOption {
     }
 
     private String makeResultString(List<Employee> sortedList, String cmd){
-        String result = new String();
-        boolean isFirst=true;
+        List<String> resultList = new ArrayList<String>();
+        //String resultList = new String();
         for (Employee employee: sortedList){
-            if(!isFirst) {result+=System.lineSeparator();}
-            result += cmd + "," + employee.getEmployeeNumber() + ',' + employee.getName() + ',' + employee.getCareerLevel()
-                    + ',' + employee.getPhoneNumber() + ',' + employee.getBirthday() + ',' + employee.getCerti();
-            isFirst = false;
+            resultList.add(cmd + "," + employee.getEmployeeNumber() + ',' + employee.getName() + ',' + employee.getCareerLevel()
+                    + ',' + employee.getPhoneNumber() + ',' + employee.getBirthday() + ',' + employee.getCerti());
+            //result += System.lineSeparator();
         }
-        return result;
+        System.out.println(String.join(System.lineSeparator(), resultList));
+        return String.join(System.lineSeparator(), resultList);
     }
 }

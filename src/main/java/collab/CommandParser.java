@@ -86,8 +86,7 @@ public class CommandParser {
     private AbstractFirstOption getFirstOptionFromToken(String[] tokenList){
         String firstOption = tokenList[1];
         if (firstOption.equals("-p")) return new PrintOption();
-        //return new EmptyFirstOption();
-        return new NoneFirstOption();
+        return new EmptyFirstOption();
     }
 
     private AbstractSecondOption getSecondOptionFromToken(String[] tokenList){
