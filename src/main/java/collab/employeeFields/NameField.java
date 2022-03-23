@@ -1,6 +1,7 @@
 package collab.employeeFields;
 
-public class NameField extends InputField{
+public class NameField extends InputField {
+
     private String firstName;
     private String lastName;
 
@@ -10,12 +11,12 @@ public class NameField extends InputField{
 
     @Override
     public void validateData() {
-        if (data.length() > 15 || data.split(" ").length != 2){
+        if (data.length() > 15 || data.split(" ").length != 2) {
             throw new RuntimeException("Employee name input is not valid");
         }
 
-        for (int i=0; i<2; i++){
-            if (!isUpper(data.split(" ")[i])){
+        for (int i = 0; i < 2; i++) {
+            if (!isUpper(data.split(" ")[i])) {
                 throw new RuntimeException("Employee name input is not valid");
             }
         }
@@ -27,6 +28,11 @@ public class NameField extends InputField{
         lastName = data.split(" ")[1];
     }
 
-    public String getFirstName(){ return firstName; }
-    public String getLastName(){ return lastName; }
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
 }

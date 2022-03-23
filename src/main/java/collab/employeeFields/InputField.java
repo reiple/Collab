@@ -1,6 +1,7 @@
 package collab.employeeFields;
 
 public abstract class InputField implements InterfaceInputField {
+
     protected String data;
     private String fieldName;
 
@@ -11,18 +12,18 @@ public abstract class InputField implements InterfaceInputField {
         processData();
     }
 
-    static boolean isDigit(String str){
-        for (int i=0; i <str.length(); i++){
-            if(!Character.isDigit(str.charAt(i))){
+    static boolean isDigit(String str) {
+        for (int i = 0; i < str.length(); i++) {
+            if (!Character.isDigit(str.charAt(i))) {
                 return false;
             }
         }
         return true;
     }
 
-    static boolean isUpper(String str){
-        for (int i=0; i <str.length(); i++){
-            if(!Character.isUpperCase(str.charAt(i))){
+    static boolean isUpper(String str) {
+        for (int i = 0; i < str.length(); i++) {
+            if (!Character.isUpperCase(str.charAt(i))) {
                 return false;
             }
         }
@@ -36,6 +37,11 @@ public abstract class InputField implements InterfaceInputField {
         processData();
     }
 
-    public String getData() { return data; }
-    public String getFieldName() { return fieldName; }
+    public String getData() {
+        return data;
+    }
+
+    public String getFieldName() {
+        return fieldName;
+    }
 }
