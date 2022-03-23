@@ -127,9 +127,9 @@ public class EmployeeManagerTest {
 
         String[] resultLines = executionResult.split(System.lineSeparator());
         assertTrue(resultLines.length == 3);
-        assertEquals(resultLines[0].trim(), "SCH,NONE");
-        assertEquals(resultLines[1].trim(), "MOD,18117906,TWU QSOLT,CL4,010-6672-7186,20030413,PRO");
-        assertEquals(resultLines[2].trim(), "DEL,18117906,TWU QSOLT,CL3,010-6672-7186,20030413,PRO");
+        assertEquals("SCH,NONE", resultLines[0].trim());
+        assertEquals("MOD,18117906,TWU QSOLT,CL4,010-6672-7186,20030413,PRO", resultLines[1].trim());
+        assertEquals("DEL,18117906,TWU QSOLT,CL3,010-6672-7186,20030413,PRO", resultLines[2].trim());
     }
 
     @Test
