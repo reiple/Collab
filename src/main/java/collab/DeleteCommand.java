@@ -21,7 +21,8 @@ public class DeleteCommand extends AbstractCommand {
             list = new ArrayList<>();
         }
 
-        list.stream().forEach(employee -> ((EmployeeDAO) dao).deleteItemById(employee.getEmployeeNumber()));
+        list.stream()
+            .forEach(employee -> ((EmployeeDAO) dao).deleteItemById(employee.getEmployeeNumber()));
 
         return getFirstOption().getFilteredList(list, this);
 
