@@ -3,7 +3,8 @@ package collab;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import collab.options.first.NoneFirstOption;
+//import collab.options.first.NoneFirstOption;
+import collab.options.first.EmptyFirstOption;
 import collab.options.first.PrintOption;
 import collab.options.second.EmptySecondOption;
 import collab.options.second.LastPhoneNumberOption;
@@ -80,7 +81,7 @@ class ModifyCommandPhoneNumberTest {
     @Test
     void testFindPhoneNumAndEditNameFail() throws Exception {
         ICommand command = new ModifyCommand(
-            new NoneFirstOption(),
+            new EmptyFirstOption(),
             new EmptySecondOption(Arrays.asList("phoneNum", "010-7174-5681")),
             Arrays.asList("name", "MODIFY NAME"));
         String result = command.executeCommand(employeeDAO);
@@ -90,7 +91,7 @@ class ModifyCommandPhoneNumberTest {
     @Test
     void testFindPhoneNumAndEditNameSuccess() throws Exception {
         ICommand command = new ModifyCommand(
-            new NoneFirstOption(),
+            new EmptyFirstOption(),
             new EmptySecondOption(Arrays.asList("phoneNum", "010-7174-5680")),
             Arrays.asList("name", "MODIFY NAME"));
         String result = command.executeCommand(employeeDAO);
@@ -144,7 +145,7 @@ class ModifyCommandPhoneNumberTest {
         };
 
         ICommand command = new ModifyCommand(
-            new NoneFirstOption(),
+            new EmptyFirstOption(),
             new LastPhoneNumberOption(Arrays.asList("phoneNum", "3059")),
             Arrays.asList("name", "MODIFY NAME"));
         String result = command.executeCommand(employeeDAO);
@@ -212,7 +213,7 @@ class ModifyCommandPhoneNumberTest {
         throws Exception {
 
         ICommand command = new ModifyCommand(
-            new NoneFirstOption(),
+            new EmptyFirstOption(),
             new EmptySecondOption(Arrays.asList(findColumn, findValue)),
             Arrays.asList(changeColumn, changeValue));
         String result = command.executeCommand(employeeDAO);
