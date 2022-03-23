@@ -33,7 +33,7 @@ public class PrintOption extends AbstractFirstOption {
                     + ',' + employee.getPhoneNumber() + ',' + employee.getBirthday() + ',' + employee.getCerti());
             //result += System.lineSeparator();
         }
-        System.out.println(String.join(System.lineSeparator(), resultList));
+        //System.out.println(String.join(System.lineSeparator(), resultList));
         return String.join(System.lineSeparator(), resultList);
     }
 }
