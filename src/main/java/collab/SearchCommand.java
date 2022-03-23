@@ -17,7 +17,6 @@ public class SearchCommand extends AbstractCommand{
 
         List<Employee> list = getSecondOption().getFilteredList((EmployeeDAO) employeeDAO);
 
-        // TODO: 임시로 조치한 것
         if(list == null) {
             list = new ArrayList<>();
         }

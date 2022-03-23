@@ -7,11 +7,12 @@ import collab.EmployeeDAO;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class YearOfBirthdayOption extends AbstractSecondOption
-{
-    public YearOfBirthdayOption(List<String> optionArgument){
+public class YearOfBirthdayOption extends AbstractSecondOption {
+
+    public YearOfBirthdayOption(List<String> optionArgument) {
         super(optionArgument);
     }
+
     @Override
     public List<Employee> getFilteredList(EmployeeDAO employeeDAO) {
 
