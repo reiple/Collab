@@ -5,7 +5,8 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import collab.options.first.NoneFirstOption;
+//import collab.options.first.NoneFirstOption;
+import collab.options.first.EmptyFirstOption;
 import collab.options.first.PrintOption;
 import collab.options.second.DayOfBirthdayOption;
 import collab.options.second.EmptySecondOption;
@@ -111,7 +112,7 @@ class DeleteCommandBirthdayTest {
   @Test
   void testSearchBirthdayAndDeleteFail() throws Exception {
     ICommand command = new DeleteCommand(
-        new NoneFirstOption(), new EmptySecondOption(Arrays.asList("birthday", "20071101"))
+        new EmptyFirstOption(), new EmptySecondOption(Arrays.asList("birthday", "20071101"))
     );
 
     String result = command.executeCommand(employeeDAO);
@@ -133,7 +134,7 @@ class DeleteCommandBirthdayTest {
   @Test
   void testSearchBirthdayAndDeleteSuccess() throws Exception {
     ICommand command = new DeleteCommand(
-        new NoneFirstOption(), new EmptySecondOption(Arrays.asList("birthday", "19911021"))
+        new EmptyFirstOption(), new EmptySecondOption(Arrays.asList("birthday", "19911021"))
     );
 
     String[][] data = {
@@ -182,7 +183,7 @@ class DeleteCommandBirthdayTest {
   @Test
   void testSearchYearOfBirthdayAndDeleteFail() throws Exception {
     ICommand command = new DeleteCommand(
-        new NoneFirstOption(), new YearOfBirthdayOption(Arrays.asList("birthday", "2022"))
+        new EmptyFirstOption(), new YearOfBirthdayOption(Arrays.asList("birthday", "2022"))
     );
 
     String result = command.executeCommand(employeeDAO);
@@ -192,7 +193,7 @@ class DeleteCommandBirthdayTest {
   @Test
   void testSearchYearOfBirthdayAndDeleteSuccess() throws Exception {
     ICommand command = new DeleteCommand(
-        new NoneFirstOption(), new YearOfBirthdayOption(Arrays.asList("birthday", "1991"))
+        new EmptyFirstOption(), new YearOfBirthdayOption(Arrays.asList("birthday", "1991"))
     );
 
     String[][] data = {
@@ -212,7 +213,7 @@ class DeleteCommandBirthdayTest {
   @Test
   void testSearchMonthOfBirthdayAndDeleteFail() throws Exception {
     ICommand command = new DeleteCommand(
-        new NoneFirstOption(), new YearOfBirthdayOption(Arrays.asList("birthday", "05"))
+        new EmptyFirstOption(), new YearOfBirthdayOption(Arrays.asList("birthday", "05"))
     );
 
     String result = command.executeCommand(employeeDAO);
@@ -222,7 +223,7 @@ class DeleteCommandBirthdayTest {
   @Test
   void testSearchMonthOfBirthdayAndDeleteSuccess() throws Exception {
     ICommand command = new DeleteCommand(
-        new NoneFirstOption(), new MonthOfBirthdayOption(Arrays.asList("birthday", "10"))
+        new EmptyFirstOption(), new MonthOfBirthdayOption(Arrays.asList("birthday", "10"))
     );
 
     String[][] data = {
@@ -244,7 +245,7 @@ class DeleteCommandBirthdayTest {
   @Test
   void testSearchDayOfBirthdayAndDeleteFail() throws Exception {
     ICommand command = new DeleteCommand(
-        new NoneFirstOption(), new YearOfBirthdayOption(Arrays.asList("birthday", "31"))
+        new EmptyFirstOption(), new YearOfBirthdayOption(Arrays.asList("birthday", "31"))
     );
 
     String result = command.executeCommand(employeeDAO);
@@ -254,7 +255,7 @@ class DeleteCommandBirthdayTest {
   @Test
   void testSearchDayOfBirthdayAndDeleteSuccess() throws Exception {
     ICommand command = new DeleteCommand(
-        new NoneFirstOption(), new DayOfBirthdayOption(Arrays.asList("birthday", "21"))
+        new EmptyFirstOption(), new DayOfBirthdayOption(Arrays.asList("birthday", "21"))
     );
 
     String[][] data = {

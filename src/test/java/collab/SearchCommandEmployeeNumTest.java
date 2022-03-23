@@ -3,7 +3,8 @@ package collab;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import collab.options.first.NoneFirstOption;
+//import collab.options.first.NoneFirstOption;
+import collab.options.first.EmptyFirstOption;
 import collab.options.first.PrintOption;
 import collab.options.second.EmptySecondOption;
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public class SearchCommandEmployeeNumTest {
   @Test
   void testSearchEmployeeNumFail() throws Exception {
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new EmptySecondOption(Arrays.asList("employeeNum", "00000000")));
+        new EmptyFirstOption(), new EmptySecondOption(Arrays.asList("employeeNum", "00000000")));
 
     String result = command.executeCommand(employeeDAO);
     assertEquals("SCH,NONE", result);
@@ -83,7 +84,7 @@ public class SearchCommandEmployeeNumTest {
   @Test
   void testSearchEmployeeNumSuccess() throws Exception {
     ICommand command = new SearchCommand(
-        new NoneFirstOption(), new EmptySecondOption(Arrays.asList("employeeNum", "00114058")));
+        new EmptyFirstOption(), new EmptySecondOption(Arrays.asList("employeeNum", "00114058")));
 
     String result = command.executeCommand(employeeDAO);
     assertEquals("SCH,1", result);

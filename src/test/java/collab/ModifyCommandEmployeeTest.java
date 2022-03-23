@@ -5,7 +5,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import collab.options.Columns;
-import collab.options.first.NoneFirstOption;
+//import collab.options.first.NoneFirstOption;
+import collab.options.first.EmptyFirstOption;
 import collab.options.first.PrintOption;
 import collab.options.second.EmptySecondOption;
 import java.util.ArrayList;
@@ -70,7 +71,7 @@ public class ModifyCommandEmployeeTest {
 
     @Test
     void testSearchEmployeeAndModifyNameTestFail() throws Exception {
-        ICommand command = new ModifyCommand(new NoneFirstOption(), new EmptySecondOption(Arrays.asList(
+        ICommand command = new ModifyCommand(new EmptyFirstOption(), new EmptySecondOption(Arrays.asList(
             Columns.COLUMN_EMPLOYEE_NUM, "00000000")), Arrays.asList(Columns.COLUMN_NAME, "TEST TEST"));
 
         String result = command.executeCommand(employeeDAO);
@@ -80,7 +81,7 @@ public class ModifyCommandEmployeeTest {
 
     @Test
     void testSearchEmployeeAndModifyNameTestSuccess() throws Exception {
-        ICommand command = new ModifyCommand(new NoneFirstOption(), new EmptySecondOption(Arrays.asList(
+        ICommand command = new ModifyCommand(new EmptyFirstOption(), new EmptySecondOption(Arrays.asList(
             Columns.COLUMN_EMPLOYEE_NUM, "00114058")), Arrays.asList(Columns.COLUMN_NAME, "TEST TEST"));
 
         String result = command.executeCommand(employeeDAO);

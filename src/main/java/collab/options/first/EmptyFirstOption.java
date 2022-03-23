@@ -9,6 +9,9 @@ import java.util.List;
 public class EmptyFirstOption extends AbstractFirstOption {
     @Override
     public String getFilteredList(List<Employee> inputList, AbstractCommand command) {
-        return "";
+        if(inputList.size() > 0) {
+            return command.getName() + "," + String.valueOf(inputList.size());
+        }
+        return command.getName() + ",NONE";
     }
 }
